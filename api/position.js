@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const adminPass = process.env.ADMIN_PASSWORD || 'jbperk2026';
+  const adminPass = process.env.ADMIN_PASSWORD;
 
   // GET — return all positions
   if (req.method === 'GET') {
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   // POST — save a position for a slot
   if (req.method === 'POST') {
     const authHeader = req.headers.authorization;
-    if (!authHeader || authHeader !== `Bearer ${adminPass}`) {
+    if (!adminPass || !authHeader || authHeader !== `Bearer ${adminPass}`) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 

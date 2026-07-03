@@ -11,8 +11,8 @@ export default async function handler(req, res) {
 
   // Password check
   const authHeader = req.headers.authorization;
-  const adminPass = process.env.ADMIN_PASSWORD || 'jbperk2026';
-  if (!authHeader || authHeader !== `Bearer ${adminPass}`) {
+  const adminPass = process.env.ADMIN_PASSWORD;
+  if (!adminPass || !authHeader || authHeader !== `Bearer ${adminPass}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
