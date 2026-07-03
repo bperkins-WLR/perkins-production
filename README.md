@@ -1,1 +1,5 @@
-# JBPerk Photography\n\nProfessional photography website - Weddings, Portraits, Cinema.\n\nLive at: https://jbperk-photography.vercel.app
+# Perkins Production
+
+Photo + Video + Design. Weddings, portraits, 3D/VR tours, and web design.
+
+Live at: https://www.perkinsproduction.com
