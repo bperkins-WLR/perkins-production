@@ -95,20 +95,20 @@
         /* Cinematic background reel */
         #hero-reel { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
         .reel-slide {
-            position: absolute; inset: -7%;
+            position: absolute; inset: -4%;
             background-size: cover; background-position: center;
-            opacity: 0; transition: opacity 2.5s ease-in-out;
+            opacity: 0; transition: opacity 3s ease-in-out;
             will-change: transform, opacity;
         }
         .reel-slide.active { opacity: 1; }
-        .reel-kb-a.active { animation: kbDriftA 12s ease-in-out forwards; }
-        .reel-kb-b.active { animation: kbDriftB 12s ease-in-out forwards; }
-        .reel-kb-c.active { animation: kbDriftC 12s ease-in-out forwards; }
-        .reel-kb-d.active { animation: kbDriftD 12s ease-in-out forwards; }
-        @keyframes kbDriftA { from { transform: scale(1) translate(0,0); } to { transform: scale(1.12) translate(-1.5%,-1%); } }
-        @keyframes kbDriftB { from { transform: scale(1.12) translate(1.5%,1%); } to { transform: scale(1) translate(0,0); } }
-        @keyframes kbDriftC { from { transform: scale(1.06) translate(-1.5%,1%); } to { transform: scale(1.14) translate(1%,-1%); } }
-        @keyframes kbDriftD { from { transform: scale(1.1) translate(1%,-1.5%); } to { transform: scale(1.02) translate(-1%,0.5%); } }
+        .reel-kb-a { animation: kbDriftA 26s ease-in-out infinite alternate; }
+        .reel-kb-b { animation: kbDriftB 30s ease-in-out infinite alternate; }
+        .reel-kb-c { animation: kbDriftC 34s ease-in-out infinite alternate; }
+        .reel-kb-d { animation: kbDriftD 38s ease-in-out infinite alternate; }
+        @keyframes kbDriftA { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(-1%,-0.7%); } }
+        @keyframes kbDriftB { from { transform: scale(1.08) translate(1%,0.7%); } to { transform: scale(1) translate(0,0); } }
+        @keyframes kbDriftC { from { transform: scale(1.03) translate(-1%,0.7%); } to { transform: scale(1.09) translate(0.7%,-0.7%); } }
+        @keyframes kbDriftD { from { transform: scale(1.07) translate(0.7%,-1%); } to { transform: scale(1.01) translate(-0.7%,0.4%); } }
         #hero-veil {
             position: absolute; inset: 0; z-index: 0;
             background: radial-gradient(ellipse at center, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.85) 60%, rgba(10,10,10,0.96) 100%);
@@ -1702,7 +1702,7 @@
     }
 
     // ===== CINEMATIC HERO REEL =====
-    function initHeroReel(images) {
+    function initHeroReel(images, positions) {
         const reel = document.getElementById('hero-reel');
         if (!reel) return;
         const order = [
@@ -1710,21 +1710,36 @@
             'portrait-engagement', 'wedding-firstdance', 'portrait-senior',
             'wedding-ceremony', 'wedding-reception'
         ];
-        const urls = order.map(slot => images[slot]).filter(Boolean);
-        if (urls.length < 2) return;
+        const entries = order
+            .filter(slot => images[slot])
+            .map(slot => ({ url: images[slot], pos: positions[slot] }));
+        if (entries.length < 2) return;
 
         const drifts = ['reel-kb-a', 'reel-kb-b', 'reel-kb-c', 'reel-kb-d'];
-        const slides = urls.map((url, i) => {
+        const slides = entries.map((entry, i) => {
             const slide = document.createElement('div');
             slide.className = 'reel-slide ' + drifts[i % drifts.length];
-            slide.style.backgroundImage = `url("${url}")`;
+            slide.style.backgroundImage = `url("${entry.url}")`;
+            if (entry.pos) {
+                slide.style.backgroundPosition = `${entry.pos.x}% ${entry.pos.y}%`;
+            }
             reel.appendChild(slide);
             return slide;
         });
 
         let current = 0;
-        const show = i => slides.forEach((s, j) => s.classList.toggle('active', j === i));
-        const preload = i => { const img = new Image(); img.src = urls[i % urls.length]; };
+        const show = next => {
+            const prev = slides[current];
+            const incoming = slides[next];
+            slides.forEach(s => { s.style.zIndex = 1; });
+            incoming.style.zIndex = 2;
+            incoming.classList.add('active');
+            if (incoming !== prev) {
+                setTimeout(() => prev.classList.remove('active'), 3100);
+            }
+            current = next;
+        };
+        const preload = i => { const img = new Image(); img.src = entries[i % entries.length].url; };
 
         const first = new Image();
         first.onload = () => {
@@ -1732,12 +1747,11 @@
             preload(1);
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             setInterval(() => {
-                current = (current + 1) % slides.length;
-                show(current);
+                show((current + 1) % slides.length);
                 preload(current + 1);
-            }, 7000);
+            }, 8000);
         };
-        first.src = urls[0];
+        first.src = entries[0].url;
     }
 
     // ===== LOAD PHOTOS FROM STORAGE =====
@@ -1748,7 +1762,7 @@
             const data = await resp.json();
             if (!data.images) return;
             const positions = data.positions || {};
-            initHeroReel(data.images);
+            initHeroReel(data.images, positions);
 
             document.querySelectorAll('[data-slot]').forEach(item => {
                 const slot = item.dataset.slot;
