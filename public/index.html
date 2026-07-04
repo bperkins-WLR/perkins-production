@@ -1025,13 +1025,6 @@
             </div>
             <div class="overlay"><span>View</span></div>
         </div>
-        <div class="photo-item fade-in" data-slot="wedding-couple">
-            <div class="photo-placeholder">
-                <svg viewBox="0 0 24 24" class="icon-camera"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                Couple Portrait
-            </div>
-            <div class="overlay"><span>View</span></div>
-        </div>
         <div class="photo-item wide fade-in" style="aspect-ratio:16/9;background:#000;overflow:hidden;">
             <iframe width="100%" height="100%" src="https://www.youtube.com/embed/videoseries?si=CZx50nrxDp16WobH&list=PLakjd2_HLDVC2DOt3MXClHkBFu7ltNfsW" title="Perkins Production Wedding Films" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
         </div>
@@ -1706,9 +1699,9 @@
         const reel = document.getElementById('hero-reel');
         if (!reel) return;
         const order = [
-            'wedding-featured', 'portrait-creative', 'wedding-couple',
-            'portrait-engagement', 'wedding-firstdance', 'portrait-senior',
-            'wedding-ceremony', 'wedding-reception'
+            'wedding-featured', 'portrait-creative', 'portrait-engagement',
+            'wedding-firstdance', 'portrait-senior', 'wedding-ceremony',
+            'wedding-reception'
         ];
         const entries = order
             .filter(slot => images[slot])
