@@ -245,6 +245,59 @@
         }
         .section-cta a:hover { background: var(--text-accent); color: var(--bg-primary); }
 
+        /* ===== WEDDING FILMS ===== */
+        #films { background: #070707; }
+        .films-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+        }
+        .film-card {
+            position: relative; aspect-ratio: 16/9; overflow: hidden;
+            background: #000; cursor: pointer;
+            border: 1px solid var(--border-subtle);
+        }
+        .film-featured { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+        .film-card img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            opacity: 0.75; transition: var(--transition);
+        }
+        .film-card:hover img { opacity: 1; transform: scale(1.04); }
+        .film-play {
+            position: absolute; inset: 0; display: flex;
+            align-items: center; justify-content: center; pointer-events: none;
+        }
+        .film-play span {
+            width: 62px; height: 62px; border-radius: 50%;
+            border: 1px solid var(--text-accent);
+            background: rgba(10,10,10,0.55);
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .film-play span::after {
+            content: ''; display: block; margin-left: 4px;
+            border-style: solid; border-width: 9px 0 9px 15px;
+            border-color: transparent transparent transparent var(--text-accent);
+            transition: var(--transition);
+        }
+        .film-card:hover .film-play span { background: var(--text-accent); }
+        .film-card:hover .film-play span::after { border-left-color: var(--bg-primary); }
+        .film-label {
+            position: absolute; left: 0; right: 0; bottom: 0;
+            padding: 2.4rem 1.2rem 0.9rem;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.85));
+            font-family: 'Josefin Slab', serif; font-size: 0.75rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--text-primary); pointer-events: none;
+        }
+        .film-card.playing { cursor: default; }
+        .film-card iframe {
+            position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+        }
+        @media (max-width: 900px) {
+            .films-grid { grid-template-columns: 1fr; }
+            .film-featured { grid-column: auto; grid-row: auto; aspect-ratio: 16/9; }
+        }
+
         /* ===== MATTERPORT ===== */
         .matterport-grid {
             display: grid; grid-template-columns: repeat(2, 1fr);
@@ -952,6 +1005,7 @@
     <ul class="nav-links" id="nav-links">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#weddings">Weddings</a></li>
+        <li><a href="#films">Films</a></li>
         <li><a href="#portraits">Portraits</a></li>
         <li><a href="#matterport">3D/VR</a></li>
         <li><a href="#webdesign">Web Design</a></li>
@@ -1025,12 +1079,53 @@
             </div>
             <div class="overlay"><span>View</span></div>
         </div>
-        <div class="photo-item wide fade-in" style="aspect-ratio:16/9;background:#000;overflow:hidden;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/videoseries?si=CZx50nrxDp16WobH&list=PLakjd2_HLDVC2DOt3MXClHkBFu7ltNfsW" title="Perkins Production Wedding Films" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
-        </div>
     </div>
     <div class="section-cta fade-in">
         <a href="#book">Book Your Wedding</a>
+    </div>
+</section>
+
+<!-- Wedding Films -->
+<section id="films">
+    <div class="section-header fade-in">
+        <h2>Wedding Films</h2>
+        <div class="divider"></div>
+        <p>Cinematic films that let you relive your day, again and again</p>
+    </div>
+    <div class="films-grid">
+        <div class="film-card film-featured fade-in" data-video="qoaBE6s6E4Y" data-title="Gavin &amp; Hannah's Wedding">
+            <img src="https://i.ytimg.com/vi/qoaBE6s6E4Y/maxresdefault.jpg" alt="Gavin and Hannah's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/qoaBE6s6E4Y/hqdefault.jpg';">
+            <div class="film-play"><span></span></div>
+            <div class="film-label">Gavin &amp; Hannah</div>
+        </div>
+        <div class="film-card fade-in" data-video="Vf3AfBJzols" data-title="Rachel and Nick's Wedding">
+            <img src="https://i.ytimg.com/vi/Vf3AfBJzols/maxresdefault.jpg" alt="Rachel and Nick's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Vf3AfBJzols/hqdefault.jpg';">
+            <div class="film-play"><span></span></div>
+            <div class="film-label">Rachel &amp; Nick</div>
+        </div>
+        <div class="film-card fade-in" data-video="PIYtgQfURm8" data-title="Ellie and Anthony's Wedding">
+            <img src="https://i.ytimg.com/vi/PIYtgQfURm8/maxresdefault.jpg" alt="Ellie and Anthony's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/PIYtgQfURm8/hqdefault.jpg';">
+            <div class="film-play"><span></span></div>
+            <div class="film-label">Ellie &amp; Anthony</div>
+        </div>
+        <div class="film-card fade-in" data-video="Eb68OC_WZYk" data-title="Brad and Sheridan's Wedding">
+            <img src="https://i.ytimg.com/vi/Eb68OC_WZYk/maxresdefault.jpg" alt="Brad and Sheridan's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Eb68OC_WZYk/hqdefault.jpg';">
+            <div class="film-play"><span></span></div>
+            <div class="film-label">Brad &amp; Sheridan</div>
+        </div>
+        <div class="film-card fade-in" data-video="otaNsam8Rfk" data-title="The Silers' Wedding">
+            <img src="https://i.ytimg.com/vi/otaNsam8Rfk/maxresdefault.jpg" alt="The Silers' wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/otaNsam8Rfk/hqdefault.jpg';">
+            <div class="film-play"><span></span></div>
+            <div class="film-label">The Silers</div>
+        </div>
+        <div class="film-card fade-in" data-video="SSsBfJJMqBY" data-title="Amy and Philip's Wedding">
+            <img src="https://i.ytimg.com/vi/SSsBfJJMqBY/maxresdefault.jpg" alt="Amy and Philip's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/SSsBfJJMqBY/hqdefault.jpg';">
+            <div class="film-play"><span></span></div>
+            <div class="film-label">Amy &amp; Philip</div>
+        </div>
+    </div>
+    <div class="section-cta fade-in">
+        <a href="https://www.youtube.com/playlist?list=PLakjd2_HLDVC2DOt3MXClHkBFu7ltNfsW" target="_blank" rel="noopener">Watch All on YouTube</a>
     </div>
 </section>
 
@@ -1693,6 +1788,17 @@
         alert('Thank you for reaching out! I\'ll get back to you soon.');
         e.target.reset();
     }
+
+    // ===== WEDDING FILMS CLICK-TO-PLAY =====
+    document.querySelectorAll('.film-card').forEach(card => {
+        card.addEventListener('click', () => {
+            if (card.classList.contains('playing')) return;
+            const id = card.dataset.video;
+            const title = card.dataset.title || 'Wedding film';
+            card.classList.add('playing');
+            card.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        });
+    });
 
     // ===== CINEMATIC HERO REEL =====
     function initHeroReel(images, positions) {
