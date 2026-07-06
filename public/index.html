@@ -457,6 +457,14 @@
         .contact-form input:focus,
         .contact-form textarea:focus { outline: none; border-color: var(--text-accent); }
         .contact-form textarea { height: 130px; resize: vertical; }
+        .form-status {
+            display: none; text-align: center; margin-top: 0.4rem;
+            font-family: 'Cormorant Garamond', serif; font-style: italic;
+            font-size: 1.05rem; letter-spacing: 1px;
+        }
+        .form-status.show { display: block; }
+        .form-status.success { color: var(--text-accent-light); }
+        .form-status.error { color: #c98a7a; }
         .contact-form button {
             padding: 14px 44px; background: transparent;
             border: 1px solid var(--text-accent); color: var(--text-accent);
@@ -1548,6 +1556,7 @@
             <input type="text" name="subject" placeholder="Subject">
             <textarea name="message" placeholder="Your message..." required></textarea>
             <button type="submit">Send Message</button>
+            <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
         </form>
         <div class="contact-info">
             <div class="contact-info-item">
@@ -1714,6 +1723,8 @@
         e.preventDefault();
         const form = e.target;
         const btn = form.querySelector('button[type="submit"]');
+        const status = document.getElementById('contact-status');
+        status.className = 'form-status';
         btn.disabled = true;
         btn.textContent = 'Sending...';
         try {
@@ -1727,12 +1738,15 @@
             });
             if (!resp.ok) throw new Error('Send failed');
             form.reset();
-            btn.textContent = 'Message Sent!';
-            setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; }, 5000);
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+            status.textContent = 'Thank you! Your message is on its way. I\'ll be in touch soon.';
+            status.classList.add('show', 'success');
         } catch (err) {
             btn.textContent = 'Send Message';
             btn.disabled = false;
-            alert('Sorry, your message could not be sent. Please email brice@perkinsproduction.com directly.');
+            status.textContent = 'Something went wrong. Please email brice@perkinsproduction.com directly.';
+            status.classList.add('show', 'error');
         }
     }
 
