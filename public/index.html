@@ -101,6 +101,10 @@
             will-change: transform, opacity;
         }
         .reel-slide.active { opacity: 1; }
+        .reel-slide video {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover;
+        }
         .reel-kb-a { animation: kbDriftA 26s ease-in-out infinite alternate; }
         .reel-kb-b { animation: kbDriftB 30s ease-in-out infinite alternate; }
         .reel-kb-c { animation: kbDriftC 34s ease-in-out infinite alternate; }
@@ -1766,46 +1770,89 @@
         const reel = document.getElementById('hero-reel');
         if (!reel) return;
         const order = [
-            'wedding-featured', 'portrait-creative', 'portrait-engagement',
-            'wedding-firstdance', 'portrait-senior', 'wedding-ceremony',
-            'wedding-reception'
+            { slot: 'wedding-featured', video: '/reel/wedding-featured.mp4' },
+            { slot: 'wedding-details', video: '/reel/wedding-details.mp4' },
+            { slot: 'wedding-firstdance' },
+            { slot: 'portrait-engagement', video: '/reel/portrait-engagement.mp4' },
+            { slot: 'portrait-senior' },
+            { slot: 'portrait-creative', video: '/reel/portrait-creative.mp4' },
+            { slot: 'wedding-ceremony' },
+            { slot: 'wedding-reception' }
         ];
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const viewWidth = Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0, (window.screen && screen.width) || 0);
+        const wideScreen = viewWidth >= 700;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        const useVideo = !reduced && wideScreen && !saveData;
+
         const entries = order
-            .filter(slot => images[slot])
-            .map(slot => ({ url: images[slot], pos: positions[slot] }));
+            .filter(e => images[e.slot])
+            .map(e => ({ url: images[e.slot], pos: positions[e.slot], video: useVideo ? e.video : null }));
         if (entries.length < 2) return;
 
         const drifts = ['reel-kb-a', 'reel-kb-b', 'reel-kb-c', 'reel-kb-d'];
         const slides = entries.map((entry, i) => {
             const slide = document.createElement('div');
-            slide.className = 'reel-slide ' + drifts[i % drifts.length];
+            const drift = drifts[i % drifts.length];
+            slide.className = 'reel-slide' + (entry.video ? '' : ' ' + drift);
             slide.style.backgroundImage = `url("${entry.url}")`;
             if (entry.pos) {
                 slide.style.backgroundPosition = `${entry.pos.x}% ${entry.pos.y}%`;
+            }
+            if (entry.video) {
+                const v = document.createElement('video');
+                v.muted = true;
+                v.playsInline = true;
+                v.setAttribute('playsinline', '');
+                v.preload = 'none';
+                v.src = entry.video;
+                if (entry.pos) v.style.objectPosition = `${entry.pos.x}% ${entry.pos.y}%`;
+                v.addEventListener('error', () => {
+                    v.remove();
+                    entry.el = null;
+                    slide.classList.add(drift);
+                });
+                slide.appendChild(v);
+                entry.el = v;
             }
             reel.appendChild(slide);
             return slide;
         });
 
         let current = 0;
+        const playVideo = i => {
+            const v = entries[i].el;
+            if (!v) return;
+            try { v.currentTime = 0; } catch (e) {}
+            v.play().catch(() => {});
+        };
         const show = next => {
             const prev = slides[current];
+            const prevVideo = entries[current].el;
             const incoming = slides[next];
             slides.forEach(s => { s.style.zIndex = 1; });
             incoming.style.zIndex = 2;
             incoming.classList.add('active');
+            playVideo(next);
             if (incoming !== prev) {
-                setTimeout(() => prev.classList.remove('active'), 3100);
+                setTimeout(() => {
+                    prev.classList.remove('active');
+                    if (prevVideo) prevVideo.pause();
+                }, 3100);
             }
             current = next;
         };
-        const preload = i => { const img = new Image(); img.src = entries[i % entries.length].url; };
+        const preload = i => {
+            const entry = entries[i % entries.length];
+            if (entry.el) { entry.el.preload = 'auto'; entry.el.load(); }
+            else { const img = new Image(); img.src = entry.url; }
+        };
 
         const first = new Image();
         first.onload = () => {
             show(0);
             preload(1);
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (reduced) return;
             setInterval(() => {
                 show((current + 1) % slides.length);
                 preload(current + 1);
