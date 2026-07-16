@@ -97,7 +97,7 @@
         .reel-slide {
             position: absolute; inset: -4%;
             background-size: cover; background-position: center;
-            opacity: 0; transition: opacity 3s ease-in-out;
+            opacity: 0; transition: opacity 3.5s ease-in-out;
             will-change: transform, opacity;
         }
         .reel-slide.active { opacity: 1; }
@@ -1824,6 +1824,7 @@
             const v = entries[i].el;
             if (!v) return;
             try { v.currentTime = 0; } catch (e) {}
+            v.playbackRate = 0.85;
             v.play().catch(() => {});
         };
         const show = next => {
@@ -1838,7 +1839,7 @@
                 setTimeout(() => {
                     prev.classList.remove('active');
                     if (prevVideo) prevVideo.pause();
-                }, 3100);
+                }, 3600);
             }
             current = next;
         };
@@ -1848,15 +1849,25 @@
             else { const img = new Image(); img.src = entry.url; }
         };
 
+        // Video slides begin their crossfade while the clip is still moving,
+        // so motion hands off to motion and the end-freeze stays hidden.
+        const VIDEO_HOLD = 5500;
+        const PHOTO_HOLD = 8000;
+        const queueNext = () => {
+            const hold = entries[current].el ? VIDEO_HOLD : PHOTO_HOLD;
+            setTimeout(() => {
+                show((current + 1) % slides.length);
+                preload(current + 1);
+                queueNext();
+            }, hold);
+        };
+
         const first = new Image();
         first.onload = () => {
             show(0);
             preload(1);
             if (reduced) return;
-            setInterval(() => {
-                show((current + 1) % slides.length);
-                preload(current + 1);
-            }, 8000);
+            queueNext();
         };
         first.src = entries[0].url;
     }
