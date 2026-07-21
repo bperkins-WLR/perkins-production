@@ -1735,6 +1735,7 @@
             const data = Object.fromEntries(new FormData(form).entries());
             data._subject = 'New inquiry from perkinsproduction.com';
             data._template = 'table';
+            data._autoresponse = "Hey! Thanks so much for reaching out. Your message just landed in my inbox and I'll get back to you personally within 24 hours, usually much sooner. If it's time-sensitive, you can reach me directly at (240) 818-1955. Talk soon! - Brice Perkins, Perkins Production, www.perkinsproduction.com";
             const resp = await fetch('https://formsubmit.co/ajax/a7d5b78e00f421cfd90149fcc07ffbf8', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
