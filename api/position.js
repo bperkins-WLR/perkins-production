@@ -1,22 +1,41 @@
 import { put, list } from '@vercel/blob';
+import { isValidSlot, readJsonBody, requireAdmin } from '../lib/admin.js';
+
+async function loadPositions() {
+  const { blobs } = await list({ prefix: 'photos/positions' });
+  let positions = {};
+
+  const legacy = blobs.find(blob => blob.pathname === 'photos/positions.json');
+  if (legacy) {
+    const response = await fetch(legacy.url);
+    if (response.ok) positions = await response.json();
+  }
+
+  await Promise.all(blobs
+    .filter(blob => /^photos\/positions\/[^/]+\.json$/.test(blob.pathname))
+    .map(async blob => {
+      try {
+        const response = await fetch(blob.url);
+        if (!response.ok) return;
+        const slot = blob.pathname.slice('photos/positions/'.length, -'.json'.length);
+        positions[slot] = await response.json();
+      } catch {
+        // Ignore a malformed individual record without hiding the others.
+      }
+    }));
+
+  return positions;
+}
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  const adminPass = process.env.ADMIN_PASSWORD;
-
   // GET — return all positions
   if (req.method === 'GET') {
     try {
-      const { blobs } = await list({ prefix: 'photos/positions.json' });
-      if (blobs.length > 0) {
-        const response = await fetch(blobs[0].url);
-        const positions = await response.json();
-        return res.status(200).json({ positions });
-      }
-      return res.status(200).json({ positions: {} });
+      return res.status(200).json({ positions: await loadPositions() });
     } catch (error) {
       console.error('Position read error:', error);
       return res.status(200).json({ positions: {} });
@@ -25,49 +44,35 @@ export default async function handler(req, res) {
 
   // POST — save a position for a slot
   if (req.method === 'POST') {
-    const authHeader = req.headers.authorization;
-    if (!adminPass || !authHeader || authHeader !== `Bearer ${adminPass}`) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+    if (!requireAdmin(req, res)) return;
 
     try {
-      const chunks = [];
-      for await (const chunk of req) {
-        chunks.push(chunk);
-      }
-      const body = JSON.parse(Buffer.concat(chunks).toString());
+      const body = await readJsonBody(req);
       const { slot, x, y, scale } = body;
 
-      if (!slot) {
-        return res.status(400).json({ error: 'Missing slot' });
+      if (!isValidSlot(slot)) {
+        return res.status(400).json({ error: 'Invalid slot' });
+      }
+      if (![x, y, scale].every(Number.isFinite)
+          || x < 0 || x > 100
+          || y < 0 || y > 100
+          || scale < 1 || scale > 3) {
+        return res.status(400).json({ error: 'Invalid position' });
       }
 
-      // Load existing positions
-      let positions = {};
-      const { blobs } = await list({ prefix: 'photos/positions.json' });
-      if (blobs.length > 0) {
-        const response = await fetch(blobs[0].url);
-        positions = await response.json();
-      }
+      const position = { x, y, scale };
 
-      // Update position for this slot
-      positions[slot] = {
-        x: x ?? 50,
-        y: y ?? 50,
-        scale: scale ?? 1,
-      };
-
-      // Save back to blob
-      await put('photos/positions.json', JSON.stringify(positions), {
+      await put(`photos/positions/${slot}.json`, JSON.stringify(position), {
         access: 'public',
         contentType: 'application/json',
         addRandomSuffix: false,
+        allowOverwrite: true,
       });
 
-      return res.status(200).json({ success: true, slot, position: positions[slot] });
+      return res.status(200).json({ success: true, slot, position });
     } catch (error) {
       console.error('Position save error:', error);
-      return res.status(500).json({ error: 'Failed to save position: ' + error.message });
+      return res.status(500).json({ error: 'Failed to save position' });
     }
   }
 

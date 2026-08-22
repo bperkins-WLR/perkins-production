@@ -1,4 +1,5 @@
-import { del, list } from '@vercel/blob';
+import { del, list, put } from '@vercel/blob';
+import { isValidSlot, requireAdmin } from '../lib/admin.js';
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -9,34 +10,37 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Password check
-  const authHeader = req.headers.authorization;
-  const adminPass = process.env.ADMIN_PASSWORD;
-  if (!adminPass || !authHeader || authHeader !== `Bearer ${adminPass}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
+  if (!requireAdmin(req, res)) return;
 
   const slot = req.query.slot;
-  if (!slot) {
-    return res.status(400).json({ error: 'Missing slot parameter' });
+  if (!isValidSlot(slot)) {
+    return res.status(400).json({ error: 'Invalid slot' });
   }
 
   try {
-    // Find the blob for this slot
-    const { blobs } = await list({ prefix: `photos/${slot}` });
+    const pathname = `photos/${slot}.webp`;
+    const { blobs } = await list({ prefix: pathname });
+    const matches = blobs.filter(blob => blob.pathname === pathname);
     
-    if (blobs.length === 0) {
+    if (matches.length === 0) {
       return res.status(404).json({ error: 'No image found for slot: ' + slot });
     }
 
-    // Delete all matching blobs (in case of multiple extensions)
-    for (const blob of blobs) {
+    for (const blob of matches) {
       await del(blob.url);
     }
 
-    return res.status(200).json({ success: true, slot: slot, deleted: blobs.length });
+    const positionPathname = `photos/positions/${slot}.json`;
+    await put(positionPathname, JSON.stringify({ x: 50, y: 50, scale: 1 }), {
+      access: 'public',
+      contentType: 'application/json',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    });
+
+    return res.status(200).json({ success: true, slot, deleted: matches.length });
   } catch (error) {
     console.error('Delete error:', error);
-    return res.status(500).json({ error: 'Delete failed: ' + error.message });
+    return res.status(500).json({ error: 'Delete failed' });
   }
 }

@@ -28,6 +28,10 @@
             max-width: 400px; width: 100%; text-align: center;
         }
         .login-box p { color: var(--text2); font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
         .login-box input {
             width: 100%; padding: 12px 16px; background: var(--bg); border: 1px solid var(--border);
             color: var(--text); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
@@ -216,9 +220,10 @@
     <h1>Perkins Production</h1>
     <div class="login-box">
         <p>Admin Dashboard</p>
-        <input type="password" id="passInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-        <button onclick="doLogin()">Sign In</button>
-        <div class="login-error" id="loginError">Incorrect password</div>
+        <label class="sr-only" for="passInput">Admin password</label>
+        <input type="password" id="passInput" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button id="loginButton" onclick="doLogin()">Sign In</button>
+        <div class="login-error" id="loginError" role="alert">Incorrect password</div>
     </div>
 </div>
 
@@ -237,7 +242,7 @@
 </div>
 
 <!-- Crop/Reposition Modal -->
-<div class="crop-overlay" id="cropOverlay">
+<div class="crop-overlay" id="cropOverlay" role="dialog" aria-modal="true" aria-labelledby="cropSlotName">
     <div class="crop-header">
         Reposition Photo — <span id="cropSlotName"></span>
         <span>Drag to pan • Scroll or slider to zoom</span>
@@ -281,50 +286,71 @@ const SLOTS = {
     ]
 };
 
-let authToken = '';
 let currentImages = {};
 let currentPositions = {};
 
 // Crop state
 let cropState = { slot: null, x: 0, y: 0, scale: 1, dragging: false, startX: 0, startY: 0, imgW: 0, imgH: 0, contW: 0, contH: 0 };
 
-function doLogin() {
+async function doLogin() {
     const pass = document.getElementById('passInput').value;
-    authToken = pass;
-    // Try fetching images to validate
-    fetch('/api/images')
-        .then(r => r.json())
-        .then(data => {
-            if (data.images !== undefined) {
-                currentImages = data.images;
-                if (data.positions) currentPositions = data.positions;
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-                renderSlots();
-            } else {
-                showLoginError();
-            }
-        })
-        .catch(() => {
-            // If API isn't ready yet, still let them in (images endpoint is public)
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            renderSlots();
+    const button = document.getElementById('loginButton');
+    button.disabled = true;
+    button.textContent = 'Signing In...';
+
+    try {
+        const response = await fetch('/api/auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pass })
         });
+        const data = await response.json();
+        if (!response.ok || !data.authenticated) {
+            showLoginError(data.error || 'Incorrect password');
+            return;
+        }
+        document.getElementById('passInput').value = '';
+        await loadDashboard();
+    } catch {
+        showLoginError('Unable to sign in. Try again.');
+    } finally {
+        button.disabled = false;
+        button.textContent = 'Sign In';
+    }
 }
 
-function showLoginError() {
+function showLoginError(message = 'Incorrect password') {
     const err = document.getElementById('loginError');
+    err.textContent = message;
     err.style.display = 'block';
     setTimeout(() => err.style.display = 'none', 3000);
 }
 
-function doLogout() {
-    authToken = '';
+async function doLogout() {
+    await fetch('/api/auth', { method: 'DELETE' }).catch(() => {});
     currentImages = {};
+    currentPositions = {};
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('loginScreen').style.display = 'flex';
     document.getElementById('passInput').value = '';
+}
+
+async function loadDashboard() {
+    const response = await fetch('/api/images');
+    if (!response.ok) throw new Error('Unable to load images');
+    const data = await response.json();
+    currentImages = data.images || {};
+    currentPositions = data.positions || {};
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    renderSlots();
+}
+
+function handleExpiredSession(response) {
+    if (response.status !== 401) return false;
+    doLogout();
+    showLoginError('Your session expired. Sign in again.');
+    return true;
 }
 
 function renderSlots() {
@@ -362,7 +388,7 @@ function renderSection(containerId, slots) {
             <div class="slot-actions">
                 <label>
                     Upload
-                    <input type="file" accept="image/*" onchange="handleUpload('${slot.id}', this.files[0])">
+                    <input type="file" accept="image/jpeg,image/png,image/webp" onchange="handleUpload('${slot.id}', this.files[0])">
                 </label>
                 <button class="crop-btn" onclick="openCrop('${slot.id}')" ${!hasImage ? 'disabled style="opacity:0.2;cursor:default"' : ''}>Reposition</button>
                 <button class="delete-btn" onclick="handleDelete('${slot.id}')" ${!hasImage ? 'disabled style="opacity:0.2;cursor:default"' : ''}>Remove</button>
@@ -387,9 +413,13 @@ function renderSection(containerId, slots) {
 
 // Compress image in browser before uploading (Vercel free plan has 4.5MB body limit)
 function compressImage(file, maxWidth, maxHeight, quality) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const img = new Image();
         const url = URL.createObjectURL(file);
+        const fail = message => {
+            URL.revokeObjectURL(url);
+            reject(new Error(message));
+        };
         img.onload = () => {
             URL.revokeObjectURL(url);
             let w = img.width, h = img.height;
@@ -403,19 +433,26 @@ function compressImage(file, maxWidth, maxHeight, quality) {
             canvas.width = w;
             canvas.height = h;
             const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                reject(new Error('Your browser could not process this image'));
+                return;
+            }
             ctx.drawImage(img, 0, 0, w, h);
             canvas.toBlob((blob) => {
-                resolve(blob);
+                if (blob) resolve(blob);
+                else reject(new Error('Your browser could not compress this image'));
             }, 'image/jpeg', quality);
         };
+        img.onerror = () => fail('Use a JPEG, PNG, or WebP image');
         img.src = url;
     });
 }
 
 async function handleUpload(slotId, file) {
     if (!file) return;
-    if (!file.type.startsWith('image/')) {
-        showToast('Please upload an image file', 'error');
+    const supportedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!supportedTypes.includes(file.type)) {
+        showToast('Use a JPEG, PNG, or WebP image', 'error');
         return;
     }
     if (file.size > 100 * 1024 * 1024) {
@@ -451,18 +488,19 @@ async function handleUpload(slotId, file) {
         const response = await fetch(`/api/upload?slot=${slotId}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'image/jpeg',
-                'Authorization': `Bearer ${authToken}`
+                'Content-Type': uploadBlob.type || file.type
             },
             body: uploadBlob
         });
 
         progress.style.width = '90%';
+        if (handleExpiredSession(response)) return;
         const data = await response.json();
 
         if (data.success) {
             progress.style.width = '100%';
             currentImages[slotId] = data.url;
+            delete currentPositions[slotId];
             const origKB = Math.round(originalSize / 1024);
             const compKB = Math.round(data.compressedSize / 1024);
             const savings = Math.round((1 - data.compressedSize / originalSize) * 100);
@@ -485,13 +523,14 @@ async function handleDelete(slotId) {
 
     try {
         const response = await fetch(`/api/delete?slot=${slotId}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${authToken}` }
+            method: 'DELETE'
         });
+        if (handleExpiredSession(response)) return;
         const data = await response.json();
 
         if (data.success) {
             delete currentImages[slotId];
+            delete currentPositions[slotId];
             renderSlots();
             showToast(`${slotId} removed`, 'success');
         } else {
@@ -593,11 +632,11 @@ async function saveCrop() {
         const resp = await fetch('/api/position', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${authToken}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ slot: s.slot, x: Math.round(s.x * 10) / 10, y: Math.round(s.y * 10) / 10, scale: Math.round(s.scale * 100) / 100 })
         });
+        if (handleExpiredSession(resp)) return;
         const data = await resp.json();
         if (data.success) {
             currentPositions[s.slot] = { x: s.x, y: s.y, scale: s.scale };
@@ -709,11 +748,10 @@ async function saveCrop() {
     });
 })();
 
-// Load images on page load (if returning with stored session)
-fetch('/api/images').then(r => r.json()).then(data => {
-    if (data.images) currentImages = data.images;
-    if (data.positions) currentPositions = data.positions;
-}).catch(() => {});
+// Restore an unexpired HTTP-only session without exposing credentials to JavaScript.
+fetch('/api/auth')
+    .then(response => response.ok ? loadDashboard() : null)
+    .catch(() => {});
 </script>
 </body>
 </html>

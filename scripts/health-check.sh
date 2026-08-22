@@ -22,6 +22,19 @@ status_of() {
     curl -s -o /dev/null -w "%{http_code}" --max-time 15 "$1"
 }
 
+media_ok() {
+    local headers status content_type content_length
+    headers=$(curl -sSIL --max-time 15 "$1" 2>/dev/null) || return 1
+    status=$(echo "$headers" | awk '/^HTTP\// { code=$2 } END { print code }')
+    content_type=$(echo "$headers" | awk -F': *' 'tolower($1)=="content-type" { value=tolower($2) } END { gsub("\r", "", value); print value }')
+    content_length=$(echo "$headers" | awk -F': *' 'tolower($1)=="content-length" { value=$2 } END { gsub("\r", "", value); print value }')
+
+    [ "$status" = "200" ] \
+        && [[ "$content_type" == video/mp4* ]] \
+        && [[ "$content_length" =~ ^[0-9]+$ ]] \
+        && [ "$content_length" -ge 100000 ]
+}
+
 echo "Perkins Production health check: $(date '+%Y-%m-%d %H:%M')"
 echo ""
 
@@ -35,6 +48,8 @@ check "Homepage content looks right" $ok
 
 [ "$(status_of "$SITE/admin.html")" = "200" ] && ok=yes || ok=no
 check "Admin page responds" $ok
+[ "$(status_of "$SITE/api/auth")" = "401" ] && ok=yes || ok=no
+check "Admin API rejects anonymous access" $ok
 
 # Photo API
 images=$(curl -s --max-time 15 "$SITE/api/images" | python3 -c "import json,sys; print(len(json.load(sys.stdin).get('images', {})))" 2>/dev/null)
@@ -43,7 +58,7 @@ check "Photo API returns images ($images found)" $ok
 
 # Hero reel videos
 for clip in wedding-featured wedding-details wedding-firstdance portrait-engagement portrait-senior portrait-creative wedding-ceremony wedding-reception; do
-    [ "$(status_of "$SITE/reel/$clip.mp4")" = "200" ] && ok=yes || ok=no
+    media_ok "$SITE/reel/$clip.mp4" && ok=yes || ok=no
     check "Hero clip: $clip" $ok
 done
 

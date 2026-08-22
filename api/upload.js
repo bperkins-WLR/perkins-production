@@ -1,5 +1,6 @@
 import { put } from '@vercel/blob';
 import sharp from 'sharp';
+import { isValidSlot, requireAdmin, VALID_SLOTS } from '../lib/admin.js';
 
 export const config = {
   api: {
@@ -9,16 +10,10 @@ export const config = {
   maxDuration: 30,
 };
 
-// Valid slot names
-const VALID_SLOTS = [
-  'wedding-featured', 'wedding-ceremony', 'wedding-reception',
-  'wedding-details', 'wedding-firstdance', 'wedding-couple', 'wedding-film',
-  'portrait-portrait', 'portrait-headshot', 'portrait-senior',
-  'portrait-family', 'portrait-creative', 'portrait-engagement'
-];
-
 // Featured/wide slots get higher resolution
 const WIDE_SLOTS = ['wedding-featured', 'wedding-film'];
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
+const SUPPORTED_FORMATS = new Set(['jpeg', 'png', 'webp']);
 
 export default async function handler(req, res) {
   // CORS preflight
@@ -30,26 +25,34 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Simple password check
-  const authHeader = req.headers.authorization;
-  const adminPass = process.env.ADMIN_PASSWORD;
-  if (!adminPass || !authHeader || authHeader !== `Bearer ${adminPass}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
+  if (!requireAdmin(req, res)) return;
 
   const slot = req.query.slot;
-  if (!slot || !VALID_SLOTS.includes(slot)) {
+  if (!isValidSlot(slot)) {
     return res.status(400).json({ error: 'Invalid slot. Valid: ' + VALID_SLOTS.join(', ') });
   }
 
   try {
     // Read the raw body
     const chunks = [];
+    let receivedBytes = 0;
     for await (const chunk of req) {
+      receivedBytes += chunk.length;
+      if (receivedBytes > MAX_UPLOAD_BYTES) {
+        return res.status(413).json({ error: 'Image is too large after compression' });
+      }
       chunks.push(chunk);
     }
     const rawBuffer = Buffer.concat(chunks);
     const originalSize = rawBuffer.length;
+    if (originalSize === 0) {
+      return res.status(400).json({ error: 'Image is empty' });
+    }
+
+    const metadata = await sharp(rawBuffer).metadata();
+    if (!SUPPORTED_FORMATS.has(metadata.format)) {
+      return res.status(415).json({ error: 'Use a JPEG, PNG, or WebP image' });
+    }
 
     // Determine max width based on slot type
     const maxWidth = WIDE_SLOTS.includes(slot) ? 2400 : 1920;
@@ -76,6 +79,14 @@ export default async function handler(req, res) {
       access: 'public',
       contentType: 'image/webp',
       addRandomSuffix: false,
+      allowOverwrite: true,
+    });
+
+    await put(`photos/positions/${slot}.json`, JSON.stringify({ x: 50, y: 50, scale: 1 }), {
+      access: 'public',
+      contentType: 'application/json',
+      addRandomSuffix: false,
+      allowOverwrite: true,
     });
 
     return res.status(200).json({
@@ -88,6 +99,6 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('Upload error:', error);
-    return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    return res.status(400).json({ error: 'Upload failed. Use a valid JPEG, PNG, or WebP image.' });
   }
 }

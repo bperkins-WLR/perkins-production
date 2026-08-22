@@ -16,6 +16,7 @@ export default async function handler(req, res) {
     const images = {};
     let positions = {};
 
+    const positionBlobs = [];
     for (const blob of blobs) {
       const filename = blob.pathname.replace('photos/', '');
 
@@ -30,14 +31,30 @@ export default async function handler(req, res) {
         continue;
       }
 
+      if (/^positions\/[^/]+\.json$/.test(filename)) {
+        positionBlobs.push(blob);
+        continue;
+      }
+
       // Extract slot name from path like "photos/wedding-featured.webp"
       const slotName = filename.replace(/\.(jpg|jpeg|png|webp)$/i, '');
       images[slotName] = blob.url;
     }
 
+    await Promise.all(positionBlobs.map(async blob => {
+      try {
+        const response = await fetch(blob.url);
+        if (!response.ok) return;
+        const filename = blob.pathname.replace('photos/positions/', '');
+        positions[filename.replace(/\.json$/, '')] = await response.json();
+      } catch {
+        // Ignore a malformed individual position record.
+      }
+    }));
+
     return res.status(200).json({ images, positions });
   } catch (error) {
     console.error('List error:', error);
-    return res.status(500).json({ error: 'Failed to list images: ' + error.message });
+    return res.status(500).json({ error: 'Failed to list images' });
   }
 }

@@ -35,6 +35,11 @@
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #111111;
@@ -78,19 +83,49 @@
         .nav-links {
             display: flex; list-style: none; gap: 1.8rem; align-items: center;
         }
-        .nav-links a {
+        .nav-links a, .nav-dropdown-toggle {
             text-decoration: none; color: var(--text-primary);
             font-family: 'Josefin Slab', serif; font-size: 0.8rem; font-weight: 400;
             letter-spacing: 2.5px; text-transform: uppercase;
             position: relative; padding-bottom: 4px; white-space: nowrap;
         }
-        .nav-links a::after {
+        .nav-dropdown-toggle {
+            border: 0; background: none; cursor: pointer; line-height: inherit;
+        }
+        .nav-links a::after, .nav-dropdown-toggle::after {
             content: ''; position: absolute; bottom: 0; left: 0;
             width: 0; height: 1px; background: var(--text-accent);
             transition: var(--transition);
         }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover { color: var(--text-accent); }
+        .nav-links a:hover::after, .nav-links a.active::after,
+        .nav-dropdown-toggle:hover::after, .nav-dropdown-toggle.active::after { width: 100%; }
+        .nav-links a:hover, .nav-dropdown-toggle:hover { color: var(--text-accent); }
+
+        .nav-dropdown { position: relative; }
+        .nav-caret { display: inline-block; margin-left: 5px; font-size: 0.65em; transition: transform 0.25s ease; }
+        .nav-dropdown.open .nav-caret { transform: rotate(180deg); }
+        .nav-submenu {
+            display: flex; flex-direction: column; gap: 0; min-width: 220px;
+            position: absolute; top: calc(100% + 14px); left: 50%;
+            padding: 8px 0; margin: 0; list-style: none;
+            background: rgba(10,10,10,0.98); border: 1px solid var(--border-subtle);
+            opacity: 0; visibility: hidden; transform: translate(-50%, -8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+        }
+        .nav-submenu a {
+            display: block; padding: 11px 18px; font-size: 0.7rem;
+            letter-spacing: 2px; text-align: center;
+        }
+        .nav-submenu a::after { display: none; }
+        .nav-submenu a:hover, .nav-submenu a.active { color: var(--text-accent); background: rgba(201,169,110,0.06); }
+        .nav-dropdown.open .nav-submenu {
+            opacity: 1; visibility: visible; transform: translate(-50%, 0);
+        }
+        @media (min-width: 769px) {
+            .nav-dropdown:hover .nav-submenu {
+                opacity: 1; visibility: visible; transform: translate(-50%, 0);
+            }
+        }
 
         .nav-links .book-btn {
             background: var(--text-accent); color: var(--bg-primary) !important;
@@ -103,7 +138,10 @@
         }
 
         /* Hamburger */
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
+        .hamburger {
+            display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001;
+            border: 0; padding: 8px; background: transparent;
+        }
         .hamburger span { width: 28px; height: 1px; background: var(--text-primary); transition: var(--transition); }
 
         /* ===== HERO ===== */
@@ -223,9 +261,10 @@
         }
 
         .photo-item {
-            position: relative; overflow: hidden; cursor: pointer;
+            position: relative; overflow: hidden; cursor: default;
             background: var(--bg-card); aspect-ratio: 1;
         }
+        .photo-item.has-image { cursor: pointer; }
         .photo-item.wide { aspect-ratio: 2/1; grid-column: span 2; }
         .photo-item.tall { aspect-ratio: 1/1.4; grid-row: span 2; }
         .photo-item.featured { grid-column: span 2; grid-row: span 2; aspect-ratio: 1; }
@@ -241,8 +280,9 @@
             background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 60%);
             display: flex; align-items: flex-end; justify-content: center;
             padding-bottom: 1.5rem; opacity: 0; transition: var(--transition);
+            border: 0; width: 100%; cursor: pointer;
         }
-        .photo-item:hover .overlay { opacity: 1; }
+        .photo-item.has-image:hover .overlay, .photo-item .overlay:focus-visible { opacity: 1; }
         .photo-item .overlay span {
             font-family: 'Josefin Slab', serif; font-size: 0.75rem;
             letter-spacing: 3px; text-transform: uppercase; color: var(--text-accent);
@@ -284,6 +324,7 @@
             position: relative; aspect-ratio: 16/9; overflow: hidden;
             background: #000; cursor: pointer;
             border: 1px solid var(--border-subtle);
+            color: inherit; font: inherit; padding: 0; text-align: left; width: 100%;
         }
         .film-featured { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
         .film-card img {
@@ -764,6 +805,7 @@
             position: absolute; top: 2rem; right: 2rem;
             color: var(--text-primary); font-size: 2rem; cursor: pointer;
             font-family: 'Josefin Slab', serif; font-weight: 300;
+            border: 0; background: transparent; padding: 0.5rem;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -785,6 +827,16 @@
             }
             .nav-links.open { right: 0; }
             .nav-links a { font-size: 1rem; letter-spacing: 3px; }
+            .nav-dropdown { width: 100%; text-align: center; }
+            .nav-dropdown-toggle { font-size: 1rem; letter-spacing: 3px; }
+            .nav-submenu {
+                display: none; min-width: 0; position: static;
+                margin: 14px auto 0; padding: 6px 0; width: min(280px, 80vw);
+                opacity: 1; visibility: visible; transform: none;
+                background: rgba(201,169,110,0.04);
+            }
+            .nav-dropdown.open .nav-submenu { display: flex; transform: none; }
+            .nav-submenu a { font-size: 0.8rem; padding: 10px 14px; }
             .hero-logo { width: 90vw; max-width: 500px; }
             .hero-tagline { font-size: 1rem; padding: 0 1rem; }
             section { padding: 5rem 1.5rem; }
@@ -1040,19 +1092,25 @@
         <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Perkins Production"><defs><linearGradient id="gGnav" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d4b87a"/><stop offset="50%" stop-color="#c9a96e"/><stop offset="100%" stop-color="#b8944f"/></linearGradient></defs><g transform="translate(20,40)"><g stroke="url(#gGnav)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><rect x="40" y="35" width="120" height="82" rx="6"/><circle cx="100" cy="41.5" r="0.9" fill="url(#gGnav)" stroke="none"/><rect x="46" y="47" width="108" height="64" rx="3" opacity="0.45"/><g opacity="0.7"><rect x="49.5" y="51" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="57" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="63" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="69" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="75" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="81" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="87" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="93" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="99" width="4.5" height="3.2" rx="0.6"/><rect x="49.5" y="105" width="4.5" height="3.2" rx="0.6"/></g><circle cx="105" cy="79" r="24"/><circle cx="105" cy="79" r="18" opacity="0.85"/><circle cx="105" cy="79" r="12" opacity="0.7"/><circle cx="105" cy="79" r="5"/><path d="M102.6 76.2L102.6 81.8L107.4 79Z" fill="url(#gGnav)" stroke="url(#gGnav)" stroke-width="0.6"/><path d="M88 70A22 22 0 0 1 99 60" stroke="#fff" stroke-width="1.2" opacity="0.5"/><line x1="36" y1="120" x2="164" y2="120"/><path d="M36 120L164 120L172 138Q172 142 168 142L32 142Q28 142 28 138Z"/><line x1="50" y1="126" x2="150" y2="126" opacity="0.35"/><line x1="48" y1="130" x2="152" y2="130" opacity="0.35"/><rect x="86" y="134.5" width="28" height="4" rx="1" opacity="0.55"/><line x1="92" y1="142" x2="108" y2="142" opacity="0.6" stroke-width="1.8"/></g></g><g transform="translate(240,0)"><text x="0" y="120" font-family="Cormorant Garamond,Georgia,serif" font-size="84" font-weight="600" letter-spacing="2" fill="#e8e8e8">PERKINS</text><line x1="0" y1="140" x2="420" y2="140" stroke="url(#gGnav)" stroke-width="1.2"/><text x="0" y="180" font-family="Cormorant Garamond,Georgia,serif" font-size="22" font-weight="400" letter-spacing="14" fill="#999">PRODUCTION</text><line x1="0" y1="208" x2="20" y2="208" stroke="url(#gGnav)" stroke-width="1.5"/><text x="30" y="212" font-family="Josefin Slab,Georgia,serif" font-size="11" font-weight="400" letter-spacing="3.5" fill="#666">PHOTO + VIDEO + DESIGN</text></g></svg>
     </a>
     <ul class="nav-links" id="nav-links">
-        <li><a href="#home" class="active">Home</a></li>
         <li><a href="#weddings">Weddings</a></li>
         <li><a href="#films">Films</a></li>
         <li><a href="#portraits">Portraits</a></li>
-        <li><a href="#matterport">3D/VR</a></li>
-        <li><a href="#webdesign">Web Design</a></li>
+        <li class="nav-dropdown" id="creativeNav">
+            <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="creativeSubmenu">
+                Creative Services <span class="nav-caret" aria-hidden="true">▾</span>
+            </button>
+            <ul class="nav-submenu" id="creativeSubmenu">
+                <li><a href="#matterport">3D/VR Tours</a></li>
+                <li><a href="#webdesign">Web Design</a></li>
+            </ul>
+        </li>
         <li><a href="#about">About</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact" class="book-btn">Get in Touch</a></li>
     </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <button type="button" class="hamburger" id="hamburger" aria-label="Open navigation" aria-controls="nav-links" aria-expanded="false" onclick="toggleMenu()">
         <span></span><span></span><span></span>
-    </div>
+    </button>
 </nav>
 
 <!-- Hero -->
@@ -1085,35 +1143,35 @@
                 <svg viewBox="0 0 24 24" class="icon-camera"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 Featured wedding photo
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View featured wedding photo" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="wedding-ceremony">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 Ceremony
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View ceremony photo" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="wedding-reception">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 Reception
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View reception photo" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="wedding-details">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 Details
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View details photo" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="wedding-firstdance">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 First Dance
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View first dance photo" disabled><span>View</span></button>
         </div>
     </div>
     <div class="section-cta fade-in">
@@ -1129,36 +1187,36 @@
         <p>Cinematic films that let you relive your day, again and again</p>
     </div>
     <div class="films-grid">
-        <div class="film-card film-featured fade-in" data-video="qoaBE6s6E4Y" data-title="Gavin &amp; Hannah's Wedding">
+        <button type="button" class="film-card film-featured fade-in" data-video="qoaBE6s6E4Y" data-title="Gavin &amp; Hannah's Wedding" aria-label="Play Gavin and Hannah's wedding film">
             <img src="https://i.ytimg.com/vi/qoaBE6s6E4Y/maxresdefault.jpg" alt="Gavin and Hannah's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/qoaBE6s6E4Y/hqdefault.jpg';">
             <div class="film-play"><span></span></div>
             <div class="film-label">Gavin &amp; Hannah</div>
-        </div>
-        <div class="film-card fade-in" data-video="Vf3AfBJzols" data-title="Rachel and Nick's Wedding">
+        </button>
+        <button type="button" class="film-card fade-in" data-video="Vf3AfBJzols" data-title="Rachel and Nick's Wedding" aria-label="Play Rachel and Nick's wedding film">
             <img src="https://i.ytimg.com/vi/Vf3AfBJzols/maxresdefault.jpg" alt="Rachel and Nick's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Vf3AfBJzols/hqdefault.jpg';">
             <div class="film-play"><span></span></div>
             <div class="film-label">Rachel &amp; Nick</div>
-        </div>
-        <div class="film-card fade-in" data-video="PIYtgQfURm8" data-title="Ellie and Anthony's Wedding">
+        </button>
+        <button type="button" class="film-card fade-in" data-video="PIYtgQfURm8" data-title="Ellie and Anthony's Wedding" aria-label="Play Ellie and Anthony's wedding film">
             <img src="https://i.ytimg.com/vi/PIYtgQfURm8/maxresdefault.jpg" alt="Ellie and Anthony's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/PIYtgQfURm8/hqdefault.jpg';">
             <div class="film-play"><span></span></div>
             <div class="film-label">Ellie &amp; Anthony</div>
-        </div>
-        <div class="film-card fade-in" data-video="Eb68OC_WZYk" data-title="Brad and Sheridan's Wedding">
+        </button>
+        <button type="button" class="film-card fade-in" data-video="Eb68OC_WZYk" data-title="Brad and Sheridan's Wedding" aria-label="Play Brad and Sheridan's wedding film">
             <img src="https://i.ytimg.com/vi/Eb68OC_WZYk/maxresdefault.jpg" alt="Brad and Sheridan's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Eb68OC_WZYk/hqdefault.jpg';">
             <div class="film-play"><span></span></div>
             <div class="film-label">Brad &amp; Sheridan</div>
-        </div>
-        <div class="film-card fade-in" data-video="otaNsam8Rfk" data-title="The Silers' Wedding">
+        </button>
+        <button type="button" class="film-card fade-in" data-video="otaNsam8Rfk" data-title="The Silers' Wedding" aria-label="Play the Silers' wedding film">
             <img src="https://i.ytimg.com/vi/otaNsam8Rfk/maxresdefault.jpg" alt="The Silers' wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/otaNsam8Rfk/hqdefault.jpg';">
             <div class="film-play"><span></span></div>
             <div class="film-label">The Silers</div>
-        </div>
-        <div class="film-card fade-in" data-video="SSsBfJJMqBY" data-title="Amy and Philip's Wedding">
+        </button>
+        <button type="button" class="film-card fade-in" data-video="SSsBfJJMqBY" data-title="Amy and Philip's Wedding" aria-label="Play Amy and Philip's wedding film">
             <img src="https://i.ytimg.com/vi/SSsBfJJMqBY/maxresdefault.jpg" alt="Amy and Philip's wedding film" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/SSsBfJJMqBY/hqdefault.jpg';">
             <div class="film-play"><span></span></div>
             <div class="film-label">Amy &amp; Philip</div>
-        </div>
+        </button>
     </div>
     <div class="section-cta fade-in">
         <a href="https://www.youtube.com/playlist?list=PLakjd2_HLDVC2DOt3MXClHkBFu7ltNfsW" target="_blank" rel="noopener">Watch All on YouTube</a>
@@ -1181,42 +1239,42 @@
                 <svg viewBox="0 0 24 24" class="icon-camera"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Portrait
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View portrait photo" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="portrait-headshot">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Headshot
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View headshot" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="portrait-senior">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Senior
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View senior portrait" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="portrait-family">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Family
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View family portrait" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="portrait-creative">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Creative
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View creative portrait" disabled><span>View</span></button>
         </div>
         <div class="photo-item fade-in" data-slot="portrait-engagement">
             <div class="photo-placeholder">
                 <svg viewBox="0 0 24 24" class="icon-camera"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 Engagement
             </div>
-            <div class="overlay"><span>View</span></div>
+            <button type="button" class="overlay" aria-label="View engagement portrait" disabled><span>View</span></button>
         </div>
     </div>
     <div class="section-cta fade-in">
@@ -1579,11 +1637,11 @@
         <form class="contact-form" onsubmit="handleContact(event)">
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form-row">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
+                <label><span class="sr-only">Your name</span><input type="text" name="name" placeholder="Your Name" autocomplete="name" required></label>
+                <label><span class="sr-only">Your email</span><input type="email" name="email" placeholder="Your Email" autocomplete="email" required></label>
             </div>
-            <input type="text" name="subject" placeholder="Subject">
-            <textarea name="message" placeholder="Your message..." required></textarea>
+            <label><span class="sr-only">Subject</span><input type="text" name="subject" placeholder="Subject"></label>
+            <label><span class="sr-only">Your message</span><textarea name="message" placeholder="Your message..." required></textarea></label>
             <button type="submit">Send Message</button>
             <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
         </form>
@@ -1614,8 +1672,8 @@
 </footer>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <div class="lightbox-close">&times;</div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview" aria-hidden="true" onclick="closeLightbox()">
+    <button type="button" class="lightbox-close" aria-label="Close photo preview" onclick="event.stopPropagation();closeLightbox()">&times;</button>
     <img src="" alt="" id="lightbox-img">
 </div>
 
@@ -1637,6 +1695,7 @@
 
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-links a:not(.book-btn)');
+        const creativeToggle = document.querySelector('.nav-dropdown-toggle');
         let current = '';
         sections.forEach(s => {
             if (window.scrollY >= s.offsetTop - 120) current = s.id;
@@ -1644,16 +1703,39 @@
         navLinks.forEach(link => {
             link.classList.toggle('active', link.getAttribute('href') === '#' + current);
         });
+        creativeToggle.classList.toggle('active', current === 'matterport' || current === 'webdesign');
     });
 
     // ===== MOBILE MENU =====
     function toggleMenu() {
-        document.getElementById('nav-links').classList.toggle('open');
+        const links = document.getElementById('nav-links');
+        const button = document.getElementById('hamburger');
+        const open = links.classList.toggle('open');
+        button.setAttribute('aria-expanded', String(open));
+        button.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
     }
+    const creativeNav = document.getElementById('creativeNav');
+    const creativeToggle = creativeNav.querySelector('.nav-dropdown-toggle');
+    function setCreativeMenu(open) {
+        creativeNav.classList.toggle('open', open);
+        creativeToggle.setAttribute('aria-expanded', String(open));
+    }
+    creativeToggle.addEventListener('click', e => {
+        e.stopPropagation();
+        setCreativeMenu(!creativeNav.classList.contains('open'));
+    });
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             document.getElementById('nav-links').classList.remove('open');
+            document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+            setCreativeMenu(false);
         });
+    });
+    document.addEventListener('click', e => {
+        if (!creativeNav.contains(e.target)) setCreativeMenu(false);
+    });
+    window.addEventListener('keydown', e => {
+        if (e.key === 'Escape') setCreativeMenu(false);
     });
 
     // ===== FLOATING BOKEH PARTICLES =====
@@ -1742,11 +1824,20 @@
     // ===== LIGHTBOX =====
     function openLightbox(src) {
         document.getElementById('lightbox-img').src = src;
-        document.getElementById('lightbox').classList.add('active');
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        lightbox.querySelector('.lightbox-close').focus();
     }
     function closeLightbox() {
-        document.getElementById('lightbox').classList.remove('active');
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.getElementById('lightbox-img').src = '';
     }
+    window.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && document.getElementById('lightbox').classList.contains('active')) closeLightbox();
+    });
 
     // ===== FORMS =====
     async function handleContact(e) {
@@ -1931,12 +2022,13 @@
                     }
                     img.style.cssText = style;
                     placeholder.style.display = 'none';
+                    item.classList.add('has-image');
                     item.insertBefore(img, placeholder);
 
                     // Make overlay clickable for lightbox
                     const overlay = item.querySelector('.overlay');
                     if (overlay) {
-                        overlay.style.cursor = 'pointer';
+                        overlay.disabled = false;
                         overlay.addEventListener('click', () => openLightbox(url));
                     }
                 }
