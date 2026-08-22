@@ -650,6 +650,8 @@
             display: grid; grid-template-columns: repeat(2, 1fr);
             gap: 2rem; max-width: 1100px; margin: 0 auto 4rem;
         }
+        .portfolio-card.featured { grid-column: 1 / -1; }
+        .portfolio-card.featured .portfolio-preview { aspect-ratio: 21/9; }
         .portfolio-card {
             background: var(--bg-card); border: 1px solid var(--border-subtle);
             overflow: hidden; transition: var(--transition); position: relative;
@@ -1350,6 +1352,24 @@
 
     <!-- Portfolio -->
     <div class="portfolio-grid">
+        <div class="portfolio-card featured fade-in">
+            <div class="portfolio-preview">
+                <iframe src="https://jfk50mile-website-sigma.vercel.app/" loading="lazy" title="JFK 50 Mile"></iframe>
+                <a href="https://jfk50mile-website-sigma.vercel.app/" target="_blank" rel="noopener" class="preview-overlay">
+                    <span>Visit Site</span>
+                </a>
+            </div>
+            <div class="portfolio-info">
+                <div class="portfolio-type">Events &amp; Athletics</div>
+                <h3>JFK 50 Mile</h3>
+                <p>The official website for America's oldest ultramarathon, run since 1963 &mdash; course details, runner information, decades of race results, and event merchandise for the historic Washington County race.</p>
+                <div class="portfolio-tech">
+                    <span>Next.js</span>
+                    <span>Vercel</span>
+                    <span>Cloudinary</span>
+                </div>
+            </div>
+        </div>
         <div class="portfolio-card fade-in">
             <div class="portfolio-preview">
                 <iframe src="https://shotgun-cup-series.vercel.app/" loading="lazy" title="Shotgun Cup Series"></iframe>
