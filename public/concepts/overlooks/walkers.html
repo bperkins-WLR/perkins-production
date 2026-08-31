@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Walker's Overlook — A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EA; --pine: #22392C; --pine-deep: #1A2C22;
+    --ink: #241F17; --soft: #6E6353; --wheat: #B98A4A; --wheat-light: #D3A968;
+    --line: #E3DCCC; --white: #FFFDF8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'Work Sans', 'Helvetica Neue', Arial, sans-serif; font-weight: 300; line-height: 1.7; font-size: 17px; }
+  .concept-ribbon { background: var(--pine-deep); color: #E9E2D2; text-align: center; font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px; }
+  .concept-ribbon b { color: var(--wheat-light); font-weight: 500; }
+  .brand-band { background: var(--cream); text-align: center; padding: 26px 20px 20px; border-bottom: 1px solid var(--line); }
+  .brand-band a { display: inline-block; }
+  .brand-band img { width: 300px; max-width: 82vw; height: auto; display: block; }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .hero { position: relative; min-height: 78vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--pine); }
+  .hero video.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,28,22,0.84) 0%, rgba(20,28,22,0.2) 55%); }
+  .hero-inner { position: relative; width: 100%; max-width: 1060px; margin: 0 auto; padding: 60px 28px 68px; color: var(--white); }
+  .hero .est { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--wheat-light); font-weight: 500; margin-bottom: 12px; }
+  h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(44px, 7.5vw, 84px); line-height: 1; letter-spacing: -1px; margin-bottom: 12px; text-wrap: balance; }
+  .hero .tag { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: clamp(18px, 2.4vw, 23px); color: #F0EADB; }
+
+  .story { max-width: 700px; margin: 0 auto; padding: 88px 28px 60px; text-align: center; }
+  .story p.big { font-family: 'Fraunces', Georgia, serif; font-size: clamp(22px, 3vw, 29px); line-height: 1.4; text-wrap: balance; }
+  .story .rule { width: 56px; height: 2px; background: var(--wheat); margin: 26px auto 0; }
+
+  .day { max-width: 1060px; margin: 0 auto; padding: 0 28px 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .moment { background: var(--white); border: 1px solid var(--line); padding: 30px 30px 34px; }
+  .moment .n { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--wheat); font-weight: 500; margin-bottom: 10px; }
+  .moment h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 25px; margin-bottom: 10px; }
+  .moment p { color: var(--soft); font-size: 15.5px; }
+
+  .gal { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 280px; gap: 0; background: var(--pine-deep); }
+  .gal img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gal img.wide { grid-column: span 2; }
+
+  .pricing { max-width: 640px; margin: 0 auto; padding: 90px 28px; text-align: center; }
+  .pricing .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--wheat); font-weight: 500; margin-bottom: 14px; }
+  .pricing h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(28px, 4vw, 38px); margin-bottom: 30px; }
+  table { width: 100%; max-width: 440px; margin: 0 auto; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  td { padding: 12px 8px; border-bottom: 1px solid var(--line); font-size: 16.5px; text-align: left; }
+  td:last-child { text-align: right; font-weight: 500; color: var(--pine); }
+  .pricing .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 18px; }
+
+  .cta { background: var(--pine); color: var(--white); text-align: center; padding: 88px 28px; }
+  .cta h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4.6vw, 42px); margin-bottom: 22px; }
+  .btn { display: inline-block; text-decoration: none; font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500; padding: 15px 30px; border: 1px solid var(--wheat-light); color: var(--pine-deep); background: var(--wheat-light); transition: background 0.3s ease; }
+  .btn:hover, .btn:focus-visible { background: var(--wheat); border-color: var(--wheat); color: var(--white); outline: none; }
+  .back { display: block; margin-top: 26px; color: #B9C4BB; font-size: 13.5px; text-decoration: none; letter-spacing: 1px; }
+  .back:hover { color: var(--wheat-light); }
+
+  footer { background: var(--pine-deep); color: #B9B29E; text-align: center; padding: 40px 28px; font-size: 13.5px; }
+  footer a { color: var(--wheat-light); text-decoration: none; }
+
+  @media (max-width: 780px) {
+    .gal { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+    .gal img.wide { grid-column: span 2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for The Overlooks, prepared by Perkins Production &middot; not the live website</div>
+<div class="brand-band"><a href="/concepts/overlooks.html"><img src="/concepts/overlooks/logo.png" alt="The Overlooks"></a></div>
+
+<section class="hero">
+  <video class="bg" autoplay muted loop playsinline preload="auto" poster="/concepts/overlooks/walkers-tent.jpg">
+    <source src="/concepts/overlooks/walkers-tent.mp4" type="video/mp4">
+  </video>
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <p class="est">The founding venue &middot; Walkersville, Maryland</p>
+    <h1>Walker's Overlook</h1>
+    <p class="tag">Make yourself at home</p>
+  </div>
+</section>
+
+<section class="story reveal">
+  <p class="big">Down the tree-lined drive, past the vintage car that's been in the family for generations, a stone colonial house has been welcoming wedding parties home since the very beginning of The Overlooks.</p>
+  <div class="rule"></div>
+</section>
+
+<div class="day">
+  <div class="moment reveal">
+    <p class="n">Getting ready</p>
+    <h2>The suites</h2>
+    <p>A spacious bridal suite upstairs with light for days, and the famous mancave downstairs, complete with a stone bar and games. Both crews start the day right.</p>
+  </div>
+  <div class="moment reveal">
+    <p class="n">The vows</p>
+    <h2>The old walnut tree</h2>
+    <p>Say "I do" beneath the walnut tree, with the rolling countryside and farmland of Maryland completing the picture behind you.</p>
+  </div>
+  <div class="moment reveal">
+    <p class="n">The celebration</p>
+    <h2>The grand tent</h2>
+    <p>Cocktails on the patio, then dinner and dancing under the tent: a real hardwood floor, room for 275 guests, and space left over for the dance floor to earn its keep.</p>
+  </div>
+</div>
+
+<div class="gal">
+  <img class="wide" src="/concepts/overlooks/walkers-house.jpg" alt="The stone colonial farmhouse at Walker's Overlook">
+  <img src="/concepts/overlooks/walkers-tractor.jpg" alt="A couple celebrating on the vintage family tractor">
+  <img src="/concepts/overlooks/walkers-mancave.jpg" alt="Groomsmen at the stone bar in the mancave">
+  <img class="wide" src="/concepts/overlooks/walkers-tent-tables.jpg" alt="Tables set inside the grand tent">
+</div>
+
+<section class="pricing reveal">
+  <p class="kicker">Simple is best</p>
+  <h2>One fee. Twelve hours. Everything below.</h2>
+  <table>
+    <tbody>
+      <tr><td>Saturday</td><td>$9,500</td></tr>
+      <tr><td>Friday</td><td>$8,000</td></tr>
+      <tr><td>Sunday</td><td>$7,000</td></tr>
+      <tr><td>Monday to Thursday</td><td>$6,000</td></tr>
+    </tbody>
+  </table>
+  <p class="fine">Ceremony and reception sites, dressing suites, grounds, all tables and chairs, and a day-of coordinator, included.</p>
+</section>
+
+<section class="cta">
+  <h2>See Walker's for yourself</h2>
+  <a class="btn" href="/concepts/overlooks.html#date">Check your date</a>
+  <a class="back" href="/concepts/overlooks.html">&larr; Back to The Overlooks</a>
+</section>
+
+<footer>
+  <p>8939 Woodsboro Pike, Walkersville, MD 21793</p>
+  <p style="margin-top:14px;">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; (240) 818-1955</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(function (el) { io.observe(el); });
+    var v = document.querySelector('.hero video.bg');
+    if (v && !reduced) { v.playbackRate = 0.85; } else if (v) { v.removeAttribute('autoplay'); v.pause(); }
+  })();
+</script>
+
+</body>
+</html>
