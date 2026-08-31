@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Overlooks — A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EA; --pine: #22392C; --pine-deep: #1A2C22;
+    --ink: #241F17; --soft: #6E6353; --wheat: #B98A4A; --wheat-light: #D3A968;
+    --line: #E3DCCC; --white: #FFFDF8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font-family: 'Work Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--pine-deep); color: #E9E2D2; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--wheat-light); font-weight: 500; }
+
+  /* Hero */
+  .hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--pine); }
+  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,28,22,0.82) 0%, rgba(20,28,22,0.25) 45%, rgba(20,28,22,0.15) 100%); }
+  .hero-inner { position: relative; width: 100%; max-width: 1060px; margin: 0 auto; padding: 60px 28px 72px; color: var(--white); }
+  .hero .est {
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--wheat-light); font-weight: 500; margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 600;
+    font-size: clamp(52px, 9vw, 96px); line-height: 0.98; letter-spacing: -1px;
+    text-wrap: balance; margin-bottom: 16px;
+  }
+  .hero .tag { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.6vw, 24px); color: #F0EADB; margin-bottom: 34px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+    padding: 15px 30px; border: 1px solid var(--wheat-light); color: var(--wheat-light);
+    background: rgba(20,28,22,0.35); transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--wheat); border-color: var(--wheat); color: #FFFDF8; }
+  .btn:hover { background: var(--wheat-light); border-color: var(--wheat-light); color: var(--pine-deep); }
+
+  /* Intro */
+  .intro { max-width: 720px; margin: 0 auto; padding: 96px 28px 72px; text-align: center; background: var(--cream); }
+  .intro p.big { font-family: 'Fraunces', Georgia, serif; font-size: clamp(24px, 3.4vw, 32px); line-height: 1.35; color: var(--ink); text-wrap: balance; }
+  .intro .rule { width: 56px; height: 2px; background: var(--wheat); margin: 28px auto 0; }
+
+  /* Venues */
+  .venues { max-width: 1120px; margin: 0 auto; padding: 0 28px 90px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; background: var(--cream); }
+  .venue { background: var(--white); border: 1px solid var(--line); }
+  .venue .ph { height: 380px; overflow: hidden; }
+  .venue .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; display: block; }
+  .venue:hover .ph img { transform: scale(1.04); }
+  .venue .body { padding: 30px 32px 36px; }
+  .venue .where { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--wheat); font-weight: 500; margin-bottom: 8px; }
+  .venue h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 32px; margin-bottom: 10px; color: var(--ink); }
+  .venue p { color: var(--soft); font-size: 16px; margin-bottom: 22px; }
+  .venue a.more { color: var(--pine); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--wheat); padding-bottom: 3px; }
+
+  /* Film band */
+  .film { background: var(--pine); color: #EFE9DA; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; align-items: stretch; }
+  .film .still { position: relative; min-height: 480px; }
+  .film .still img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+  .film .play {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--wheat-light);
+    background: rgba(26,44,34,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--wheat-light); margin-left: 5px;
+  }
+  .film .copy { padding: 84px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--wheat-light); font-weight: 500; margin-bottom: 16px; }
+  .film h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 42px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .film p { color: #CDC5B2; max-width: 46ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 13.5px; color: #9BA394; font-style: italic; }
+
+  /* Quotes */
+  .quotes { max-width: 860px; margin: 0 auto; padding: 96px 28px; background: var(--cream); }
+  .quotes .kicker { text-align: center; font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--wheat); font-weight: 500; margin-bottom: 40px; }
+  blockquote { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: clamp(20px, 2.8vw, 26px); line-height: 1.5; color: var(--ink); text-align: center; margin-bottom: 18px; text-wrap: balance; }
+  cite { display: block; text-align: center; font-family: 'Work Sans', sans-serif; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 56px; }
+
+  /* Gallery strip */
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--pine-deep); }
+  .strip img { width: 100%; height: 300px; object-fit: cover; display: block; }
+
+  /* CTA */
+  .cta { background: var(--cream); text-align: center; padding: 100px 28px; }
+  .cta h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(32px, 5vw, 46px); margin-bottom: 12px; color: var(--ink); }
+  .cta p { color: var(--soft); margin-bottom: 34px; }
+  .cta-form { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  .cta-form input {
+    font-family: 'Work Sans', sans-serif; font-size: 15px; padding: 14px 18px;
+    border: 1px solid var(--line); background: var(--white); color: var(--ink); min-width: 220px;
+  }
+  .cta-form input:focus { outline: 2px solid var(--wheat); outline-offset: 1px; }
+  .cta .fine { font-size: 13px; color: var(--soft); font-style: italic; }
+
+  footer { background: var(--pine-deep); color: #B9B29E; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .venues-line { color: #E9E2D2; font-family: 'Fraunces', Georgia, serif; font-size: 19px; margin-bottom: 8px; }
+  footer a { color: var(--wheat-light); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #2E4436; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .venues { grid-template-columns: 1fr; }
+    .film-grid { grid-template-columns: 1fr; }
+    .film .still { min-height: 340px; }
+    .film .copy { padding: 56px 28px; }
+    .strip { grid-template-columns: 1fr; }
+    .strip img { height: 220px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .venue .ph img { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for The Overlooks, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <img class="bg" src="/concepts/overlooks/hero-path.jpg" alt="A couple walks the brick path between the farmhouse and barn">
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <p class="est">Walkersville &middot; Frederick &middot; Maryland</p>
+    <h1>The Overlooks</h1>
+    <p class="tag">A home from home for your wedding day</p>
+    <div class="hero-ctas">
+      <a class="btn solid" href="#date">Check your date</a>
+      <a class="btn" href="#venues">Walker's Overlook</a>
+      <a class="btn" href="#venues">Dulany's Overlook</a>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <p class="big">Two storied farm properties, minutes from downtown Frederick. One promise: the most beautiful day of your life, at home in the Maryland countryside.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="venues" id="venues">
+  <div class="venue">
+    <div class="ph"><img src="/concepts/overlooks/walkers-tent.jpg" alt="The reception tent at Walker's Overlook glowing under a full moon"></div>
+    <div class="body">
+      <p class="where">Walkersville, MD</p>
+      <h2>Walker's Overlook</h2>
+      <p>A historic farmhouse framed by tree-lined drives and gardens, with a grand tent that glows like a lantern when the dancing starts.</p>
+      <a class="more" href="#date">Explore Walker's</a>
+    </div>
+  </div>
+  <div class="venue">
+    <div class="ph"><img src="/concepts/overlooks/dulanys-barn.jpg" alt="The timber barn at Dulany's Overlook set for a reception, mountains beyond"></div>
+    <div class="body">
+      <p class="where">Frederick, MD</p>
+      <h2>Dulany's Overlook</h2>
+      <p>A timber barn with mountain views on a 170-acre working farm, where string lights meet a horizon that goes on forever.</p>
+      <a class="more" href="#date">Explore Dulany's</a>
+    </div>
+  </div>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still">
+      <img src="/concepts/overlooks/bride-train.jpg" alt="A bride's cathedral train flowing through the farmhouse doorway">
+      <div class="play"><span></span></div>
+    </div>
+    <div class="copy">
+      <p class="kicker">Imagine opening on film</p>
+      <h2>Your venues in motion, before a single word is read</h2>
+      <p>The finished site opens with cinematic footage of both properties: morning fog lifting off the fields, the tent glowing at dusk, the barn doors swinging wide. Couples fall for The Overlooks in person; the new site lets that happen from their couch.</p>
+      <p>Photography and film are shot by Perkins Production at golden hour, so every frame on the site belongs to your farms and no one else's.</p>
+      <p class="fine">This concept uses your current site's photos. The real thing gets fresh ones.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quotes">
+  <p class="kicker">In their words</p>
+  <blockquote>&ldquo;We didn't talk to a single guest that hadn't fallen in love with the venue.&rdquo;</blockquote>
+  <cite>A Walker's Overlook couple</cite>
+  <blockquote>&ldquo;Holly was our assigned coordinator and she is a total dream&hellip; I gave her everything, went upstairs to get ready, and never worried about anything again.&rdquo;</blockquote>
+  <cite>A bride at The Overlooks</cite>
+</section>
+
+<div class="strip">
+  <img src="/concepts/overlooks/dresses.jpg" alt="Bridesmaid dresses hanging in the green dressing suite">
+  <img src="/concepts/overlooks/dusk-walk.jpg" alt="Newlyweds walking toward the lit farmhouse porch at dusk">
+  <img src="/concepts/overlooks/truck.jpg" alt="The antique farm truck with a welcome sign">
+</div>
+
+<section class="cta" id="date">
+  <h2>Check your date</h2>
+  <p>Tell us your dream date and we'll tell you if it's yours.</p>
+  <div class="cta-form">
+    <input type="text" placeholder="Your wedding date" aria-label="Your wedding date">
+    <input type="email" placeholder="Your email" aria-label="Your email">
+    <a class="btn solid" href="#date" style="border:none;">Ask about this date</a>
+  </div>
+  <p class="fine">In the finished site, this lands in your inbox instantly, with an automatic warm reply to the couple.</p>
+</section>
+
+<footer>
+  <p class="venues-line">The Overlooks</p>
+  <p>Walker's Overlook, Walkersville &middot; Dulany's Overlook, Frederick &middot; Maryland</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+</body>
+</html>
