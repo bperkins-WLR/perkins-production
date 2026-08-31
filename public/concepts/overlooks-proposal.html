@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Overlooks Website Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&family=Josefin+Slab:wght@400;600&display=swap">
+<style>
+  :root {
+    --canvas: #0B0A09; --surface: #141210; --surface-2: #1A1714;
+    --ink: #F4EFE7; --muted: #B7ADA0;
+    --gold: #C8A86A; --gold-bright: #DDC084; --gold-ink: #17120B;
+    --rule: rgba(228, 207, 170, 0.17);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--canvas); color: var(--ink); font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; font-weight: 400; line-height: 1.65; font-size: 16.5px; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 90px; }
+  header { text-align: center; padding: 58px 0 30px; border-bottom: 1px solid var(--rule); }
+  .brand { font-family: "Cormorant Garamond", Georgia, serif; font-size: 26px; letter-spacing: 5px; font-weight: 600; }
+  .brand small { display: block; font-family: "Josefin Slab", serif; font-size: 10px; letter-spacing: 4px; color: var(--gold); margin-top: 4px; }
+  .doc-type { font-family: "Josefin Slab", serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 22px; }
+  .title-block { text-align: center; padding: 52px 0 8px; }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(36px, 6vw, 54px); line-height: 1.1; margin: 0 0 18px; }
+  h1 em { font-style: italic; color: var(--gold-bright); }
+  .promise { color: var(--muted); max-width: 54ch; margin: 0 auto 34px; font-size: 17px; }
+  .parties { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; font-size: 13.5px; color: var(--muted); margin-bottom: 34px; }
+  .parties b { display: block; font-family: "Josefin Slab", serif; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+  .cta { display: inline-block; background: var(--gold); color: var(--gold-ink); text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 2px; }
+  .cta:hover { background: var(--gold-bright); }
+  section { margin-top: 74px; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--rule); padding-bottom: 12px; margin-bottom: 8px; }
+  .sec-head .num { font-family: "Cormorant Garamond", Georgia, serif; font-size: 30px; color: var(--gold); font-weight: 600; }
+  .sec-head .label { font-family: "Josefin Slab", serif; font-size: 11.5px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(26px, 4vw, 34px); margin: 18px 0 16px; }
+  .bullets { list-style: none; margin: 0; padding: 0; }
+  .bullets li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); color: var(--muted); }
+  .bullets li::before { content: "\2726"; color: var(--gold); flex-shrink: 0; }
+  .cards { display: grid; gap: 16px; margin-top: 10px; }
+  .card { background: var(--surface); border: 1px solid var(--rule); padding: 26px 28px; }
+  .card .tag { font-family: "Josefin Slab", serif; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .card h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 24px; margin: 0 0 10px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  .cost { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .cost td { padding: 14px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 15.5px; }
+  .cost td:first-child { font-weight: 600; white-space: nowrap; padding-right: 20px; }
+  .cost td:last-child { color: var(--muted); }
+  .cost .gold { color: var(--gold-bright); }
+  .value { display: grid; gap: 14px; margin-top: 10px; }
+  .v { background: var(--surface); border-left: 2px solid var(--gold); padding: 18px 22px; }
+  .v b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .v span { color: var(--muted); font-size: 15px; }
+  .timeline { list-style: none; margin: 10px 0 0; padding: 0; }
+  .timeline li { display: flex; gap: 18px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
+  .timeline .wk { font-family: "Josefin Slab", serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); flex-shrink: 0; width: 110px; padding-top: 3px; }
+  .timeline .what { color: var(--muted); font-size: 15.5px; }
+  .next { text-align: center; margin-top: 84px; background: var(--surface-2); border: 1px solid var(--rule); padding: 46px 30px; }
+  .next h2 { margin-top: 0; }
+  .next p { color: var(--muted); max-width: 52ch; margin: 0 auto 26px; }
+  footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 12.5px; letter-spacing: 1px; }
+  footer .b { font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; letter-spacing: 3px; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">PERKINS<small>PRODUCTION &middot; PHOTO + VIDEO + DESIGN</small></div>
+  <div class="doc-type">Website Proposal &middot; September 2026</div>
+</header>
+
+<div class="title-block">
+  <h1>One home for <em>The Overlooks</em></h1>
+  <p class="promise">A cinematic website for Walker's, Dulany's, and Serenity: opening on film, built for the phones couples plan on, and designed to turn daydreams into booked dates.</p>
+  <div class="parties">
+    <div><b>Prepared for</b>Mark H. Lynch &middot; The Overlooks, Walkersville MD</div>
+    <div><b>Prepared by</b>Brice Perkins &middot; Perkins Production</div>
+  </div>
+  <a class="cta" href="/concepts/overlooks.html">View the working concept</a>
+</div>
+
+<section>
+  <div class="sec-head"><span class="num">01</span><span class="label">Where the current site falls short</span></div>
+  <h2>Three remarkable venues, one website from 2011</h2>
+  <ul class="bullets">
+    <li>The design predates the smartphones couples now shop venues on; photos render small and dated on the screens that matter most.</li>
+    <li>Serenity Overlook, your St. Thomas venue, appears nowhere except a contact-form dropdown. Couples dreaming of a Caribbean wedding cannot find it.</li>
+    <li>The details that book weddings, the walnut tree, the rose garden or woodland choice, the mancave, the vintage car, are buried in paragraphs or missing entirely.</li>
+    <li>Inquiries arrive through a generic form with no date-first flow, and couples get no instant reply while they are still excited.</li>
+    <li>The footer credits the website builder instead of carrying your brand.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">02</span><span class="label">What you get</span></div>
+  <h2>Four pages, fresh film, one simple system</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="tag">The website</div>
+      <h3>The Overlooks, told whole</h3>
+      <p>A cinematic front door plus a full page for each venue: Walker's, Dulany's, and finally Serenity. Your logo, your reviews, your transparent pricing, and a Check Your Date flow that emails you instantly and sends the couple a warm reply the moment they ask. You have already seen the direction; the concept is a working preview of exactly this.</p>
+    </div>
+    <div class="card">
+      <div class="tag">Shot on your farms</div>
+      <h3>Golden-hour film and photography</h3>
+      <p>I photograph and film weddings for a living. Both Maryland properties get a dedicated shoot: cinematic hero film, fresh galleries, the drone view down the tree-lined drive. Everything on the site belongs to your farms and no one else's.</p>
+    </div>
+    <div class="card">
+      <div class="tag">Optional</div>
+      <h3>Matterport 3D tours</h3>
+      <p>Couples walk the farmhouse, the barn, and the suites from their couch, the same technology I deliver for commercial clients. Especially powerful for out-of-state couples comparing venues from afar.</p>
+    </div>
+    <div class="card">
+      <div class="tag">Yours to run</div>
+      <h3>A simple admin page</h3>
+      <p>Change pricing, swap photos, update dates yourself, no webmaster required. The same setup my other clients use, including America's oldest ultramarathon.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">03</span><span class="label">What it costs</span></div>
+  <h2>Almost nothing to run</h2>
+  <table class="cost">
+    <tbody>
+      <tr><td>Design + build</td><td><span class="gold">Perkins Production</span> &middot; quoted after we walk the properties together</td></tr>
+      <tr><td>Film + photo day</td><td>Included in the build quote &middot; both Maryland farms</td></tr>
+      <tr><td>Hosting</td><td><span class="gold">$0 per month</span> &middot; same setup as the JFK 50 Mile race site I built</td></tr>
+      <tr><td>Maintenance</td><td>None required &middot; you update everything through the admin page</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">04</span><span class="label">What it starts doing for you</span></div>
+  <h2>The site becomes your best salesperson</h2>
+  <div class="value">
+    <div class="v"><b>First reply wins.</b><span>Couples inquire with five venues in one sitting. Date-first inquiries land in your inbox instantly, and the couple gets a warm automatic reply while they are still on your site falling in love.</span></div>
+    <div class="v"><b>Serenity finally sells itself.</b><span>A destination-wedding page for St. Thomas, visible to every couple who finds your Maryland farms, and to every couple searching for a Caribbean venue who has never heard of you.</span></div>
+    <div class="v"><b>Your pricing filters for serious couples.</b><span>Simple is best is already your philosophy. Publishing it beautifully means fewer tire-kicker calls and better-qualified tours.</span></div>
+    <div class="v"><b>Your best moments work around the clock.</b><span>The walnut tree, the mancave, Holly getting a bride down the aisle worry-free: the things your couples rave about become the first thing new couples see.</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">05</span><span class="label">Timeline</span></div>
+  <h2>Live before engagement season peaks</h2>
+  <ul class="timeline">
+    <li><span class="wk">Week 1</span><span class="what">Walk both farms together, agree on the details, and shoot the first golden-hour film and photography.</span></li>
+    <li><span class="wk">Weeks 2 to 4</span><span class="what">Build all four pages, the date-first inquiry flow, and your admin page.</span></li>
+    <li><span class="wk">Week 5</span><span class="what">Review everything together, load final pricing and dates, and walk your team through updates.</span></li>
+    <li><span class="wk">Launch</span><span class="what">The new site goes live on your own address, with every old link and Google result forwarding safely, the same way I moved the JFK 50 Mile without losing a single visitor.</span></li>
+  </ul>
+</section>
+
+<div class="next">
+  <h2>The next step is a walk around the farm</h2>
+  <p>Show me Walker's and Dulany's the way you'd show a couple. Tell me what the concept gets right and what it misses. Then I'll put a real quote together. No pressure either way.</p>
+  <a class="cta" href="mailto:brice@perkinsproduction.com">Reply to Brice</a>
+</div>
+
+<footer>
+  <div class="b">PERKINS PRODUCTION</div>
+  <div>Photo + Video + Design &middot; (240) 818-1955</div>
+  <div style="margin-top:8px;">Prepared September 2026 for The Overlooks</div>
+</footer>
+
+</div>
+</body>
+</html>
