@@ -27,22 +27,35 @@
   }
   .concept-ribbon b { color: var(--wheat-light); font-weight: 500; }
 
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
   /* Hero */
-  .hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--pine); }
-  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
-  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,28,22,0.82) 0%, rgba(20,28,22,0.25) 45%, rgba(20,28,22,0.15) 100%); }
-  .hero-inner { position: relative; width: 100%; max-width: 1060px; margin: 0 auto; padding: 60px 28px 72px; color: var(--white); }
+  .hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--pine); }
+  .hero video.bg, .hero img.poster-layer {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center 40%;
+  }
+  .hero img.poster-layer { opacity: 0; transition: opacity 1s ease; pointer-events: none; }
+  .hero img.poster-layer.show { opacity: 1; }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,28,22,0.84) 0%, rgba(20,28,22,0.22) 48%, rgba(20,28,22,0.12) 100%); }
+  .hero-inner { position: relative; width: 100%; max-width: 1060px; margin: 0 auto; padding: 60px 28px 76px; color: var(--white); }
   .hero .est {
     font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
     color: var(--wheat-light); font-weight: 500; margin-bottom: 14px;
   }
   h1 {
     font-family: 'Fraunces', Georgia, serif; font-weight: 600;
-    font-size: clamp(52px, 9vw, 96px); line-height: 0.98; letter-spacing: -1px;
+    font-size: clamp(52px, 9vw, 100px); line-height: 0.98; letter-spacing: -1px;
     text-wrap: balance; margin-bottom: 16px;
   }
-  .hero .tag { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.6vw, 24px); color: #F0EADB; margin-bottom: 34px; }
+  .hero .tag { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.6vw, 25px); color: #F0EADB; margin-bottom: 34px; }
   .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
   .btn {
     display: inline-block; text-decoration: none; font-size: 13px;
     letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
@@ -50,7 +63,7 @@
     background: rgba(20,28,22,0.35); transition: background 0.3s ease, color 0.3s ease;
   }
   .btn.solid { background: var(--wheat); border-color: var(--wheat); color: #FFFDF8; }
-  .btn:hover { background: var(--wheat-light); border-color: var(--wheat-light); color: var(--pine-deep); }
+  .btn:hover, .btn:focus-visible { background: var(--wheat-light); border-color: var(--wheat-light); color: var(--pine-deep); outline: none; }
 
   /* Intro */
   .intro { max-width: 720px; margin: 0 auto; padding: 96px 28px 72px; text-align: center; background: var(--cream); }
@@ -60,9 +73,8 @@
   /* Venues */
   .venues { max-width: 1120px; margin: 0 auto; padding: 0 28px 90px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; background: var(--cream); }
   .venue { background: var(--white); border: 1px solid var(--line); }
-  .venue .ph { height: 380px; overflow: hidden; }
-  .venue .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; display: block; }
-  .venue:hover .ph img { transform: scale(1.04); }
+  .venue .ph { height: 380px; overflow: hidden; position: relative; background: var(--pine-deep); }
+  .venue .ph video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .venue .body { padding: 30px 32px 36px; }
   .venue .where { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--wheat); font-weight: 500; margin-bottom: 8px; }
   .venue h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 32px; margin-bottom: 10px; color: var(--ink); }
@@ -74,9 +86,7 @@
   .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; align-items: stretch; }
   .film .still { position: relative; min-height: 480px; }
   .film .still img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
-  .film .play {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
   .film .play span {
     width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--wheat-light);
     background: rgba(26,44,34,0.55); display: flex; align-items: center; justify-content: center;
@@ -89,7 +99,8 @@
   .film .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--wheat-light); font-weight: 500; margin-bottom: 16px; }
   .film h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 42px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
   .film p { color: #CDC5B2; max-width: 46ch; margin-bottom: 14px; }
-  .film p.fine { font-size: 13.5px; color: #9BA394; font-style: italic; }
+  .film p.fine { font-size: 14px; color: #A8B09F; font-style: italic; }
+  .film p.fine b { color: var(--wheat-light); font-weight: 500; }
 
   /* Quotes */
   .quotes { max-width: 860px; margin: 0 auto; padding: 96px 28px; background: var(--cream); }
@@ -128,7 +139,8 @@
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .venue .ph img { transition: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
   }
 </style>
 </head>
@@ -137,13 +149,16 @@
 <div class="concept-ribbon">A <b>design concept</b> for The Overlooks, prepared by Perkins Production &middot; not the live website</div>
 
 <section class="hero">
-  <img class="bg" src="/concepts/overlooks/hero-path.jpg" alt="A couple walks the brick path between the farmhouse and barn">
+  <video class="bg" autoplay muted playsinline preload="auto" poster="/concepts/overlooks/hero-path.jpg">
+    <source src="/concepts/overlooks/hero-path.mp4" type="video/mp4">
+  </video>
+  <img class="poster-layer" src="/concepts/overlooks/hero-path.jpg" alt="" aria-hidden="true">
   <div class="veil"></div>
   <div class="hero-inner">
-    <p class="est">Walkersville &middot; Frederick &middot; Maryland</p>
-    <h1>The Overlooks</h1>
-    <p class="tag">A home from home for your wedding day</p>
-    <div class="hero-ctas">
+    <p class="est rise d1">Walkersville &middot; Frederick &middot; Maryland</p>
+    <h1 class="rise d2">The Overlooks</h1>
+    <p class="tag rise d3">A home from home for your wedding day</p>
+    <div class="hero-ctas rise d4">
       <a class="btn solid" href="#date">Check your date</a>
       <a class="btn" href="#venues">Walker's Overlook</a>
       <a class="btn" href="#venues">Dulany's Overlook</a>
@@ -151,14 +166,18 @@
   </div>
 </section>
 
-<section class="intro">
+<section class="intro reveal">
   <p class="big">Two storied farm properties, minutes from downtown Frederick. One promise: the most beautiful day of your life, at home in the Maryland countryside.</p>
   <div class="rule"></div>
 </section>
 
 <section class="venues" id="venues">
-  <div class="venue">
-    <div class="ph"><img src="/concepts/overlooks/walkers-tent.jpg" alt="The reception tent at Walker's Overlook glowing under a full moon"></div>
+  <div class="venue reveal">
+    <div class="ph">
+      <video muted playsinline preload="none" loop poster="/concepts/overlooks/walkers-tent.jpg" data-ambient>
+        <source src="/concepts/overlooks/walkers-tent.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="body">
       <p class="where">Walkersville, MD</p>
       <h2>Walker's Overlook</h2>
@@ -166,8 +185,12 @@
       <a class="more" href="#date">Explore Walker's</a>
     </div>
   </div>
-  <div class="venue">
-    <div class="ph"><img src="/concepts/overlooks/dulanys-barn.jpg" alt="The timber barn at Dulany's Overlook set for a reception, mountains beyond"></div>
+  <div class="venue reveal">
+    <div class="ph">
+      <video muted playsinline preload="none" loop poster="/concepts/overlooks/dulanys-barn.jpg" data-ambient>
+        <source src="/concepts/overlooks/dulanys-barn.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="body">
       <p class="where">Frederick, MD</p>
       <h2>Dulany's Overlook</h2>
@@ -179,21 +202,21 @@
 
 <section class="film">
   <div class="film-grid">
-    <div class="still">
+    <div class="still reveal">
       <img src="/concepts/overlooks/bride-train.jpg" alt="A bride's cathedral train flowing through the farmhouse doorway">
       <div class="play"><span></span></div>
     </div>
-    <div class="copy">
-      <p class="kicker">Imagine opening on film</p>
-      <h2>Your venues in motion, before a single word is read</h2>
-      <p>The finished site opens with cinematic footage of both properties: morning fog lifting off the fields, the tent glowing at dusk, the barn doors swinging wide. Couples fall for The Overlooks in person; the new site lets that happen from their couch.</p>
-      <p>Photography and film are shot by Perkins Production at golden hour, so every frame on the site belongs to your farms and no one else's.</p>
-      <p class="fine">This concept uses your current site's photos. The real thing gets fresh ones.</p>
+    <div class="copy reveal">
+      <p class="kicker">Now look closer</p>
+      <h2>Everything moving on this page came from your current photos</h2>
+      <p>The couple walking, the tent glowing, the barn lights: none of that footage existed an hour ago. It was conjured from the same photos sitting on your website today.</p>
+      <p>So imagine the real thing: true cinematic film and golden-hour photography of both properties, shot on your farms by Perkins Production. That is what the finished site opens with.</p>
+      <p class="fine"><b>If borrowed photos can feel this alive, picture what your farms deserve.</b></p>
     </div>
   </div>
 </section>
 
-<section class="quotes">
+<section class="quotes reveal">
   <p class="kicker">In their words</p>
   <blockquote>&ldquo;We didn't talk to a single guest that hadn't fallen in love with the venue.&rdquo;</blockquote>
   <cite>A Walker's Overlook couple</cite>
@@ -207,7 +230,7 @@
   <img src="/concepts/overlooks/truck.jpg" alt="The antique farm truck with a welcome sign">
 </div>
 
-<section class="cta" id="date">
+<section class="cta reveal" id="date">
   <h2>Check your date</h2>
   <p>Tell us your dream date and we'll tell you if it's yours.</p>
   <div class="cta-form">
@@ -223,6 +246,59 @@
   <p>Walker's Overlook, Walkersville &middot; Dulany's Overlook, Frederick &middot; Maryland</p>
   <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
 </footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Scroll reveals
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+
+    // Hero video: play, hold the final frame, dissolve back to the start, replay
+    var heroVideo = document.querySelector('.hero video.bg');
+    var posterLayer = document.querySelector('.hero .poster-layer');
+    if (heroVideo && !reduced) {
+      heroVideo.playbackRate = 0.85;
+      heroVideo.addEventListener('ended', function () {
+        setTimeout(function () {
+          posterLayer.classList.add('show');
+          setTimeout(function () {
+            heroVideo.currentTime = 0;
+            heroVideo.play().catch(function () {});
+            setTimeout(function () { posterLayer.classList.remove('show'); }, 350);
+          }, 1000);
+        }, 1600);
+      });
+      heroVideo.play().catch(function () {});
+    } else if (heroVideo && reduced) {
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+    }
+
+    // Ambient venue clips: play only while on screen
+    var ambients = document.querySelectorAll('video[data-ambient]');
+    if (!reduced && 'IntersectionObserver' in window) {
+      var vo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) { v.playbackRate = 0.85; v.play().catch(function () {}); }
+          else { v.pause(); }
+        });
+      }, { threshold: 0.3 });
+      ambients.forEach(function (v) { vo.observe(v); });
+    }
+  })();
+</script>
 
 </body>
 </html>
