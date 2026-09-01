@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Starting From A Real Body</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&family=Josefin+Slab:wght@400;600&display=swap">
+<style>
+  :root {
+    --canvas: #0B0A09; --surface: #141210; --surface-2: #1A1714;
+    --ink: #F4EFE7; --muted: #B7ADA0;
+    --gold: #C8A86A; --gold-bright: #DDC084; --gold-ink: #17120B;
+    --rule: rgba(228, 207, 170, 0.17);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--canvas); color: var(--ink); font-family: "Manrope", "Helvetica Neue", Arial, sans-serif; font-weight: 400; line-height: 1.65; font-size: 16.5px; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 90px; }
+  header { text-align: center; padding: 58px 0 30px; border-bottom: 1px solid var(--rule); }
+  .brand { font-family: "Cormorant Garamond", Georgia, serif; font-size: 26px; letter-spacing: 5px; font-weight: 600; }
+  .brand small { display: block; font-family: "Josefin Slab", serif; font-size: 10px; letter-spacing: 4px; color: var(--gold); margin-top: 4px; }
+  .doc-type { font-family: "Josefin Slab", serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 22px; }
+  .title-block { text-align: center; padding: 52px 0 8px; }
+  h1 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(36px, 6vw, 54px); line-height: 1.1; margin: 0 0 18px; }
+  h1 em { font-style: italic; color: var(--gold-bright); }
+  .promise { color: var(--muted); max-width: 56ch; margin: 0 auto 34px; font-size: 17px; }
+  .parties { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; font-size: 13.5px; color: var(--muted); margin-bottom: 34px; }
+  .parties b { display: block; font-family: "Josefin Slab", serif; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+  .cta { display: inline-block; background: var(--gold); color: var(--gold-ink); text-decoration: none; font-weight: 700; font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 2px; }
+  .cta:hover { background: var(--gold-bright); }
+  section { margin-top: 74px; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--rule); padding-bottom: 12px; margin-bottom: 8px; }
+  .sec-head .num { font-family: "Cormorant Garamond", Georgia, serif; font-size: 30px; color: var(--gold); font-weight: 600; }
+  .sec-head .label { font-family: "Josefin Slab", serif; font-size: 11.5px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  h2 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(26px, 4vw, 34px); margin: 18px 0 16px; }
+  p { margin: 0 0 16px; }
+  .lede { color: var(--muted); }
+  .bullets { list-style: none; margin: 0; padding: 0; }
+  .bullets li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); color: var(--muted); }
+  .bullets li::before { content: "\2726"; color: var(--gold); flex-shrink: 0; }
+  figure { margin: 26px 0 0; }
+  figure img { width: 100%; height: auto; display: block; border: 1px solid var(--rule); }
+  figcaption { color: var(--muted); font-size: 13.5px; margin-top: 9px; }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 26px; }
+  .pair figure { margin: 0; }
+  .cards { display: grid; gap: 16px; margin-top: 10px; }
+  .card { background: var(--surface); border: 1px solid var(--rule); padding: 26px 28px; }
+  .card .tag { font-family: "Josefin Slab", serif; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .card h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 24px; margin: 0 0 10px; }
+  .card p { margin: 0 0 12px; color: var(--muted); font-size: 15.5px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card a.look { display: inline-block; font-family: "Josefin Slab", serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-bright); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; }
+  .card a.look:hover { color: var(--ink); border-color: var(--gold); }
+  .flag { color: var(--gold-bright); font-weight: 600; }
+  .cost { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  .cost td { padding: 14px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 15.5px; }
+  .cost td:first-child { font-weight: 600; white-space: nowrap; padding-right: 20px; }
+  .cost td:last-child { color: var(--muted); }
+  .cost .gold { color: var(--gold-bright); }
+  .value { display: grid; gap: 14px; margin-top: 10px; }
+  .v { background: var(--surface); border-left: 2px solid var(--gold); padding: 18px 22px; }
+  .v b { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .v span { color: var(--muted); font-size: 15px; }
+  .next { text-align: center; margin-top: 84px; background: var(--surface-2); border: 1px solid var(--rule); padding: 46px 30px; }
+  .next h2 { margin-top: 0; }
+  .next p { color: var(--muted); max-width: 54ch; margin: 0 auto 26px; }
+  footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 12.5px; letter-spacing: 1px; }
+  footer .b { font-family: "Cormorant Garamond", Georgia, serif; font-size: 17px; letter-spacing: 3px; color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">PERKINS<small>PRODUCTION &middot; PHOTO + VIDEO + DESIGN</small></div>
+  <div class="doc-type">Model Foundation Review &middot; September 2026</div>
+</header>
+
+<div class="title-block">
+  <h1>Starting from a <em>real body</em></h1>
+  <p class="promise">You said we are adding layers onto a cartoon. You are right. This page shows you a real medically derived model, what one costs, what it would change, and what it throws away.</p>
+  <div class="parties">
+    <div><b>Prepared for</b>Doug Bertram, L.Ac &middot; Structural Elements Franchising</div>
+    <div><b>Prepared by</b>Brice Perkins &middot; Perkins Production</div>
+  </div>
+  <a class="cta" href="#see">Go see one</a>
+</div>
+
+<section>
+  <div class="sec-head"><span class="num">01</span><span class="label">The honest problem</span></div>
+  <h2>The layers are measured. The body underneath is not.</h2>
+  <p class="lede">August was spent making the anatomy sit correctly on the body instead of being placed by eye. Every organ now lines up with the vertebra it belongs to, and an internal audit went from six of eight organs out of position to zero of eight. That work is real, and it is the reason the treatment points land where they land.</p>
+  <p class="lede">But it does not fix the foundation. The body itself is a generated mesh, not one derived from scan data. The skeleton, organs and muscles sitting inside it were built to fit that mesh. Measuring carefully against a cartoon still leaves you a cartoon, and no amount of further layering changes that.</p>
+  <figure>
+    <img src="/concepts/structural-elements-anatomy/current-full.jpg" alt="The current 3D viewer showing twelve meridians and forty-four labelled treatment points on the male figure">
+    <figcaption>Where it stands today: twelve meridians on the organ clock, 44 treatment points, each labelled with its muscle and nerve root. The overlay logic is sound. The body carrying it is the weak link.</figcaption>
+  </figure>
+  <div class="pair">
+    <figure>
+      <img src="/concepts/structural-elements-anatomy/current-arm.jpg" alt="Close view of the arm with treatment point labels and meridian channels">
+      <figcaption>Each point carries its muscle and nerve root.</figcaption>
+    </figure>
+    <figure>
+      <img src="/concepts/structural-elements-anatomy/current-skull.jpg" alt="Skull with cranial nerves five, seven and eleven">
+      <figcaption>Cranial nerves V, VII and XI, built to fit the mesh rather than measured from anatomy.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="see">
+  <div class="sec-head"><span class="num">02</span><span class="label">See one for yourself</span></div>
+  <h2>A real model, in your browser, right now</h2>
+  <p class="lede">Rather than describe the difference, here is one you can turn and take apart yourself. This is BodyParts3D, built by the Database Center for Life Science in Japan from real anatomical data. It is the dataset the open anatomy world is built on. No account, no install.</p>
+  <p><a class="cta" href="https://lifesciencedb.jp/bp3d/" target="_blank" rel="noopener">Open the live model</a></p>
+  <p class="lede" style="margin-top:22px">It is a research tool, so the interface is plain. Look past that at the geometry. Every structure has a real shape and a real relationship to the ones around it, because it came from a body rather than from a sculptor.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">03</span><span class="label">Three ways to get a real base</span></div>
+  <h2>What the options actually are</h2>
+  <div class="cards">
+
+    <div class="card">
+      <div class="tag">Option A &middot; the commercial standard</div>
+      <h3>Zygote</h3>
+      <p>Their collection is built outward from a full skeleton derived from CT scans, with every other system fitted to it. Roughly 9.9 million polygons, delivered in the formats we already work in, with male and female both complete.</p>
+      <p>They license for embedding in distributed software on a royalty or subscription basis, which is the arrangement we would need to ship this inside an (se) app. Pricing is quoted, not listed.</p>
+      <p><a class="look" href="https://www.zygote.com/poly-models/3d-human-collections/3d-male-female-anatomy-collection" target="_blank" rel="noopener">See the collection &rarr;</a></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Option B &middot; the fastest path</div>
+      <h3>BioDigital Human</h3>
+      <p>A finished platform with a viewer API and mobile SDKs. It would stand up quickest, and their anatomy is genuinely excellent.</p>
+      <p>The tradeoff is ownership. You would be renting their viewer and their platform, and the meridian and treatment point overlays would have to live inside their terms rather than ours. <span class="flag">Their explore view also needs a free account before it will open</span>, so it is a sign-up rather than a click.</p>
+      <p><a class="look" href="https://www.biodigital.com/product/the-biodigital-human" target="_blank" rel="noopener">See the platform &rarr;</a></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Option C &middot; free, with a catch</div>
+      <h3>Z-Anatomy</h3>
+      <p>An open atlas built on that same BodyParts3D data, free to download and genuinely good. If cost were the only question this would be the answer.</p>
+      <p><span class="flag">The licence is the problem.</span> It carries a Creative Commons ShareAlike term, which requires anything built on top of it to be published under the same open licence. For franchise intellectual property that is a trap worth naming now rather than discovering after the work is done. I would rule it out for anything (se) ships, and keep it only for testing.</p>
+      <p><a class="look" href="https://github.com/Z-Anatomy/Models-of-human-anatomy" target="_blank" rel="noopener">See the models &rarr;</a></p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">04</span><span class="label">The part I do not want to soften</span></div>
+  <h2>What carries over, and what does not</h2>
+  <p class="lede">Swapping the base is not free, and you should know the cost going in rather than after.</p>
+  <table class="cost">
+    <tr><td class="gold">Carries over</td><td>The meridian and treatment point placement, because it is derived from measured landmarks rather than hardcoded coordinates. Re-probe a new body, and the points resolve against it.</td></tr>
+    <tr><td class="gold">Carries over</td><td>The verification suite. Every check that proves a point sits on skin, an organ sits at its vertebra, or the file runs offline.</td></tr>
+    <tr><td class="gold">Carries over</td><td>The viewer itself: the layer controls, the x-ray mode, the organ clock, the region cards, and the film pipeline that produced the walkthroughs.</td></tr>
+    <tr><td>Does not</td><td>The organs, skeleton and muscles built this summer. Real geometry replaces them outright. That is a meaningful share of what August paid for, and a swap writes it off.</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">05</span><span class="label">Why it matters for (se)</span></div>
+  <h2>Points that land on real landmarks</h2>
+  <div class="value">
+    <div class="v"><b>Credibility with clinicians</b><span>A provider looking at the current model can tell it is illustrative. On a scan-derived skeleton, the treatment points sit on bone landmarks that a practitioner recognises, which is the difference between a teaching tool and a graphic.</span></div>
+    <div class="v"><b>The poster becomes possible</b><span>The numbered acupoints are defined proportionally against real bone landmarks. A real skeleton is what makes placing them defensible rather than approximate.</span></div>
+    <div class="v"><b>It stops being an experiment</b><span>Right now every improvement is another layer on the same foundation. Changing the foundation once ends that pattern.</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">06</span><span class="label">What I would do</span></div>
+  <h2>Park it, or price it. Not both.</h2>
+  <p class="lede">My honest recommendation is the one in my email: park the anatomy model for September and put the hours into the education and franchise onboarding gaps, which are the more valuable problem and closer to what you brought me in for.</p>
+  <p class="lede">If the model does come back, it should come back as its own decision with a licensing number attached, not as an open line on the retainer. I can get quotes from Zygote and BioDigital in a few days. That turns this from an open-ended spend into a figure you can say yes or no to.</p>
+</section>
+
+<div class="next">
+  <h2>Either answer works</h2>
+  <p>Tell me to get the quotes, or tell me to shelve it and point September at the content gaps. Both are good outcomes. The only bad one is spending another month layering.</p>
+  <a class="cta" href="mailto:Brice@perkinsproduction.com?subject=Re%3A%20the%203D%20model">Send me the call</a>
+</div>
+
+<footer>
+  <div class="b">PERKINS PRODUCTION</div>
+  Brice Perkins &middot; Owner / Creative Director &middot; (240) 818-1955 &middot; Brice@perkinsproduction.com
+</footer>
+
+</div>
+</body>
+</html>
