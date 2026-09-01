@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Skip's Auto Repair | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --asphalt: #15181B; --steel: #1F2327; --steel-light: #2A2F34;
+    --paper: #F3F2EF; --panel: #FFFFFF; --line: #E1E0DA;
+    --red: #C8202A; --red-deep: #A11820; --chrome: #B9BEC4;
+    --ink: #1B1D20; --gray: #5D6269; --white: #FAFAF8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400; line-height: 1.65; font-size: 17px;
+  }
+  h1, h2, h3 { font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; text-transform: uppercase; }
+  .concept-ribbon {
+    background: var(--asphalt); color: #C9CDD2; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: #E4626A; font-weight: 500; }
+  .brand-band { background: var(--panel); text-align: center; padding: 22px 20px 16px; border-bottom: 1px solid var(--line); }
+  .brand-band img { width: 300px; max-width: 78vw; height: auto; display: inline-block; }
+
+  /* Shop tape divider */
+  .tape { height: 8px; background: repeating-linear-gradient(-45deg, var(--red) 0 14px, var(--asphalt) 14px 28px); }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: CSS-only shop-floor art, the photo slot itself */
+  .hero {
+    position: relative; min-height: 82vh; display: flex; align-items: flex-end; overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(200,32,42,0.18), transparent 58%),
+      radial-gradient(70% 50% at 85% 90%, rgba(185,190,196,0.10), transparent 60%),
+      linear-gradient(180deg, #22262B 0%, #131518 100%);
+  }
+  .hero .plate {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 16px),
+      repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 16px);
+  }
+  .shotcap {
+    position: absolute; right: 20px; bottom: 16px; z-index: 2;
+    font-size: 11.5px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55);
+  }
+  .shotcap::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--red); margin-right: 8px; vertical-align: 1px; }
+  .hero-inner { position: relative; width: 100%; max-width: 1080px; margin: 0 auto; padding: 80px 28px 90px; color: var(--white); }
+  .hero .est { font-size: 12.5px; letter-spacing: 4px; text-transform: uppercase; color: var(--chrome); font-weight: 500; margin-bottom: 12px; }
+  h1 {
+    font-weight: 700; font-size: clamp(58px, 10vw, 118px); line-height: 0.92;
+    letter-spacing: 0.5px; text-wrap: balance; margin-bottom: 14px;
+  }
+  h1 .red { color: var(--red); }
+  .hero .tag { font-size: clamp(18px, 2.4vw, 23px); color: #D7DADE; font-weight: 400; font-style: italic; margin-bottom: 34px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.12s; } .hero .rise.d2 { animation-delay: 0.3s; }
+  .hero .rise.d3 { animation-delay: 0.5s; } .hero .rise.d4 { animation-delay: 0.72s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    padding: 14px 28px; border: 1px solid var(--chrome); color: var(--white);
+    background: rgba(21,24,27,0.4); transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn.solid { background: var(--red); border-color: var(--red); }
+  .btn:hover, .btn:focus-visible { background: var(--white); border-color: var(--white); color: var(--asphalt); outline: none; }
+
+  /* Stat bar */
+  .stats { background: var(--panel); border-bottom: 1px solid var(--line); }
+  .stats-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat { padding: 34px 20px 30px; text-align: center; border-left: 1px solid var(--line); }
+  .stat:first-child { border-left: none; }
+  .stat b { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 44px; line-height: 1; color: var(--red); margin-bottom: 6px; }
+  .stat span { font-size: 13.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); line-height: 1.5; display: block; }
+
+  /* Intro */
+  .intro { max-width: 760px; margin: 0 auto; padding: 88px 28px 76px; text-align: center; }
+  .intro p.big { font-size: clamp(22px, 3vw, 29px); line-height: 1.4; font-weight: 400; color: var(--ink); text-wrap: balance; }
+  .intro p.big b { color: var(--red); font-weight: 500; }
+  .intro .rule { width: 64px; height: 3px; background: var(--red); margin: 30px auto 0; }
+
+  /* Services board */
+  .services { max-width: 1080px; margin: 0 auto; padding: 0 28px 90px; }
+  .kicker { font-size: 12.5px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--red); font-weight: 500; margin-bottom: 10px; }
+  .services h2, .quotes h2, .cta h2 { font-weight: 700; font-size: clamp(32px, 4.6vw, 46px); color: var(--ink); margin-bottom: 8px; }
+  .services .lede { color: var(--gray); max-width: 62ch; margin-bottom: 36px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .svc { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--red); padding: 20px 22px 22px; }
+  .svc h3 { font-weight: 600; font-size: 22px; letter-spacing: 0.5px; color: var(--ink); margin-bottom: 5px; }
+  .svc p { font-size: 14.5px; color: var(--gray); line-height: 1.55; }
+  .svc-note { margin-top: 26px; font-size: 14.5px; color: var(--gray); font-style: italic; }
+  .svc-note b { color: var(--ink); font-weight: 500; font-style: normal; }
+
+  /* Story band */
+  .story { background: var(--steel); color: #DFE2E6; }
+  .story-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 1fr; gap: 0; align-items: stretch; }
+  .story .copy { padding: 84px 48px 84px 28px; display: flex; flex-direction: column; justify-content: center; }
+  .story .kicker { color: #E4626A; }
+  .story h2 { font-weight: 700; font-size: clamp(30px, 4.2vw, 44px); color: var(--white); line-height: 1.05; margin-bottom: 18px; text-wrap: balance; }
+  .story p { color: #B9BEC4; max-width: 52ch; margin-bottom: 14px; font-size: 16.5px; }
+  .story p b { color: var(--white); font-weight: 500; }
+  .story .ph {
+    position: relative; min-height: 440px; overflow: hidden;
+    background:
+      radial-gradient(80% 60% at 70% 25%, rgba(200,32,42,0.22), transparent 60%),
+      linear-gradient(150deg, #2C3136 0%, #17191C 75%);
+  }
+  .story .ph .ghost {
+    position: absolute; right: -14px; bottom: -34px; font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 220px; line-height: 1; color: rgba(255,255,255,0.05); user-select: none;
+  }
+  .story .ph .plate { position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 16px); }
+
+  /* Quotes */
+  .quotes { max-width: 860px; margin: 0 auto; padding: 96px 28px 80px; text-align: center; }
+  blockquote { font-size: clamp(21px, 2.8vw, 27px); line-height: 1.45; font-style: italic; color: var(--ink); margin-bottom: 16px; text-wrap: balance; }
+  blockquote b { color: var(--red); font-style: normal; font-weight: 500; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-bottom: 48px; }
+  .quotes .score { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 19px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink); }
+  .quotes .score b { color: var(--red); font-size: 26px; }
+
+  /* Film band */
+  .film { background: var(--asphalt); color: #E4E6E9; }
+  .film-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px; overflow: hidden;
+    background:
+      radial-gradient(90% 70% at 30% 22%, rgba(200,32,42,0.34), transparent 56%),
+      radial-gradient(70% 60% at 78% 82%, rgba(185,190,196,0.14), transparent 62%),
+      linear-gradient(160deg, #24282D 0%, #0F1113 72%);
+  }
+  .film .still .plate { position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 16px); }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--chrome);
+    background: rgba(21,24,27,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--chrome); margin-left: 5px;
+  }
+  .film .still .shotcap { right: auto; left: 20px; }
+  .film .copy { padding: 84px 28px 84px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: #E4626A; }
+  .film h2 { font-weight: 700; font-size: clamp(30px, 4vw, 44px); line-height: 1.05; margin-bottom: 18px; color: var(--white); text-wrap: balance; }
+  .film p { color: #A7ACB2; max-width: 50ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14.5px; font-style: italic; color: #8B9096; }
+  .film p.fine b { color: #E4626A; font-weight: 500; }
+
+  /* Contact CTA */
+  .cta { text-align: center; padding: 96px 28px 90px; }
+  .cta .phone {
+    display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: clamp(40px, 7vw, 64px); color: var(--ink); text-decoration: none; line-height: 1; margin: 8px 0 10px;
+  }
+  .cta .phone:hover, .cta .phone:focus-visible { color: var(--red); outline: none; }
+  .cta p.addr { color: var(--gray); margin-bottom: 30px; }
+  .cta .btn { border-color: var(--asphalt); color: var(--asphalt); background: transparent; }
+  .cta .btn.solid { background: var(--red); border-color: var(--red); color: var(--white); }
+  .cta .btn:hover, .cta .btn:focus-visible { background: var(--asphalt); border-color: var(--asphalt); color: var(--white); }
+  .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+  .cta .fine { font-size: 13.5px; color: var(--gray); font-style: italic; }
+
+  footer { background: var(--asphalt); color: #9BA0A6; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: var(--white); font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  footer .name-line b { color: #E4626A; }
+  footer a { color: var(--chrome); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #2A2F34; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-left: none; border-top: 1px solid var(--line); }
+    .stat:nth-child(-n+2) { border-top: none; }
+    .story-grid, .film-grid { grid-template-columns: 1fr; }
+    .story .copy { padding: 60px 28px 48px; }
+    .story .ph { min-height: 320px; }
+    .film .copy { padding: 60px 28px; }
+    .film .still { min-height: 340px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Skip's Auto Repair, prepared by Perkins Production &middot; not the live website</div>
+<div class="brand-band"><img src="/concepts/skips-auto-repair/logo.png" alt="Skip's Auto Repair"></div>
+
+<section class="hero">
+  <div class="plate"></div>
+  <p class="shotcap">Bay doors at opening time, filmed by Perkins Production</p>
+  <div class="hero-inner">
+    <p class="est rise d1">214 Broadway Street &middot; Frederick, Maryland</p>
+    <h1 class="rise d2"><span class="red">Skip's</span> Auto Repair</h1>
+    <p class="tag rise d3">Serving Frederick County with family pride, since 1978.</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13016629876">Call (301) 662-9876</a>
+      <a class="btn" href="https://maps.google.com/?q=214+Broadway+St,+Frederick,+MD">Get directions</a>
+    </div>
+  </div>
+</section>
+<div class="tape"></div>
+
+<section class="stats reveal">
+  <div class="stats-grid">
+    <div class="stat"><b>1978</b><span>Family owned on Broadway Street ever since</span></div>
+    <div class="stat"><b>4.9 of 5</b><span>Across 69 verified CARFAX reviews</span></div>
+    <div class="stat"><b>ASE</b><span>Every technician certified</span></div>
+    <div class="stat"><b>30+</b><span>Services under one roof</span></div>
+  </div>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Frederick has plenty of places to drop off a car. It has exactly one Skip's: <b>the same family, the same street, almost fifty years</b> of fixing it right and charging fair.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="services reveal" id="services">
+  <p class="kicker">The board</p>
+  <h2>What we do</h2>
+  <p class="lede">More than thirty services under one roof, handled by ASE Certified technicians. If it rolls, we work on it.</p>
+  <div class="svc-grid">
+    <div class="svc"><h3>Maryland State Inspections</h3><p>Buying, selling, or registering: get it inspected where Frederick already goes.</p></div>
+    <div class="svc"><h3>Oil Changes and Maintenance</h3><p>The everyday care that keeps small problems from becoming big ones.</p></div>
+    <div class="svc"><h3>Engines and Transmissions</h3><p>Preferred Installer for Jasper Engines and Transmissions.</p></div>
+    <div class="svc"><h3>Diesel Service</h3><p>Trucks are welcome here. Diesel work is part of the everyday schedule.</p></div>
+    <div class="svc"><h3>Hybrid Service</h3><p>Newer technology, same honest shop.</p></div>
+    <div class="svc"><h3>Custom Exhaust</h3><p>Built for your vehicle, not pulled off a shelf.</p></div>
+    <div class="svc"><h3>Fleet Services</h3><p>Keep your work vehicles working. One shop for the whole fleet.</p></div>
+    <div class="svc"><h3>Towing and Free Shuttle</h3><p>We can bring the car in, and we can get you where you need to be.</p></div>
+  </div>
+  <p class="svc-note"><b>Financing offered.</b> A needed repair should not have to wait on payday.</p>
+</section>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="copy reveal">
+      <p class="kicker">Since 1978</p>
+      <h2>The shop your neighbors already trust</h2>
+      <p>Skip's has been a family operation at 214 Broadway Street since 1978. Almost five decades in the same town builds a certain kind of reputation: the kind where customers send their kids, and then their kids' kids.</p>
+      <p><b>Serving Frederick County with family pride</b> is not a slogan somebody wrote for us. It is just what has been happening on Broadway Street since the doors opened.</p>
+    </div>
+    <div class="ph reveal">
+      <div class="plate"></div>
+      <div class="ghost">1978</div>
+      <p class="shotcap">The shop on Broadway Street, shot by Perkins Production</p>
+    </div>
+  </div>
+</section>
+<div class="tape"></div>
+
+<section class="quotes reveal">
+  <p class="kicker" style="text-align:center;">In their words</p>
+  <blockquote>&ldquo;Fast turnaround, and the price was <b>fair</b>. No surprises when I picked it up.&rdquo;</blockquote>
+  <cite>A CARFAX reviewer, 2026</cite>
+  <blockquote>&ldquo;They had me back on the road quicker than I expected.&rdquo;</blockquote>
+  <cite>A CARFAX reviewer, 2026</cite>
+  <p class="score"><b>4.9 of 5 stars</b> &middot; 69 verified CARFAX reviews</p>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="plate"></div>
+      <div class="play"><span></span></div>
+      <p class="shotcap">Under the lift in bay one, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>The finished site opens with your shop, not a stock photo</h2>
+      <p>This panel is a placeholder. On the real site it is film: your bay doors rolling up in the morning, a lift rising, your technicians' hands doing work most shops just talk about.</p>
+      <p>Perkins Production shoots photography and cinema at your shop, on Broadway Street, so the website finally looks like the business it represents.</p>
+      <p class="fine"><b>A 4.9-star shop deserves a website that proves it in the first three seconds.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="cta reveal" id="visit">
+  <p class="kicker" style="text-align:center;">Get scheduled</p>
+  <h2>One call does it</h2>
+  <a class="phone" href="tel:+13016629876">(301) 662-9876</a>
+  <p class="addr">214 Broadway Street, Frederick, Maryland</p>
+  <div class="cta-row">
+    <a class="btn solid" href="tel:+13016629876">Call the shop</a>
+    <a class="btn" href="https://maps.google.com/?q=214+Broadway+St,+Frederick,+MD">Get directions</a>
+  </div>
+  <p class="fine">On the finished site, this is also an online request form that lands straight in your inbox.</p>
+</section>
+
+<footer>
+  <p class="name-line"><b>Skip's</b> Auto Repair</p>
+  <p>214 Broadway Street, Frederick, Maryland &middot; (301) 662-9876</p>
+  <p>Family owned since 1978 &middot; ASE Certified technicians &middot; Jasper Engines and Transmissions Preferred Installer</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

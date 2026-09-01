@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Emmitsburg Antique Mall | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F4EBD9; --paper-deep: #EADDC2; --ink: #2E2418;
+    --brick: #9E3B26; --brick-deep: #7C2C1B; --mustard: #C4922E;
+    --teal: #33605C; --soft: #7A6C57; --line: #D8C9A8; --white: #FBF6EA;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--brick-deep); color: #F2E4CE; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: #F0C878; font-weight: 600; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: a vintage handbill in aged paper */
+  .hero {
+    position: relative; min-height: 88vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(196,146,46,0.16), transparent 55%),
+      radial-gradient(ellipse at 15% 100%, rgba(158,59,38,0.10), transparent 50%),
+      radial-gradient(ellipse at 88% 90%, rgba(51,96,92,0.10), transparent 45%),
+      var(--paper);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; opacity: 0.5; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ccircle cx='16' cy='22' r='1.1' fill='%239E3B26' opacity='0.16'/%3E%3Ccircle cx='84' cy='58' r='1.1' fill='%2333605C' opacity='0.14'/%3E%3Ccircle cx='48' cy='96' r='1.1' fill='%23C4922E' opacity='0.18'/%3E%3C/svg%3E");
+  }
+  .hero-card {
+    position: relative; max-width: 780px; margin: 56px 22px; padding: 58px 34px 54px;
+    border: 2px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 5px;
+    background: var(--white); box-shadow: 0 18px 50px rgba(46,36,24,0.14);
+  }
+  .hero .est {
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--brick); font-weight: 600; margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Besley', Georgia, serif; font-weight: 800;
+    font-size: clamp(44px, 8vw, 78px); line-height: 1.0; letter-spacing: 0.5px;
+    text-transform: uppercase; text-wrap: balance; margin-bottom: 6px;
+  }
+  h1 .town { display: block; font-size: clamp(20px, 3.4vw, 30px); font-weight: 600; letter-spacing: 6px; color: var(--teal); margin-bottom: 10px; }
+  .hero .tag {
+    font-family: 'Besley', Georgia, serif; font-style: italic; font-weight: 400;
+    font-size: clamp(18px, 2.6vw, 24px); color: var(--soft); margin: 16px 0 30px;
+  }
+  .hero .divider { display: flex; align-items: center; gap: 12px; justify-content: center; margin: 0 auto 26px; color: var(--mustard); }
+  .hero .divider::before, .hero .divider::after { content: ''; height: 1px; width: 70px; background: var(--line); }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    padding: 14px 28px; border: 1.5px solid var(--brick); color: var(--brick);
+    background: transparent; transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--brick); color: var(--white); }
+  .btn:hover, .btn:focus-visible { background: var(--brick-deep); border-color: var(--brick-deep); color: var(--white); outline: none; }
+
+  /* Intro */
+  .intro { max-width: 740px; margin: 0 auto; padding: 92px 28px 72px; text-align: center; }
+  .intro p.big { font-family: 'Besley', Georgia, serif; font-size: clamp(23px, 3.2vw, 31px); line-height: 1.4; text-wrap: balance; }
+  .intro .rule { width: 56px; height: 3px; background: var(--mustard); margin: 28px auto 0; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--brick); font-weight: 600; margin-bottom: 14px; }
+  .section-h { font-family: 'Besley', Georgia, serif; font-weight: 800; font-size: clamp(30px, 4.4vw, 42px); line-height: 1.12; margin-bottom: 18px; text-wrap: balance; }
+
+  /* Aisles: what's in the building */
+  .aisles { max-width: 1100px; margin: 0 auto; padding: 0 28px 90px; text-align: center; }
+  .aisle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 38px; text-align: left; }
+  .aisle {
+    background: var(--white); border: 1px solid var(--line); padding: 24px 22px 26px; position: relative;
+  }
+  .aisle::before {
+    content: attr(data-n); position: absolute; top: 16px; right: 18px;
+    font-family: 'Besley', Georgia, serif; font-style: italic; font-size: 15px; color: var(--mustard);
+  }
+  .aisle b { display: block; font-family: 'Besley', Georgia, serif; font-weight: 600; font-size: 20px; margin-bottom: 6px; }
+  .aisle span { font-size: 14.5px; color: var(--soft); line-height: 1.55; display: block; }
+  .aisles .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 22px; }
+
+  /* Story band: brick, ticket-stub numbers */
+  .story { background: var(--brick-deep); color: #F2E4CE; padding: 96px 28px; }
+  .story-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+  .story .kicker { color: var(--mustard); }
+  .story p.lead { max-width: 62ch; margin: 0 auto 46px; color: #E5D0B0; }
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .stat {
+    border: 1.5px dashed rgba(240,200,120,0.55); padding: 28px 16px 26px;
+  }
+  .stat b { display: block; font-family: 'Besley', Georgia, serif; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1; color: #F0C878; margin-bottom: 8px; }
+  .stat span { font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; color: #DDBE8E; }
+
+  /* Nostalgia + day-trip panels */
+  .visit-day { max-width: 1100px; margin: 0 auto; padding: 96px 28px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: stretch; }
+  .panel { position: relative; min-height: 420px; overflow: hidden; border: 1px solid var(--line); display: flex; align-items: flex-end; }
+  .panel .cap {
+    position: relative; margin: 18px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--white); background: rgba(46,36,24,0.72); padding: 7px 12px;
+  }
+  .panel.candy {
+    background:
+      radial-gradient(circle at 24% 30%, rgba(196,146,46,0.55), transparent 34%),
+      radial-gradient(circle at 70% 22%, rgba(158,59,38,0.5), transparent 30%),
+      radial-gradient(circle at 46% 68%, rgba(51,96,92,0.5), transparent 36%),
+      radial-gradient(circle at 84% 76%, rgba(196,146,46,0.45), transparent 30%),
+      linear-gradient(160deg, #6B4A2A, #3C2B18);
+  }
+  .panel.candy::before {
+    content: ''; position: absolute; inset: 0; opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ccircle cx='14' cy='14' r='5' fill='none' stroke='%23F0C878' stroke-width='1' opacity='0.4'/%3E%3Ccircle cx='46' cy='44' r='5' fill='none' stroke='%23F2E4CE' stroke-width='1' opacity='0.3'/%3E%3C/svg%3E");
+  }
+  .day-copy { display: flex; flex-direction: column; justify-content: center; padding: 12px 8px; }
+  .day-copy p { color: var(--soft); margin-bottom: 14px; max-width: 52ch; }
+  .day-copy ul { list-style: none; margin-top: 8px; }
+  .day-copy li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+  .day-copy li b { font-weight: 600; color: var(--teal); }
+
+  /* Film band */
+  .film { background: var(--teal); color: #EDF3EF; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; align-items: stretch; }
+  .film .still { position: relative; min-height: 460px; overflow: hidden;
+    background:
+      linear-gradient(200deg, rgba(240,200,120,0.28), transparent 45%),
+      radial-gradient(ellipse at 30% 75%, rgba(158,59,38,0.4), transparent 55%),
+      linear-gradient(160deg, #24443F, #142A27);
+  }
+  .film .still::before {
+    content: ''; position: absolute; inset: 0; opacity: 0.28;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Crect x='12' y='16' width='28' height='20' fill='none' stroke='%23F0C878' stroke-width='1' opacity='0.5'/%3E%3Ccircle cx='66' cy='62' r='11' fill='none' stroke='%23F2E4CE' stroke-width='1' opacity='0.4'/%3E%3Ccircle cx='66' cy='62' r='2' fill='%23F2E4CE' opacity='0.4'/%3E%3C/svg%3E");
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid #F0C878;
+    background: rgba(20,42,39,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent #F0C878; margin-left: 5px;
+  }
+  .film .cap {
+    position: absolute; left: 18px; bottom: 18px; font-size: 12px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--white); background: rgba(20,42,39,0.72); padding: 7px 12px;
+  }
+  .film .copy { padding: 84px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: #F0C878; }
+  .film h2 { font-family: 'Besley', Georgia, serif; font-weight: 800; font-size: clamp(30px, 4vw, 42px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .film p { color: #CBDCD3; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; color: #A8C0B4; font-style: italic; }
+  .film p.fine b { color: #F0C878; font-weight: 600; }
+
+  /* Quotes */
+  .quotes { max-width: 860px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  blockquote { font-family: 'Besley', Georgia, serif; font-style: italic; font-size: clamp(20px, 2.8vw, 26px); line-height: 1.5; margin-bottom: 18px; text-wrap: balance; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 52px; }
+  .quotes cite:last-child { margin-bottom: 0; }
+
+  /* Visit / CTA */
+  .visit { background: var(--paper-deep); padding: 100px 28px; }
+  .visit-inner { max-width: 980px; margin: 0 auto; text-align: center; }
+  .visit-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0 34px; text-align: left; }
+  .vcard { background: var(--white); border: 1px solid var(--line); padding: 26px 24px; }
+  .vcard b { display: block; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--brick); font-weight: 600; margin-bottom: 10px; }
+  .vcard p { font-size: 16px; line-height: 1.6; }
+  .vcard a { color: var(--teal); text-decoration: none; border-bottom: 1px solid var(--mustard); }
+  .visit .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 20px; }
+
+  footer { background: var(--brick-deep); color: #DDBE8E; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #F2E4CE; font-family: 'Besley', Georgia, serif; font-size: 19px; margin-bottom: 8px; }
+  footer a { color: #F0C878; text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #8E3B27; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .aisle-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .visit-day { grid-template-columns: 1fr; padding: 72px 24px; }
+    .panel { min-height: 320px; }
+    .film-grid { grid-template-columns: 1fr; }
+    .film .still { min-height: 340px; }
+    .film .copy { padding: 56px 28px; }
+    .visit-cards { grid-template-columns: 1fr; }
+    .hero-card { padding: 44px 22px 42px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Emmitsburg Antique Mall, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <div class="hero-card">
+    <p class="est rise d1">Established 1988 &middot; 1 Chesapeake Ave &middot; Emmitsburg, Maryland</p>
+    <h1 class="rise d2"><span class="town">Emmitsburg</span>Antique Mall</h1>
+    <p class="tag rise d3">34,000 square feet. More than 120 dealers. One very good afternoon.</p>
+    <div class="divider rise d3">&#10045;</div>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13014476471">Call (301) 447-6471</a>
+      <a class="btn" href="https://maps.google.com/?q=1+Chesapeake+Ave,+Emmitsburg,+MD" rel="noopener">Get directions</a>
+      <a class="btn" href="#visit">Plan your visit</a>
+    </div>
+  </div>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Nobody walks these aisles fast. Every booth belongs to a different dealer, every case holds a different decade, and the thing you came for is never the thing you leave with.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="aisles reveal" id="aisles">
+  <p class="kicker">What's in the building</p>
+  <h2 class="section-h">Eight ways to lose track of time</h2>
+  <div class="aisle-grid">
+    <div class="aisle" data-n="No. 1"><b>Sports cards</b><span>Cases of cards spanning eras, waiting for the collector who knows what they're looking at.</span></div>
+    <div class="aisle" data-n="No. 2"><b>Antique clocks</b><span>Mantel, wall, and shelf clocks from dealers who know their movements.</span></div>
+    <div class="aisle" data-n="No. 3"><b>Vintage clothing</b><span>Racks of wearable history, one size run and one owner at a time.</span></div>
+    <div class="aisle" data-n="No. 4"><b>Quilts</b><span>Hand-pieced and machine-stitched, the kind that get passed down for a reason.</span></div>
+    <div class="aisle" data-n="No. 5"><b>Glassware</b><span>Shelves that catch the light: patterns, colors, and complete sets still together.</span></div>
+    <div class="aisle" data-n="No. 6"><b>Primitives</b><span>Farmhouse pieces with the wear left honest, straight out of the countryside.</span></div>
+    <div class="aisle" data-n="No. 7"><b>Mid-Century Modern</b><span>Clean lines and warm teak for the collectors chasing the 20th century.</span></div>
+    <div class="aisle" data-n="No. 8"><b>Paper ephemera</b><span>Postcards, advertisements, and printed odds and ends that survived on purpose.</span></div>
+  </div>
+  <p class="fine">On the finished site, each category links to a browsable dealer directory, so more than 120 dealers finally get a page of their own.</p>
+</section>
+
+<section class="story reveal">
+  <div class="story-inner">
+    <p class="kicker">Since 1988</p>
+    <h2 class="section-h">A destination, not a detour</h2>
+    <p class="lead">Emmitsburg Antique Mall has anchored 1 Chesapeake Ave for nearly four decades: one building, thousands of stories, and a steady stream of day-trippers who plan their whole Saturday around it.</p>
+    <div class="stat-row">
+      <div class="stat"><b>1988</b><span>The year it all started</span></div>
+      <div class="stat"><b>34,000</b><span>Square feet of hunting ground</span></div>
+      <div class="stat"><b>120+</b><span>Dealers under one roof</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="visit-day reveal">
+  <div class="panel candy">
+    <p class="cap">The penny candy counter, shot by Perkins Production</p>
+  </div>
+  <div class="day-copy">
+    <p class="kicker">Make a day of it</p>
+    <h2 class="section-h">Worth the drive from anywhere</h2>
+    <p>Minutes from Catoctin Mountain and an easy run down from Gettysburg, the mall is the stop that turns a scenic drive into a full day out. Come for the hunt, stay for the penny candy and a bottled soda on the way out the door.</p>
+    <ul>
+      <li><b>Open every day,</b> 10am to 5pm, except major holidays</li>
+      <li><b>Dog-friendly,</b> so the whole family browses together</li>
+      <li><b>Wheelchair accessible</b> throughout the building</li>
+    </ul>
+  </div>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="play"><span></span></div>
+      <p class="cap">Opening frame: morning light down aisle one</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>The finished site opens with your aisles on camera</h2>
+      <p>These placeholder panels are standing in for the real thing: cinematic film and photography shot inside your building by Perkins Production. Sunlight through the front windows, a dealer arranging a case, the candy counter at ten in the morning.</p>
+      <p>A store this size can't fit in a phone screen, but the feeling of walking in can. That is what we film, and that is what makes a day-tripper choose Emmitsburg.</p>
+      <p class="fine"><b>120 dealers' best pieces deserve better than no photos at all.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="quotes reveal">
+  <p class="kicker">In their words</p>
+  <blockquote>&ldquo;Thirty-four thousand square feet, and I still found something in the last aisle I'd never seen anywhere else.&rdquo;</blockquote>
+  <cite>A regular day-tripper</cite>
+  <blockquote>&ldquo;We stopped in on the way back from Gettysburg and stayed the rest of the afternoon. The penny candy sealed it for the kids.&rdquo;</blockquote>
+  <cite>A visiting family</cite>
+</section>
+
+<section class="visit reveal" id="visit">
+  <div class="visit-inner">
+    <p class="kicker">Plan your visit</p>
+    <h2 class="section-h">Open every day, 10 to 5</h2>
+    <div class="visit-cards">
+      <div class="vcard"><b>Find us</b><p>1 Chesapeake Ave<br>Emmitsburg, MD<br><a href="https://maps.google.com/?q=1+Chesapeake+Ave,+Emmitsburg,+MD" rel="noopener">Get directions</a></p></div>
+      <div class="vcard"><b>Hours</b><p>Every day<br>10am to 5pm<br>Closed major holidays</p></div>
+      <div class="vcard"><b>Say hello</b><p><a href="tel:+13014476471">(301) 447-6471</a><br><a href="mailto:emmitsburgantiquemall@gmail.com">emmitsburgantiquemall@gmail.com</a></p></div>
+    </div>
+    <a class="btn solid" href="tel:+13014476471">Call the front counter</a>
+    <p class="fine">On the finished site, this page loads securely on your own domain, on every phone, every time.</p>
+  </div>
+</section>
+
+<footer>
+  <p class="name-line">Emmitsburg Antique Mall &middot; <em>Est. 1988</em></p>
+  <p>1 Chesapeake Ave, Emmitsburg, Maryland &middot; Open daily 10am to 5pm</p>
+  <p><a href="tel:+13014476471">(301) 447-6471</a> &middot; <a href="mailto:emmitsburgantiquemall@gmail.com">emmitsburgantiquemall@gmail.com</a></p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

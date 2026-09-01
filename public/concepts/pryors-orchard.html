@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Pryor's Orchard | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF3DE; --paper-deep: #F3E6C4; --card: #FFFCF0;
+    --ink: #40291B; --soft: #7A5F45; --line: #E5D4A9;
+    --barn: #A63C24; --barn-deep: #7E2B18; --peach: #E98A3B;
+    --gold: #D9A441; --leaf: #55703B; --leaf-deep: #35492A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Lora', Georgia, serif;
+    line-height: 1.75; font-size: 17px;
+  }
+  h1, h2, h3, .slab { font-family: 'Alfa Slab One', 'Rockwell', serif; font-weight: 400; text-transform: uppercase; }
+  .concept-ribbon {
+    background: var(--barn-deep); color: #F3DFC4; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+    font-family: 'Lora', Georgia, serif;
+  }
+  .concept-ribbon b { color: #F0C173; font-weight: 500; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: sun-washed sky, Catoctin ridgeline, fruit-crate label */
+  .hero {
+    position: relative; min-height: 92vh; display: flex; align-items: center; justify-content: center;
+    overflow: hidden; text-align: center;
+    background:
+      repeating-conic-gradient(from 0deg at 72% 24%, rgba(233,138,59,0.05) 0deg 6deg, transparent 6deg 12deg),
+      radial-gradient(circle at 72% 24%, rgba(249,211,134,0.95), rgba(249,211,134,0) 36%),
+      linear-gradient(180deg, #F6E3B8 0%, var(--paper) 62%);
+  }
+  .hero .mtns { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 190px; display: block; }
+  .crate-label {
+    position: relative; z-index: 1; background: rgba(255,252,240,0.72);
+    border: 3px solid var(--barn); padding: 46px 52px 40px; margin: 90px 24px 220px; max-width: 660px;
+  }
+  .crate-label::before { content: ''; position: absolute; inset: 7px; border: 1px solid var(--barn); pointer-events: none; }
+  .crate-label .grown {
+    font-size: 12.5px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--leaf); font-weight: 500; margin-bottom: 14px;
+  }
+  h1 { font-size: clamp(44px, 8.4vw, 84px); line-height: 0.98; color: var(--barn); letter-spacing: 1px; margin-bottom: 6px; }
+  h1 small { display: block; font-size: 0.42em; color: var(--ink); letter-spacing: 8px; margin-top: 8px; }
+  .crate-label .divider { display: flex; align-items: center; gap: 12px; justify-content: center; margin: 18px 0; color: var(--gold); }
+  .crate-label .divider::before, .crate-label .divider::after { content: ''; height: 1px; width: 70px; background: var(--gold); }
+  .crate-label .tag { font-style: italic; font-size: clamp(17px, 2.4vw, 21px); color: var(--soft); margin-bottom: 8px; }
+  .crate-label .est { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); margin-bottom: 26px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .hero .rise { opacity: 0; transform: translateY(20px); animation: rise 1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.1s; } .hero .rise.d2 { animation-delay: 0.3s; }
+  .hero .rise.d3 { animation-delay: 0.5s; } .hero .rise.d4 { animation-delay: 0.72s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-family: 'Lora', Georgia, serif;
+    font-size: 13.5px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+    padding: 14px 26px; border: 2px solid var(--barn); color: var(--barn);
+    background: transparent; transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--barn); color: #FFF6E6; }
+  .btn:hover, .btn:focus-visible { background: var(--barn-deep); border-color: var(--barn-deep); color: #FFF6E6; outline: none; }
+  .shot-note {
+    position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 1; font-size: 11.5px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,250,236,0.85); text-align: right;
+  }
+
+  /* Intro */
+  .intro { max-width: 680px; margin: 0 auto; padding: 92px 28px 72px; text-align: center; }
+  .intro p.big { font-size: clamp(21px, 3vw, 27px); line-height: 1.5; font-style: italic; text-wrap: balance; }
+  .intro .rule { width: 10px; height: 10px; border-radius: 50%; background: var(--peach); margin: 30px auto 0; box-shadow: -22px 0 0 var(--leaf), 22px 0 0 var(--barn); }
+
+  /* Crate grid */
+  .grow { max-width: 1080px; margin: 0 auto; padding: 0 28px 40px; text-align: center; }
+  .kicker { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--leaf); font-weight: 500; margin-bottom: 10px; }
+  .grow h2, .story h2, .visit h2 { font-size: clamp(28px, 4.4vw, 42px); line-height: 1.1; color: var(--ink); margin-bottom: 34px; letter-spacing: 0.5px; }
+  .crates { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; text-align: center; }
+  .crate { background: var(--card); border: 1px solid var(--line); padding: 22px 12px 18px; }
+  .crate .dot { width: 44px; height: 44px; border-radius: 50%; margin: 0 auto 12px; }
+  .crate h3 { font-size: 15px; letter-spacing: 1.5px; color: var(--ink); }
+  .crate span { display: block; font-size: 12.5px; font-style: italic; color: var(--soft); margin-top: 4px; }
+  .d-cherry { background: radial-gradient(circle at 34% 30%, #C4525A, #8E2B31 65%); }
+  .d-apricot { background: radial-gradient(circle at 34% 30%, #F6C077, #E89A3F 65%); }
+  .d-plum { background: radial-gradient(circle at 34% 30%, #96659B, #61395F 65%); }
+  .d-peach { background: radial-gradient(circle at 34% 30%, #F6AC7C, #E4794A 65%); }
+  .d-nectarine { background: radial-gradient(circle at 34% 30%, #E98A56, #C25327 65%); }
+  .d-pear { background: radial-gradient(circle at 34% 30%, #D3D98F, #A3AC55 65%); }
+  .d-blueberry { background: radial-gradient(circle at 34% 30%, #7B8BB8, #46538A 65%); }
+  .d-apple { background: radial-gradient(circle at 34% 30%, #E2724F, #B23A24 65%); }
+  .d-corn { background: radial-gradient(circle at 34% 30%, #F4DE94, #DDB94F 65%); }
+  .d-tomato { background: radial-gradient(circle at 34% 30%, #E06248, #B02E1E 65%); }
+  .d-melon { background: radial-gradient(circle at 34% 30%, #AECB84, #6F9A52 65%); }
+  .market-note { max-width: 640px; margin: 26px auto 0; font-style: italic; color: var(--soft); font-size: 15.5px; }
+
+  /* Call-first band */
+  .call-first { background: var(--barn); color: #FBEBD3; text-align: center; padding: 34px 28px; margin-top: 56px; }
+  .call-first p { font-size: clamp(17px, 2.4vw, 21px); font-style: italic; }
+  .call-first a { color: #F0C173; text-decoration: none; font-style: normal; font-weight: 500; letter-spacing: 1px; }
+
+  /* Barn story band */
+  .story { background: var(--paper-deep); }
+  .story-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; align-items: stretch; }
+  .story .copy { padding: 88px 56px; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+  .story .copy h2 { margin: 6px 0 18px; text-wrap: balance; }
+  .story p { color: var(--soft); max-width: 52ch; margin-bottom: 14px; }
+  .story p b { color: var(--barn); font-weight: 500; }
+  .barn-panel { position: relative; min-height: 460px; overflow: hidden;
+    background: linear-gradient(180deg, #F0DFB6 0%, #EAD5A4 100%); }
+  .barn-shape { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 78%; height: 72%;
+    background: repeating-linear-gradient(90deg, rgba(63,26,14,0.16) 0 3px, transparent 3px 34px), linear-gradient(180deg, #B0492E, #8C3520);
+    clip-path: polygon(0 34%, 18% 34%, 50% 0, 82% 34%, 100% 34%, 100% 100%, 0 100%); }
+  .barn-shape::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 26%; height: 44%; background: #4A2415; border: 3px solid #E9D6AC; border-bottom: none; }
+  .barn-panel .cap { position: absolute; left: 14px; bottom: 12px; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink); background: rgba(251,243,222,0.92); padding: 4px 10px; }
+
+  /* Timeline */
+  .years { max-width: 1040px; margin: 0 auto; padding: 96px 28px 90px; text-align: center; }
+  .year-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: left; margin-top: 10px; }
+  .year { border-top: 3px solid var(--gold); padding-top: 16px; }
+  .year b { display: block; font-family: 'Alfa Slab One', 'Rockwell', serif; font-weight: 400; font-size: 30px; color: var(--barn); margin-bottom: 6px; }
+  .year p { font-size: 14.5px; color: var(--soft); line-height: 1.65; }
+
+  /* Quote */
+  .quote-band { background: var(--leaf); color: #F2EED9; text-align: center; padding: 88px 28px; }
+  blockquote { font-style: italic; font-size: clamp(21px, 3vw, 28px); line-height: 1.55; max-width: 21em; margin: 0 auto 16px; text-wrap: balance; }
+  cite { display: block; font-style: normal; font-size: 12.5px; letter-spacing: 3px; text-transform: uppercase; color: #C9CFA8; }
+
+  /* Film band */
+  .film { background: var(--leaf-deep); color: #F2EED9; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still { position: relative; min-height: 460px; overflow: hidden;
+    background:
+      repeating-linear-gradient(180deg, rgba(0,0,0,0.14) 0 3px, transparent 3px 46px),
+      radial-gradient(circle at 50% 34%, rgba(233,138,59,0.85), rgba(233,138,59,0) 42%),
+      linear-gradient(180deg, #47603A 0%, var(--leaf-deep) 100%); }
+  .film .cap { position: absolute; left: 18px; bottom: 14px; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(242,238,217,0.65); }
+  .film .copy { padding: 88px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .film h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.12; margin: 6px 0 18px; text-wrap: balance; }
+  .film .kicker { color: #E3B45E; }
+  .film p { color: #CBD0AF; max-width: 50ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14.5px; font-style: italic; color: #A8B18B; }
+  .film p.fine b { color: #E3B45E; font-weight: 500; }
+
+  /* Visit */
+  .visit { text-align: center; padding: 100px 28px 96px; }
+  .visit .phone { font-family: 'Alfa Slab One', 'Rockwell', serif; font-size: clamp(34px, 6vw, 54px); color: var(--barn); text-decoration: none; display: inline-block; margin-bottom: 18px; letter-spacing: 1px; }
+  .visit .phone:hover { color: var(--barn-deep); }
+  .visit p { color: var(--soft); margin-bottom: 8px; }
+  .visit .hours { font-weight: 500; color: var(--ink); }
+  .visit .fine { font-size: 14.5px; font-style: italic; margin-top: 14px; margin-bottom: 30px; }
+
+  footer { background: var(--ink); color: #C8B296; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #F3E6C4; font-family: 'Alfa Slab One', 'Rockwell', serif; text-transform: uppercase; letter-spacing: 3px; font-size: 18px; margin-bottom: 8px; }
+  footer a { color: #F0C173; text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #5A4128; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .crate-label { padding: 36px 24px 32px; margin: 70px 18px 200px; }
+    .crates { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .crate .dot { width: 36px; height: 36px; }
+    .crate h3 { font-size: 13px; letter-spacing: 1px; }
+    .story-grid, .film-grid { grid-template-columns: 1fr; }
+    .story .copy, .film .copy { padding: 56px 28px; }
+    .barn-panel, .film .still { min-height: 320px; }
+    .year-grid { grid-template-columns: 1fr; gap: 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Pryor's Orchard, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <div class="crate-label">
+    <p class="grown rise d1">Catoctin Mountain Grown</p>
+    <h1 class="rise d2">Pryor's<small>Orchard</small></h1>
+    <div class="divider rise d2">&#10045;</div>
+    <p class="tag rise d3">Three generations of mountain fruit, and a barn full of it.</p>
+    <p class="est rise d3">Thurmont, Maryland &middot; Family grown since 1905</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13012712693">Call (301) 271-2693</a>
+      <a class="btn" href="#visit">Find the farm</a>
+    </div>
+  </div>
+  <svg class="mtns" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#7A9153" opacity="0.6" d="M0,140 L210,58 L430,150 L650,66 L900,158 L1150,78 L1440,148 L1440,200 L0,200 Z"></path>
+    <path fill="#4A6534" d="M0,172 L260,102 L520,176 L790,112 L1050,182 L1270,124 L1440,172 L1440,200 L0,200 Z"></path>
+  </svg>
+  <p class="shot-note">Morning on the mountain, filmed by Perkins Production</p>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Tucked against the side of Catoctin Mountain, just up the road from Cunningham Falls, Pryor's has been growing fruit on the same ground since 1905. Quiet, shaded, and worth every mile of the drive.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="grow reveal" id="grow">
+  <p class="kicker">What's growing</p>
+  <h2>Fruit worth the drive up the mountain</h2>
+  <div class="crates">
+    <div class="crate"><div class="dot d-cherry"></div><h3>Cherries</h3></div>
+    <div class="crate"><div class="dot d-apricot"></div><h3>Apricots</h3></div>
+    <div class="crate"><div class="dot d-plum"></div><h3>Plums</h3></div>
+    <div class="crate"><div class="dot d-peach"></div><h3>Peaches</h3></div>
+    <div class="crate"><div class="dot d-nectarine"></div><h3>Nectarines</h3></div>
+    <div class="crate"><div class="dot d-pear"></div><h3>Pears</h3></div>
+    <div class="crate"><div class="dot d-blueberry"></div><h3>Blueberries</h3></div>
+    <div class="crate"><div class="dot d-apple"></div><h3>Apples</h3><span>Honeycrisp &middot; Gala &middot; Ginger Gold</span></div>
+    <div class="crate"><div class="dot d-corn"></div><h3>Sweet Corn</h3></div>
+    <div class="crate"><div class="dot d-tomato"></div><h3>Tomatoes</h3></div>
+    <div class="crate"><div class="dot d-melon"></div><h3>Melons</h3></div>
+  </div>
+  <p class="market-note">And on the barn market shelves: sparkling cider, nuts, and jellies to carry a little of the mountain home.</p>
+</section>
+
+<div class="call-first reveal">
+  <p>Picking changes by the week and the weather. <a href="tel:+13012712693">Please always call first: (301) 271-2693</a></p>
+</div>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="barn-panel reveal">
+      <div class="barn-shape" aria-hidden="true"></div>
+      <p class="cap">Inside the 1940 barn market, shot by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">The barn market</p>
+      <h2>Market days in the same barn since 1940</h2>
+      <p>The barn went up in 1940, held together with <b>wooden-pin construction</b>, and it has been the heart of the farm ever since. Today it is where the fruit comes in from the rows and goes out in paper bags, alongside sparkling cider, nuts, and jellies.</p>
+      <p>No warehouse, no middleman. Just a barn that has smelled like ripe peaches every summer for more than eighty years.</p>
+    </div>
+  </div>
+</section>
+
+<section class="years reveal">
+  <p class="kicker">Three generations</p>
+  <h2 class="slab" style="font-size: clamp(28px, 4.4vw, 42px);">A century and counting on Pryor Road</h2>
+  <div class="year-grid">
+    <div class="year"><b>1905</b><p>The family farm begins on this ground as a dairy operation, the first of three generations to work it.</p></div>
+    <div class="year"><b>1940</b><p>The barn is raised with wooden-pin construction. The farm market still runs out of it today.</p></div>
+    <div class="year"><b>2008</b><p>The orchard earns GAP food-safety certification, and has held it ever since.</p></div>
+    <div class="year"><b>Today</b><p>The dairy cows are long gone, the fruit trees took their place, and the third generation keeps the rows picked.</p></div>
+  </div>
+</section>
+
+<section class="quote-band reveal">
+  <blockquote>&ldquo;Up against the mountain, past Cunningham Falls, where the shade falls over the fruit rows all afternoon.&rdquo;</blockquote>
+  <cite>The setting, in one sentence</cite>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <p class="cap">Golden hour in the peach rows, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>A 120-year-old orchard is the easiest film we will ever shoot</h2>
+      <p>Every panel on this page is a stand-in, and that is the point. The finished site opens with photography and film made at the orchard by Perkins Production: the barn doors swinging open at eight, baskets on the scale, the rows going gold at the end of the day.</p>
+      <p>An orchard against a mountain does not need a slogan. It needs a camera pointed at it, once, properly.</p>
+      <p class="fine"><b>The fruit sells itself in person.</b> The finished site lets it do that online.</p>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <p class="kicker">Visit the farm</p>
+  <h2>Open seven days in season</h2>
+  <a class="phone" href="tel:+13012712693">(301) 271-2693</a>
+  <p>13841B Pryor Rd, Thurmont, MD 21788</p>
+  <p class="hours">Open 7 days, 8am to 6pm in season</p>
+  <p class="fine">Picking changes with the weather and the week, so please always call before you drive out.</p>
+  <a class="btn solid" href="tel:+13012712693">Call the orchard</a>
+</section>
+
+<footer>
+  <p class="name-line">Pryor's Orchard</p>
+  <p>Catoctin Mountain grown, family operated since 1905</p>
+  <p>13841B Pryor Rd, Thurmont, MD 21788 &middot; (301) 271-2693</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

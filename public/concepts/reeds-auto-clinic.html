@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Reeds Auto Clinic | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F2F4F5; --white: #FFFFFF; --ink: #141C24; --gray: #5A6670;
+    --steel: #1C2C39; --steel-deep: #0F1922; --bay: #243847;
+    --signal: #F08A24; --signal-soft: #FFB25E; --line: #DBE1E5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400; line-height: 1.7; font-size: 16.5px;
+  }
+  h1, h2, h3 { font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; text-transform: uppercase; }
+  .concept-ribbon {
+    background: var(--steel-deep); color: #C9D3DB; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--signal-soft); font-weight: 500; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: the shop at evening, rendered in CSS until real film exists */
+  .hero {
+    position: relative; min-height: 88vh; display: flex; align-items: center;
+    background:
+      radial-gradient(58% 72% at 78% 10%, rgba(240,138,36,0.17), transparent 62%),
+      radial-gradient(40% 45% at 12% 90%, rgba(63,106,140,0.25), transparent 70%),
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.028) 0 2px, transparent 2px 11px),
+      linear-gradient(180deg, #223547 0%, var(--steel) 46%, var(--steel-deep) 100%);
+    color: #F4F7F9; overflow: hidden;
+  }
+  .hero::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 90px;
+    background: linear-gradient(180deg, transparent, rgba(6,11,15,0.55));
+  }
+  .hero-inner { position: relative; z-index: 1; width: 100%; max-width: 1080px; margin: 0 auto; padding: 90px 28px; }
+  .hero .est {
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--signal-soft); font-weight: 500; margin-bottom: 16px;
+  }
+  h1 {
+    font-weight: 700; font-size: clamp(58px, 10vw, 118px);
+    line-height: 0.92; letter-spacing: 1px; text-wrap: balance; margin-bottom: 14px;
+  }
+  h1 .thin { display: block; font-weight: 500; font-size: 0.44em; letter-spacing: 6px; color: #AEBECB; }
+  .hero .tag { font-size: clamp(17px, 2.3vw, 21px); font-weight: 300; color: #D6DFE6; max-width: 46ch; margin-bottom: 36px; }
+  .hero .tag b { color: var(--signal-soft); font-weight: 500; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.1s; } .hero .rise.d2 { animation-delay: 0.3s; }
+  .hero .rise.d3 { animation-delay: 0.5s; } .hero .rise.d4 { animation-delay: 0.72s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    padding: 14px 30px; border: 1px solid var(--signal); color: var(--signal-soft);
+    background: rgba(15,25,34,0.35); transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--signal); color: #16202A; }
+  .btn:hover, .btn:focus-visible { background: var(--signal-soft); border-color: var(--signal-soft); color: var(--steel-deep); outline: none; }
+  .shot-note {
+    position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 1; font-size: 11.5px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(214,223,230,0.6); text-align: right;
+  }
+
+  /* Intro */
+  .intro { max-width: 700px; margin: 0 auto; padding: 92px 28px 76px; text-align: center; }
+  .intro p.big { font-size: clamp(21px, 3vw, 27px); line-height: 1.45; font-weight: 300; text-wrap: balance; }
+  .intro p.big b { font-weight: 600; color: var(--steel); }
+  .intro .rule { width: 60px; height: 3px; background: var(--signal); margin: 30px auto 0; }
+
+  /* Services */
+  .services { max-width: 1080px; margin: 0 auto; padding: 0 28px 96px; }
+  .kicker { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; letter-spacing: 4px; text-transform: uppercase; color: var(--signal); font-weight: 600; margin-bottom: 10px; }
+  .services h2, .reviews h2, .visit h2 { font-weight: 700; font-size: clamp(32px, 4.6vw, 46px); letter-spacing: 0.5px; margin-bottom: 34px; color: var(--steel); }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .svc { background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--signal); padding: 24px 24px 26px; }
+  .svc h3 { font-size: 22px; font-weight: 600; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .svc p { font-size: 14.5px; color: var(--gray); line-height: 1.6; }
+  .svc-note { margin-top: 22px; font-size: 14.5px; color: var(--gray); font-style: italic; }
+
+  /* Story band */
+  .story { background: var(--steel); color: #E8EEF2; }
+  .story-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; align-items: stretch; }
+  .story .copy { padding: 88px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .story h2 { font-weight: 700; font-size: clamp(30px, 4vw, 42px); line-height: 1.05; letter-spacing: 0.5px; margin: 6px 0 18px; text-wrap: balance; }
+  .story p { color: #B9C6D0; max-width: 52ch; margin-bottom: 14px; font-weight: 300; }
+  .story p b { color: var(--signal-soft); font-weight: 500; }
+  .panel { position: relative; min-height: 440px; }
+  .panel .cap {
+    position: absolute; left: 18px; bottom: 14px; font-size: 11.5px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(232,238,242,0.65);
+  }
+  .panel.bays {
+    background:
+      radial-gradient(50% 60% at 30% 20%, rgba(240,138,36,0.22), transparent 65%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 88px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 64px),
+      linear-gradient(200deg, var(--bay), var(--steel-deep));
+  }
+
+  /* Reviews */
+  .reviews { max-width: 880px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  .stat-row { display: flex; justify-content: center; gap: 54px; flex-wrap: wrap; margin-bottom: 46px; }
+  .stat b { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 54px; font-weight: 700; line-height: 1; color: var(--steel); }
+  .stat span { font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); }
+  blockquote { font-size: clamp(21px, 3vw, 27px); font-weight: 300; font-style: italic; line-height: 1.5; margin-bottom: 14px; text-wrap: balance; }
+  blockquote b { font-weight: 600; font-style: normal; color: var(--steel); }
+  cite { display: block; font-style: normal; font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); }
+
+  /* Gallery strip: three shots that do not exist yet */
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--steel-deep); }
+  .slot { position: relative; height: 290px; }
+  .slot .cap { position: absolute; left: 16px; bottom: 12px; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(232,238,242,0.62); }
+  .slot.keys { background: radial-gradient(45% 55% at 60% 30%, rgba(255,178,94,0.28), transparent 68%), repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 26px), linear-gradient(180deg, #21313F, var(--steel-deep)); }
+  .slot.lift { background: repeating-linear-gradient(45deg, rgba(240,138,36,0.16) 0 14px, transparent 14px 34px), linear-gradient(180deg, #1B2A37, var(--steel-deep)); }
+  .slot.handshake { background: radial-gradient(52% 60% at 35% 45%, rgba(240,138,36,0.2), transparent 65%), radial-gradient(45% 60% at 78% 70%, rgba(63,106,140,0.3), transparent 70%), linear-gradient(180deg, #22364A, var(--steel-deep)); }
+
+  /* Film band */
+  .film { background: var(--steel-deep); color: #E8EEF2; border-top: 1px solid #22323F; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(60% 60% at 50% 42%, rgba(240,138,36,0.12), transparent 70%), linear-gradient(200deg, #1A2937, var(--steel-deep));
+  }
+  .dial { position: relative; width: min(230px, 56%); aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(255,255,255,0.16);
+    background: repeating-conic-gradient(rgba(255,178,94,0.55) 0deg 2deg, transparent 2deg 30deg); }
+  .dial::before { content: ''; position: absolute; inset: 9%; border-radius: 50%; background: var(--steel-deep); }
+  .dial::after {
+    content: ''; position: absolute; left: 50%; top: 50%; width: 38%; height: 3px; border-radius: 3px;
+    background: var(--signal); transform-origin: left center; transform: rotate(-142deg); box-shadow: 0 0 14px rgba(240,138,36,0.7);
+  }
+  .film .cap { position: absolute; left: 18px; bottom: 14px; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(232,238,242,0.6); }
+  .film .copy { padding: 88px 56px; display: flex; flex-direction: column; justify-content: center; }
+  .film h2 { font-weight: 700; font-size: clamp(30px, 4vw, 42px); line-height: 1.05; letter-spacing: 0.5px; margin: 6px 0 18px; text-wrap: balance; }
+  .film p { color: #B9C6D0; max-width: 50ch; margin-bottom: 14px; font-weight: 300; }
+  .film p.fine { font-size: 14px; font-style: italic; color: #8FA1AF; }
+  .film p.fine b { color: var(--signal-soft); font-weight: 500; }
+
+  /* Visit */
+  .visit { text-align: center; padding: 100px 28px 96px; }
+  .visit .phone { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(40px, 7vw, 64px); font-weight: 700; letter-spacing: 2px; color: var(--steel); text-decoration: none; display: inline-block; margin-bottom: 18px; }
+  .visit .phone:hover { color: var(--signal); }
+  .visit p { color: var(--gray); margin-bottom: 8px; }
+  .visit .hours { font-weight: 500; color: var(--ink); margin-bottom: 32px; }
+
+  footer { background: var(--steel-deep); color: #93A3B0; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #E8EEF2; font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: 3px; font-size: 20px; margin-bottom: 8px; }
+  footer a { color: var(--signal-soft); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #22323F; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .svc-grid { grid-template-columns: 1fr; }
+    .story-grid, .film-grid { grid-template-columns: 1fr; }
+    .story .copy, .film .copy { padding: 56px 28px; }
+    .panel { min-height: 320px; }
+    .film .still { min-height: 340px; }
+    .strip { grid-template-columns: 1fr; }
+    .slot { height: 200px; }
+    .stat-row { gap: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Reeds Auto Clinic, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="est rise d1">305 Braddock Avenue &middot; Frederick, Maryland</p>
+    <h1 class="rise d2">Reeds <span class="thin">Auto Clinic</span></h1>
+    <p class="tag rise d3">A reputation <b>more than 30 years</b> in the making. Family owned, owner operated, and still earning it one car at a time.</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13016687365">Call (301) 668-7365</a>
+      <a class="btn" href="#visit">Find the shop</a>
+    </div>
+  </div>
+  <p class="shot-note">Your shop at closing time, filmed by Perkins Production</p>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Frederick has plenty of places to get a car fixed. It has exactly one shop that <b>Wes Reed built from scratch</b> and still works in every day. That is why people keep coming back to Braddock Avenue.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="services reveal" id="services">
+  <p class="kicker">Domestic and import &middot; Full service</p>
+  <h2>One shop for everything your car needs</h2>
+  <div class="svc-grid">
+    <div class="svc"><h3>Diagnostics</h3><p>Straight answers first. We find the actual problem before anyone starts talking about parts.</p></div>
+    <div class="svc"><h3>Engine</h3><p>From routine service to major repair, on domestic and import vehicles alike.</p></div>
+    <div class="svc"><h3>Transmission</h3><p>Service and repair that keeps shifts smooth and small issues from becoming rebuilds.</p></div>
+    <div class="svc"><h3>Brakes</h3><p>Pads, rotors, and lines, plus the peace of mind that comes standard with them.</p></div>
+    <div class="svc"><h3>Heating and A/C</h3><p>Cold air in July, heat in January, done right the first time.</p></div>
+    <div class="svc"><h3>Alignment</h3><p>Straight tracking, even tire wear, and a wheel that points where you are going.</p></div>
+  </div>
+  <p class="svc-note">Plus scheduled preventive maintenance that keeps the small stuff from ever becoming the big stuff.</p>
+</section>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="copy reveal">
+      <p class="kicker">Family owned and operated</p>
+      <h2>Wes built this shop from scratch. He is still in it.</h2>
+      <p>Reeds Auto Clinic is not a franchise and never has been. Wes Reed started with tools, a work ethic, and a standard he refused to lower, and the reputation he built is now more than thirty years in the making.</p>
+      <p>He is still hands-on in the bays today, with family running the shop alongside him. <b>When the owner's name is on the sign and the owner's hands are on your car, the work gets done right.</b></p>
+    </div>
+    <div class="panel bays reveal">
+      <p class="cap">Wes in the bays, shot by Perkins Production</p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews reveal">
+  <p class="kicker">What drivers say</p>
+  <h2>A perfect score, verified</h2>
+  <div class="stat-row">
+    <div class="stat"><b>5.0</b><span>CARFAX rating</span></div>
+    <div class="stat"><b>12</b><span>Verified reviews</span></div>
+    <div class="stat"><b>30+</b><span>Years of reputation</span></div>
+  </div>
+  <blockquote>&ldquo;Always <b>honest</b> and great to work with.&rdquo;</blockquote>
+  <cite>A verified CARFAX reviewer, February 2026</cite>
+</section>
+
+<div class="strip">
+  <div class="slot keys reveal"><p class="cap">The morning lineup of keys, shot by Perkins Production</p></div>
+  <div class="slot lift reveal"><p class="cap">Under the lift, shot by Perkins Production</p></div>
+  <div class="slot handshake reveal"><p class="cap">The handshake at pickup, shot by Perkins Production</p></div>
+</div>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="dial" aria-hidden="true"></div>
+      <p class="cap">Morning at the clinic, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>The finished site opens with your shop, not a stock photo</h2>
+      <p>Every panel on this page is a placeholder, and that is the point. The real site opens with photography and film made at 305 Braddock Avenue by Perkins Production: the bay doors rolling up, Wes under a lift, the handshake when the keys come back.</p>
+      <p>Auto repair runs on trust, and nothing builds trust online like seeing the actual people who will touch your car.</p>
+      <p class="fine"><b>Real shop, real hands, real light.</b> No template can fake that.</p>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <p class="kicker">Stop by or call</p>
+  <h2>The clinic is on Braddock Avenue</h2>
+  <a class="phone" href="tel:+13016687365">(301) 668-7365</a>
+  <p>305 Braddock Avenue, Frederick, MD 21701</p>
+  <p class="hours">Monday to Friday, 8am to 5pm</p>
+  <a class="btn solid" href="tel:+13016687365" style="border:none;">Call the shop</a>
+</section>
+
+<footer>
+  <p class="name-line">Reeds Auto Clinic</p>
+  <p>A reputation more than 30 years in the making &middot; Family owned and operated</p>
+  <p>305 Braddock Avenue, Frederick, MD 21701 &middot; (301) 668-7365</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

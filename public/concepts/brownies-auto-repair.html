@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Brownie's Auto Repair | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3F1EA; --navy: #14263C; --navy-deep: #0E1B2C;
+    --blue: #1A60AF; --blue-bright: #3D82CE; --ink: #1B2430; --steel: #5D6673;
+    --red: #9E2433; --line: #DEDACD; --white: #FCFBF7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--navy-deep); color: #C9D4E2; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--blue-bright); font-weight: 600; }
+  .brand-band { background: var(--paper); text-align: center; padding: 24px 20px 18px; border-bottom: 3px solid var(--blue); }
+  .brand-band img { width: 150px; max-width: 60vw; height: auto; display: inline-block; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--blue); font-weight: 600; }
+
+  /* Hero: art-directed CSS panel, no borrowed photos */
+  .hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--navy); }
+  .hero .art {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 120% 55% at 50% 108%, rgba(61,130,206,0.34) 0%, rgba(61,130,206,0) 60%),
+      linear-gradient(12deg, rgba(158,36,51,0.16) 0%, rgba(158,36,51,0) 34%),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.028) 0 2px, transparent 2px 110px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52'%3E%3Cpath d='M52 0H0v52' fill='none' stroke='%23FFFFFF' stroke-opacity='0.045'/%3E%3C/svg%3E"),
+      linear-gradient(to bottom, #16293F 0%, var(--navy-deep) 100%);
+  }
+  .hero .watermark {
+    position: absolute; right: -0.06em; top: 4%;
+    font-family: 'Oswald', sans-serif; font-weight: 700; line-height: 0.9;
+    font-size: clamp(160px, 30vw, 380px); color: rgba(255,255,255,0.045);
+    letter-spacing: -2px; user-select: none; pointer-events: none;
+  }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,18,29,0.82) 0%, rgba(10,18,29,0.12) 55%, rgba(10,18,29,0) 100%); }
+  .hero .caption {
+    position: absolute; right: 18px; bottom: 14px; z-index: 2;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(201,212,226,0.6);
+  }
+  .hero-inner { position: relative; width: 100%; max-width: 1060px; margin: 0 auto; padding: 60px 28px 78px; color: var(--white); }
+  .hero .est {
+    font-size: 12.5px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--blue-bright); font-weight: 600; margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase;
+    font-size: clamp(44px, 8.4vw, 92px); line-height: 1.02; letter-spacing: 1px;
+    text-wrap: balance; margin-bottom: 14px;
+  }
+  .hero .tag { font-size: clamp(18px, 2.4vw, 23px); font-weight: 300; color: #DCE5F0; margin-bottom: 34px; max-width: 42ch; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    font-family: 'Oswald', sans-serif; padding: 15px 30px;
+    border: 1px solid var(--blue-bright); color: var(--blue-bright);
+    background: rgba(14,27,44,0.35); transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn.solid { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .btn:hover, .btn:focus-visible { background: var(--blue-bright); border-color: var(--blue-bright); color: var(--navy-deep); outline: none; }
+
+  /* Intro */
+  .intro { max-width: 740px; margin: 0 auto; padding: 96px 28px 78px; text-align: center; }
+  .intro p.big { font-family: 'Oswald', sans-serif; font-weight: 400; font-size: clamp(23px, 3.2vw, 31px); line-height: 1.4; text-wrap: balance; }
+  .intro .rule { width: 56px; height: 3px; background: var(--red); margin: 28px auto 0; }
+
+  /* Blue Seal credentials */
+  .seal { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .seal-inner { max-width: 1060px; margin: 0 auto; padding: 84px 28px; display: grid; grid-template-columns: 220px 1fr; gap: 52px; align-items: center; }
+  .seal .badge {
+    width: 200px; height: 200px; border-radius: 50%; margin: 0 auto;
+    background: var(--blue); color: var(--white); border: 6px double var(--white);
+    outline: 2px solid var(--blue); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    font-family: 'Oswald', sans-serif; box-shadow: 0 14px 34px rgba(20,38,60,0.22);
+  }
+  .seal .badge .b1 { font-size: 13px; letter-spacing: 3px; font-weight: 500; }
+  .seal .badge .b2 { font-size: 30px; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; line-height: 1.1; margin: 4px 0; }
+  .seal .badge .b3 { font-size: 11px; letter-spacing: 2.5px; font-weight: 400; text-transform: uppercase; color: #C4D8F0; }
+  .seal h2 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: clamp(28px, 4vw, 38px); letter-spacing: 0.5px; margin: 12px 0 14px; }
+  .seal p { color: var(--steel); max-width: 58ch; }
+  .cred-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .cred {
+    font-family: 'Oswald', sans-serif; font-size: 12.5px; letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 500; color: var(--navy);
+    border: 1px solid var(--line); border-left: 3px solid var(--blue);
+    background: var(--paper); padding: 10px 16px;
+  }
+
+  /* Services */
+  .services { max-width: 1060px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  .services h2 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: clamp(28px, 4.4vw, 40px); margin: 14px 0 44px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; }
+  .svc { background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--blue); padding: 30px 28px 32px; }
+  .svc .num { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 15px; color: var(--red); letter-spacing: 2px; margin-bottom: 10px; }
+  .svc h3 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; font-size: 21px; margin-bottom: 10px; }
+  .svc p { color: var(--steel); font-size: 15.5px; }
+  .services .fine { font-size: 13.5px; color: var(--steel); font-style: italic; margin-top: 26px; }
+
+  /* Heritage band */
+  .heritage { background: var(--navy); color: #DCE5F0; position: relative; overflow: hidden; }
+  .heritage::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 90% 70% at 15% 110%, rgba(61,130,206,0.22) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52'%3E%3Cpath d='M52 0H0v52' fill='none' stroke='%23FFFFFF' stroke-opacity='0.04'/%3E%3C/svg%3E");
+  }
+  .heritage-inner { position: relative; max-width: 1060px; margin: 0 auto; padding: 100px 28px; display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: center; }
+  .heritage .year { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: clamp(96px, 14vw, 170px); line-height: 0.95; color: var(--white); }
+  .heritage .year small { display: block; font-size: 13px; letter-spacing: 5px; text-transform: uppercase; color: var(--blue-bright); font-weight: 500; margin-bottom: 10px; }
+  .heritage h2 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: clamp(26px, 3.6vw, 36px); line-height: 1.2; margin: 12px 0 16px; color: var(--white); text-wrap: balance; }
+  .heritage p { color: #B9C6D6; max-width: 52ch; margin-bottom: 14px; }
+  .heritage p b { color: var(--white); font-weight: 600; }
+
+  /* Reviews */
+  .reviews { max-width: 820px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  blockquote { font-family: 'Oswald', sans-serif; font-weight: 400; font-size: clamp(22px, 3vw, 30px); line-height: 1.4; margin: 18px 0 14px; text-wrap: balance; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--steel); }
+  .platforms { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+  .platform { font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; color: var(--navy); border: 1px solid var(--line); background: var(--white); padding: 12px 22px; }
+
+  /* Film band */
+  .film { background: var(--navy-deep); color: #DCE5F0; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(158,36,51,0.28) 0%, transparent 62%),
+      radial-gradient(ellipse 70% 45% at 50% 0%, rgba(61,130,206,0.25) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 84px),
+      linear-gradient(to bottom, #13253B, #0B1626);
+  }
+  .film .still .caption {
+    position: absolute; left: 18px; bottom: 14px; font-size: 11.5px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(201,212,226,0.6);
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--blue-bright);
+    background: rgba(14,27,44,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--blue-bright); margin-left: 5px;
+  }
+  .film .copy { padding: 84px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: var(--blue-bright); margin-bottom: 16px; }
+  .film h2 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: clamp(28px, 3.8vw, 40px); line-height: 1.18; margin-bottom: 18px; text-wrap: balance; color: var(--white); }
+  .film p { color: #AEBDCF; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; font-style: italic; color: #8FA3BA; }
+  .film p.fine b { color: var(--blue-bright); font-weight: 600; }
+
+  /* Contact */
+  .contact { max-width: 1060px; margin: 0 auto; padding: 100px 28px; text-align: center; }
+  .contact h2 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: clamp(30px, 4.6vw, 44px); margin: 12px 0 10px; }
+  .contact .lead { color: var(--steel); margin-bottom: 40px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-bottom: 36px; }
+  .c-card { background: var(--white); border: 1px solid var(--line); padding: 26px 26px 28px; }
+  .c-card h3 { font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; font-size: 15px; letter-spacing: 2px; color: var(--blue); margin-bottom: 10px; }
+  .c-card p { font-size: 16px; color: var(--ink); }
+  .c-card p.small { font-size: 14px; color: var(--steel); margin-top: 6px; }
+  .c-card a { color: var(--navy); text-decoration: none; border-bottom: 1px solid var(--blue-bright); }
+
+  footer { background: var(--navy-deep); color: #93A3B6; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #DCE5F0; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 17px; margin-bottom: 8px; }
+  footer a { color: var(--blue-bright); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #22364E; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .seal-inner { grid-template-columns: 1fr; text-align: center; gap: 36px; }
+    .seal p { margin: 0 auto; }
+    .cred-row { justify-content: center; }
+    .svc-grid { grid-template-columns: 1fr; }
+    .heritage-inner { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .heritage p { margin-left: auto; margin-right: auto; }
+    .film-grid { grid-template-columns: 1fr; }
+    .film .still { min-height: 320px; }
+    .film .copy { padding: 56px 28px; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Brownie's Auto Repair, prepared by Perkins Production &middot; not the live website</div>
+<div class="brand-band"><img src="/concepts/brownies-auto-repair/logo.png" alt="Brownie's Auto Repair"></div>
+
+<section class="hero">
+  <div class="art"></div>
+  <div class="watermark" aria-hidden="true">1947</div>
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <p class="est rise d1">Walkersville, Maryland &middot; Since 1947</p>
+    <h1 class="rise d2">Brownie's<br>Auto Repair</h1>
+    <p class="tag rise d3">Nearly eight decades on West Frederick Street, and still the shop Walkersville trusts with its keys.</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13018458400">Call (301) 845-8400</a>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Brownie%27s+Auto+Repair+42+W+Frederick+St+Walkersville+MD" rel="noopener">Get directions</a>
+    </div>
+  </div>
+  <p class="caption">Your bay doors at opening time, filmed by Perkins Production</p>
+</section>
+
+<section class="intro reveal">
+  <p class="kicker">The shop on the corner</p>
+  <p class="big">Some shops chase customers. Brownie's has spent generations earning neighbors, serving Walkersville and Frederick from the same address since 1947.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="seal reveal">
+  <div class="seal-inner">
+    <div class="badge" role="img" aria-label="ASE Blue Seal of Excellence shop">
+      <span class="b1">ASE</span>
+      <span class="b2">Blue Seal</span>
+      <span class="b3">of Excellence</span>
+    </div>
+    <div>
+      <p class="kicker">Credentials that are earned, not claimed</p>
+      <h2>One of a limited number of Maryland shops with the Blue Seal</h2>
+      <p>The ASE Blue Seal of Excellence is not a sticker you buy. It is a shop-wide standard, and Brownie's holds it. Add state approval as an inspection and emission repair facility, and you have a garage that answers to a higher bar than most.</p>
+      <div class="cred-row">
+        <span class="cred">ASE Blue Seal of Excellence</span>
+        <span class="cred">MD State Inspection Facility #5953A</span>
+        <span class="cred">MD Emission Repair Facility</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services reveal">
+  <p class="kicker">What we do</p>
+  <h2>Straightforward work, done right</h2>
+  <div class="svc-grid">
+    <div class="svc">
+      <p class="num">01</p>
+      <h3>Maryland State Inspections</h3>
+      <p>An approved Maryland State Inspection Facility, #5953A. Buying, selling, or registering a vehicle? This is the shop to bring it to.</p>
+    </div>
+    <div class="svc">
+      <p class="num">02</p>
+      <h3>Emission Repairs</h3>
+      <p>A certified Maryland Emission Repair Facility. If your vehicle failed its emissions test, Brownie's can diagnose it and make it right.</p>
+    </div>
+    <div class="svc">
+      <p class="num">03</p>
+      <h3>Auto Repair &amp; Maintenance</h3>
+      <p>The everyday work of keeping Walkersville on the road, handled by a shop that has been doing exactly that since 1947.</p>
+    </div>
+  </div>
+  <p class="fine">The finished site lists your full service menu, written in plain language your customers actually search for.</p>
+</section>
+
+<section class="heritage">
+  <div class="heritage-inner">
+    <div class="reveal">
+      <p class="year"><small>Established</small>1947</p>
+    </div>
+    <div class="reveal">
+      <p class="kicker" style="color: var(--blue-bright);">The story</p>
+      <h2>Trucks have changed. The corner hasn't.</h2>
+      <p>Since 1947, drivers in Walkersville and Frederick have pulled into the same shop at <b>42 W Frederick St</b> and been treated the same way: honestly.</p>
+      <p>Nearly eight decades of vehicles have rolled through those bays. That kind of history is not something a new shop can copy, and it deserves a website that tells it properly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews reveal">
+  <p class="kicker">In their words</p>
+  <blockquote>The kind of shop neighbors recommend to neighbors, and have for generations.</blockquote>
+  <cite>Highly rated by local drivers</cite>
+  <div class="platforms">
+    <span class="platform">CARFAX</span>
+    <span class="platform">Yelp</span>
+    <span class="platform">Nextdoor</span>
+  </div>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="play"><span></span></div>
+      <p class="caption">Morning at the shop, shot by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>Every photo slot on this page is empty on purpose</h2>
+      <p>No stock cars. No borrowed garages. These panels are waiting for the real thing: your bays, your team, your corner of West Frederick Street, photographed and filmed on site by Perkins Production.</p>
+      <p>The finished site opens with that footage. A shop that has earned 79 years of trust should look like it the moment someone finds you on their phone.</p>
+      <p class="fine"><b>Real shop, real people, real film. That is the difference customers feel.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="contact reveal" id="visit">
+  <p class="kicker">Come see us</p>
+  <h2>Stop by, or call ahead</h2>
+  <p class="lead">Same corner since 1947. We'll be here.</p>
+  <div class="contact-grid">
+    <div class="c-card">
+      <h3>Address</h3>
+      <p>42 W Frederick St<br>Walkersville, MD</p>
+      <p class="small"><a href="https://www.google.com/maps/search/?api=1&amp;query=Brownie%27s+Auto+Repair+42+W+Frederick+St+Walkersville+MD" rel="noopener">Get directions</a></p>
+    </div>
+    <div class="c-card">
+      <h3>Hours</h3>
+      <p>Monday to Friday: 8am to 5pm<br>Saturday: by appointment</p>
+    </div>
+    <div class="c-card">
+      <h3>Phone</h3>
+      <p><a href="tel:+13018458400">(301) 845-8400</a></p>
+      <p class="small">Call to schedule an inspection, an emissions repair, or anything in between.</p>
+    </div>
+  </div>
+  <a class="btn solid" href="tel:+13018458400" style="border:none;">Call (301) 845-8400</a>
+</section>
+
+<footer>
+  <p class="name-line">Brownie's Auto Repair</p>
+  <p>42 W Frederick St, Walkersville, MD &middot; Serving Walkersville and Frederick since 1947</p>
+  <p>ASE Blue Seal of Excellence &middot; MD State Inspection Facility #5953A</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

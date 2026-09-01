@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Bollinger's Restaurant | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF4E4; --paper: #FFFDF6; --red: #C00000; --red-deep: #8E0000;
+    --orange: #E8731D; --orange-soft: #F5934A; --brown: #3B2A1E; --soft: #7C6450;
+    --line: #EBDFC6; --smoke: #241B14; --smoke-2: #2E231A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: var(--brown);
+    font-family: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--red-deep); color: #F6E3C8; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--orange-soft); font-weight: 500; }
+  .checker { height: 14px; background: repeating-conic-gradient(var(--red) 0% 25%, var(--cream) 0% 50%) 0 0 / 28px 28px; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 14px; }
+  h2 { font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; font-size: clamp(27px, 4vw, 40px); line-height: 1.15; text-wrap: balance; }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden; text-align: center;
+    background:
+      radial-gradient(900px 480px at 50% -10%, rgba(232,115,29,0.20), transparent 65%),
+      radial-gradient(700px 420px at 50% 115%, rgba(192,0,0,0.10), transparent 60%),
+      var(--cream);
+  }
+  .hero .rays {
+    position: absolute; inset: -40% -20%; opacity: 0.35; pointer-events: none;
+    background: repeating-conic-gradient(from 0deg at 50% 0%, rgba(232,115,29,0.10) 0deg 6deg, transparent 6deg 14deg);
+  }
+  .hero-inner { position: relative; max-width: 900px; margin: 0 auto; padding: 92px 24px 78px; }
+  .hero .est { font-size: 12.5px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 20px; }
+  h1 {
+    font-family: 'Alfa Slab One', Georgia, serif; font-weight: 400; color: var(--red);
+    font-size: clamp(46px, 9vw, 96px); line-height: 1.02; margin-bottom: 8px; text-wrap: balance;
+    text-shadow: 3px 3px 0 rgba(232,115,29,0.25);
+  }
+  .hero .sub { font-family: 'Alfa Slab One', Georgia, serif; font-size: clamp(17px, 2.6vw, 24px); color: var(--orange); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 22px; }
+  .hero .tag { font-size: clamp(17px, 2.3vw, 21px); font-style: italic; color: var(--soft); margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.1s; } .hero .rise.d2 { animation-delay: 0.3s; }
+  .hero .rise.d3 { animation-delay: 0.5s; } .hero .rise.d4 { animation-delay: 0.75s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    padding: 15px 28px; border: 2px solid var(--red); color: var(--red);
+    background: transparent; transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--red); color: var(--paper); }
+  .btn:hover, .btn:focus-visible { background: var(--orange); border-color: var(--orange); color: var(--paper); outline: none; }
+
+  /* Intro */
+  .intro { max-width: 720px; margin: 0 auto; padding: 90px 28px 76px; text-align: center; }
+  .intro p.big { font-family: 'Alfa Slab One', Georgia, serif; font-size: clamp(21px, 3vw, 29px); line-height: 1.4; color: var(--brown); text-wrap: balance; }
+  .intro p.big em { font-style: normal; color: var(--red); }
+  .intro .rule { width: 56px; height: 3px; background: var(--orange); margin: 28px auto 0; }
+
+  /* Smokehouse band */
+  .smoker { background: var(--smoke); color: #F3E7D3; }
+  .smoker-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; align-items: stretch; }
+  .smoker .art {
+    position: relative; min-height: 500px; overflow: hidden;
+    background:
+      radial-gradient(420px 260px at 50% 88%, rgba(232,115,29,0.45), transparent 70%),
+      radial-gradient(700px 500px at 50% 0%, rgba(243,231,211,0.06), transparent 60%),
+      linear-gradient(180deg, #1C140E 0%, var(--smoke-2) 100%);
+  }
+  .smoker .art .drift {
+    position: absolute; inset: 0; opacity: 0.5;
+    background:
+      radial-gradient(200px 340px at 42% 45%, rgba(243,231,211,0.10), transparent 70%),
+      radial-gradient(160px 300px at 62% 30%, rgba(243,231,211,0.07), transparent 70%);
+  }
+  .smoker .art .embers { position: absolute; left: 0; right: 0; bottom: 0; height: 8px; background: linear-gradient(to right, var(--red), var(--orange), var(--red)); }
+  .smoker .art .cap { position: absolute; right: 16px; bottom: 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(243,231,211,0.65); }
+  .smoker .copy { padding: 80px 60px; }
+  .smoker .copy h2 { color: var(--paper); margin-bottom: 10px; }
+  .smoker .copy p.note { color: #C8B69C; font-style: italic; margin-bottom: 30px; }
+  .menu-wrap { overflow-x: auto; }
+  .menu { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .menu td { padding: 13px 8px; border-bottom: 1px dashed rgba(243,231,211,0.25); font-size: 16.5px; }
+  .menu td small { display: block; font-size: 13.5px; color: #C8B69C; }
+  .menu td:last-child { text-align: right; font-family: 'Alfa Slab One', Georgia, serif; font-size: 17px; color: var(--orange-soft); white-space: nowrap; }
+  .smoker .fine { font-size: 13.5px; color: #A8987F; font-style: italic; margin-top: 18px; }
+
+  /* Breakfast band */
+  .breakfast { max-width: 1080px; margin: 0 auto; padding: 96px 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .breakfast .copy p { color: var(--soft); margin-top: 16px; max-width: 48ch; }
+  .breakfast .copy p b { color: var(--red); font-weight: 600; }
+  .breakfast .art {
+    position: relative; min-height: 380px; border: 1px solid var(--line);
+    background:
+      radial-gradient(320px 220px at 50% 40%, rgba(232,115,29,0.30), transparent 70%),
+      repeating-linear-gradient(0deg, rgba(232,115,29,0.10) 0 22px, rgba(251,244,228,0) 22px 44px),
+      var(--paper);
+  }
+  .breakfast .art .plate {
+    position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%);
+    width: 190px; height: 190px; border-radius: 50%; border: 3px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .breakfast .art .plate::after { content: ''; width: 120px; height: 120px; border-radius: 50%; background: rgba(232,115,29,0.18); }
+  .breakfast .art .price { position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%); font-family: 'Alfa Slab One', Georgia, serif; color: var(--red); font-size: 26px; }
+  .breakfast .art .cap { position: absolute; right: 12px; bottom: 10px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(124,100,80,0.7); }
+
+  /* Pie strip */
+  .pies { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 90px 28px; text-align: center; }
+  .pies .head { max-width: 640px; margin: 0 auto 44px; }
+  .pies .head p { color: var(--soft); margin-top: 12px; }
+  .pie-strip { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pane { position: relative; height: 280px; overflow: hidden; border: 1px solid var(--line); }
+  .pane.case { background: radial-gradient(340px 200px at 50% 100%, rgba(192,0,0,0.28), transparent 70%), linear-gradient(180deg, #FFF8EA 0%, #F6E7CB 100%); }
+  .pane.griddle { background: radial-gradient(300px 200px at 50% 0%, rgba(232,115,29,0.35), transparent 70%), linear-gradient(180deg, #3B2A1E 0%, #241B14 100%); }
+  .pane.counter { background: repeating-linear-gradient(90deg, rgba(192,0,0,0.10) 0 34px, transparent 34px 68px), linear-gradient(180deg, #FFF8EA 0%, #F9EED7 100%); }
+  .pane .big-word {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: 'Alfa Slab One', Georgia, serif; font-size: clamp(28px, 3.4vw, 40px);
+    color: rgba(192,0,0,0.55); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .pane.griddle .big-word { color: rgba(245,147,74,0.6); }
+  .pane .cap { position: absolute; right: 12px; bottom: 10px; font-size: 10.5px; letter-spacing: 1.8px; text-transform: uppercase; color: rgba(124,100,80,0.75); }
+  .pane.griddle .cap { color: rgba(243,231,211,0.6); }
+
+  /* Story band */
+  .story { background: var(--red); color: #FFF4E2; text-align: center; }
+  .story-inner { max-width: 780px; margin: 0 auto; padding: 96px 28px; }
+  .story .kicker { color: var(--orange-soft); }
+  .story h2 { color: var(--paper); margin-bottom: 18px; }
+  .story p { color: #FBDDBA; max-width: 58ch; margin: 0 auto; }
+  .story .years { font-family: 'Alfa Slab One', Georgia, serif; font-size: clamp(64px, 11vw, 120px); line-height: 1; color: var(--paper); text-shadow: 4px 4px 0 rgba(142,0,0,0.6); margin-bottom: 10px; }
+
+  /* Quote */
+  .quotes { max-width: 820px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  blockquote { font-family: 'Alfa Slab One', Georgia, serif; font-size: clamp(20px, 2.8vw, 27px); line-height: 1.5; color: var(--brown); text-wrap: balance; margin-bottom: 16px; }
+  blockquote em { font-style: normal; color: var(--red); }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); }
+
+  /* Film band */
+  .film { background: var(--smoke); color: #F3E7D3; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px; overflow: hidden;
+    background:
+      radial-gradient(460px 300px at 35% 65%, rgba(232,115,29,0.35), transparent 68%),
+      radial-gradient(500px 380px at 80% 15%, rgba(192,0,0,0.25), transparent 65%),
+      linear-gradient(160deg, var(--smoke-2) 0%, #191209 100%);
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--orange-soft);
+    background: rgba(36,27,20,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--orange-soft); margin-left: 5px;
+  }
+  .film .still .cap { position: absolute; right: 16px; bottom: 12px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(243,231,211,0.65); }
+  .film .copy { padding: 84px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .film .copy h2 { color: var(--paper); }
+  .film .copy p { color: #D6C5A8; max-width: 50ch; margin-top: 16px; }
+  .film .copy p.fine { font-size: 14.5px; color: #A8987F; font-style: italic; }
+  .film .copy p.fine b { color: var(--orange-soft); font-weight: 500; }
+
+  /* Contact */
+  .cta { text-align: center; padding: 100px 28px 90px; }
+  .cta h2 { color: var(--red); margin-bottom: 10px; }
+  .cta p.sub { color: var(--soft); margin-bottom: 30px; }
+  .cta a.phone {
+    display: inline-block; font-family: 'Alfa Slab One', Georgia, serif;
+    font-size: clamp(30px, 5.5vw, 50px); color: var(--red); text-decoration: none; margin-bottom: 8px;
+  }
+  .cta a.phone:hover { color: var(--orange); }
+  .cta p.addr { margin-bottom: 38px; }
+  .cta p.addr a { color: var(--orange); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .hours-wrap { max-width: 420px; margin: 0 auto; overflow-x: auto; }
+  .hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .hours caption { font-family: 'Alfa Slab One', Georgia, serif; font-size: 18px; color: var(--brown); padding-bottom: 12px; }
+  .hours td { padding: 11px 8px; border-bottom: 1px solid var(--line); font-size: 16px; text-align: left; }
+  .hours td:last-child { text-align: right; font-weight: 500; color: var(--red); }
+  .cta .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 16px; }
+
+  footer { background: var(--smoke); color: #B7A489; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: var(--orange-soft); font-family: 'Alfa Slab One', Georgia, serif; font-size: 19px; margin-bottom: 8px; }
+  footer a { color: var(--orange-soft); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #3A2C1F; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .smoker-grid, .film-grid { grid-template-columns: 1fr; }
+    .breakfast { grid-template-columns: 1fr; gap: 32px; }
+    .pie-strip { grid-template-columns: 1fr; }
+    .smoker .art, .film .still { min-height: 320px; }
+    .smoker .copy, .film .copy { padding: 56px 28px; }
+    .pane { height: 220px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Bollinger's Restaurant, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <div class="rays"></div>
+  <div class="hero-inner">
+    <p class="est rise d1">Thurmont, Maryland &middot; Family style for more than 60 years</p>
+    <h1 class="rise d2">Bollinger's</h1>
+    <p class="sub rise d2">Restaurant</p>
+    <p class="tag rise d3">Good old fashioned meals at affordable prices</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13012713500">Call 301-271-3500</a>
+      <a class="btn" href="#menu">From the smoker</a>
+      <a class="btn" href="#visit">Hours &amp; directions</a>
+    </div>
+  </div>
+  <div class="checker"></div>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Home-cooked meals. Meats smoked out back. Pies baked fresh in the case up front. <em>Thurmont has eaten here for three reasons, for sixty years.</em></p>
+  <div class="rule"></div>
+</section>
+
+<section class="smoker" id="menu">
+  <div class="smoker-grid">
+    <div class="art reveal">
+      <div class="drift"></div>
+      <div class="embers"></div>
+      <p class="cap">Your smokehouse at first light, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">House-smoked, in house</p>
+      <h2>From the smoker</h2>
+      <p class="note">The real menu, the real prices, right on the homepage. That is the trust move.</p>
+      <div class="menu-wrap">
+        <table class="menu">
+          <tbody>
+            <tr><td>Pit Beef and Cheddar<small>The Maryland classic, done the Bollinger's way</small></td><td>$13.39</td></tr>
+            <tr><td>Smoked Cuban<small>House-smoked meats, pressed</small></td><td>$14.00</td></tr>
+            <tr><td>Smoked Turkey<small>Pulled from the smoker out back</small></td><td>$11.33</td></tr>
+            <tr><td>Smoked Brisket<small>Low, slow, and worth it</small></td><td>$11.33</td></tr>
+            <tr><td>Pulled Pork<small>Piled high</small></td><td>$10.30</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fine">Affordable prices are part of the identity. The finished site says so plainly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="breakfast">
+  <div class="copy reveal">
+    <p class="kicker">Thursday through Sunday mornings</p>
+    <h2>Country breakfast, done properly</h2>
+    <p>Hotcakes stacked next to eggs and your choice of meat. Waffles for <b>$5</b>. The kind of breakfast that built this end of Frederick County, served the way it always has been.</p>
+    <p><b>Doors open at 7 am Thursday through Saturday</b> and 8 am on Sunday, so the griddle is hot before the town is awake.</p>
+  </div>
+  <div class="art reveal">
+    <div class="plate"></div>
+    <p class="price">Waffles $5</p>
+    <p class="cap">The morning griddle, shot by Perkins Production</p>
+  </div>
+</section>
+
+<section class="pies reveal">
+  <div class="head">
+    <p class="kicker">Save room</p>
+    <h2>The pie case</h2>
+    <p>Fresh-baked pies, cakes, and desserts, made here and gone by closing. Sixty years of Thurmont birthdays and Sunday dinners have ended at this case.</p>
+  </div>
+  <div class="pie-strip">
+    <div class="pane case"><div class="big-word">Pies</div><p class="cap">The dessert case, shot by Perkins Production</p></div>
+    <div class="pane griddle"><div class="big-word">Smoked</div><p class="cap">Brisket at rest, shot by Perkins Production</p></div>
+    <div class="pane counter"><div class="big-word">Cakes</div><p class="cap">Fresh from the oven, shot by Perkins Production</p></div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="story-inner reveal">
+    <p class="kicker">A Thurmont institution</p>
+    <p class="years">60+</p>
+    <h2>Years serving the Thurmont area</h2>
+    <p>Family-style dining on North Church Street, built on good old fashioned meals at affordable prices. Restaurants do not last sixty years by accident. They last because the town keeps coming back.</p>
+  </div>
+</section>
+
+<section class="quotes reveal">
+  <p class="kicker">Ask anyone in town</p>
+  <blockquote>&ldquo;Real home cooking, and the pies are baked fresh right here. <em>It has been that way for sixty years.</em>&rdquo;</blockquote>
+  <cite>What the Thurmont area has known for generations</cite>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="play"><span></span></div>
+      <p class="cap">Steam off the griddle, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>Sixty years of cooking, and not one frame of film</h2>
+      <p>Every panel on this page is a placeholder for the real thing: smoke curling off the pit before sunrise, a brisket pulled and sliced, the pie case filling up, regulars settling into their booth.</p>
+      <p>Perkins Production shoots it all at 210 North Church Street, in your dining room and at your smoker. That footage is what the finished site opens with, and it is what makes a first-time visitor hungry.</p>
+      <p class="fine"><b>The food already does the talking. The camera just lets the whole county hear it.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="cta reveal" id="visit">
+  <p class="kicker">Come hungry</p>
+  <h2>Find the table waiting for you</h2>
+  <p class="sub">210 North Church Street, Thurmont, Maryland</p>
+  <a class="phone" href="tel:+13012713500">301-271-3500</a>
+  <p class="addr"><a href="https://maps.google.com/?q=210+North+Church+Street,+Thurmont,+MD">Get directions</a></p>
+  <div class="hours-wrap">
+    <table class="hours">
+      <caption>Hours</caption>
+      <tbody>
+        <tr><td>Monday to Wednesday</td><td>11 am to 8 pm</td></tr>
+        <tr><td>Thursday to Saturday</td><td>7 am to 8 pm</td></tr>
+        <tr><td>Sunday</td><td>8 am to 2 pm</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fine">Breakfast served Thursday through Sunday mornings.</p>
+</section>
+
+<footer>
+  <p class="name-line">Bollinger's Restaurant</p>
+  <p>Good old fashioned meals at affordable prices &middot; Serving the Thurmont area for more than 60 years</p>
+  <p>210 North Church Street, Thurmont, MD &middot; <a href="tel:+13012713500">301-271-3500</a></p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

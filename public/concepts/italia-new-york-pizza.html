@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Italia New York Pizza | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Cabin:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C22F27; --red-deep: #93201A;
+    --basil: #2F6B3C; --basil-deep: #23512D;
+    --cream: #FCF7EC; --cream-bright: #FFFDF6; --crust: #E4CFA4;
+    --ink: #2A211C; --soft: #7A6A5C; --line: #EBDFC6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font-family: 'Cabin', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--basil-deep); color: #F2EDDC; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: #F3C46B; font-weight: 700; }
+
+  /* Awning */
+  .awning { position: relative; height: 34px; background: repeating-linear-gradient(90deg, var(--red) 0 48px, var(--cream-bright) 48px 96px); }
+  .awning::after {
+    content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 22px;
+    background-image:
+      radial-gradient(circle at 24px 0, var(--red) 0 21px, transparent 22px),
+      radial-gradient(circle at 72px 0, var(--cream-bright) 0 21px, transparent 22px);
+    background-size: 96px 22px; background-repeat: repeat-x;
+  }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 96px 24px 72px; position: relative; }
+  .hero .est {
+    font-size: 12.5px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--basil); font-weight: 700; margin-bottom: 20px;
+  }
+  h1 { line-height: 1; margin-bottom: 4px; }
+  h1 .italia {
+    display: block; font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400;
+    font-size: clamp(72px, 15vw, 150px); color: var(--red);
+    text-shadow: 4px 4px 0 var(--crust); letter-spacing: 1px;
+  }
+  h1 .nyp {
+    display: block; font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400;
+    font-size: clamp(24px, 4.6vw, 44px); color: var(--basil);
+    letter-spacing: 6px; text-transform: uppercase; margin-top: 10px;
+  }
+  .tricolore { width: 132px; height: 8px; margin: 26px auto; display: flex; }
+  .tricolore i { flex: 1; }
+  .tricolore i:nth-child(1) { background: var(--basil); }
+  .tricolore i:nth-child(2) { background: var(--cream-bright); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .tricolore i:nth-child(3) { background: var(--red); }
+  .hero .tag {
+    font-family: 'Cabin', sans-serif; font-style: italic; font-weight: 500;
+    font-size: clamp(19px, 2.8vw, 26px); color: var(--ink); margin-bottom: 34px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.1s; } .hero .rise.d2 { animation-delay: 0.3s; }
+  .hero .rise.d3 { animation-delay: 0.5s; } .hero .rise.d4 { animation-delay: 0.75s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13.5px;
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+    padding: 15px 28px; border: 2px solid var(--red); color: var(--red);
+    background: transparent; border-radius: 999px;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn.solid { background: var(--red); color: var(--cream-bright); }
+  .btn:hover, .btn:focus-visible { background: var(--red-deep); border-color: var(--red-deep); color: var(--cream-bright); outline: none; }
+  .btn.green { border-color: var(--basil); color: var(--basil); }
+  .btn.green:hover, .btn.green:focus-visible { background: var(--basil-deep); border-color: var(--basil-deep); color: var(--cream-bright); }
+
+  /* Intro */
+  .intro { max-width: 700px; margin: 0 auto; padding: 20px 24px 80px; text-align: center; }
+  .intro p.big { font-size: clamp(21px, 3vw, 27px); line-height: 1.5; font-weight: 500; text-wrap: balance; }
+  .intro p.big em { color: var(--red); font-style: normal; font-weight: 700; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 12px; }
+  .sec-title { font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400; font-size: clamp(30px, 4.6vw, 44px); margin-bottom: 12px; text-wrap: balance; }
+
+  /* Menu */
+  .menu { background: var(--cream-bright); border-top: 3px solid var(--red); border-bottom: 3px solid var(--red); padding: 90px 24px; }
+  .menu-head { text-align: center; max-width: 700px; margin: 0 auto 22px; }
+  .menu-head p { color: var(--soft); }
+  .lunch-strip {
+    max-width: 640px; margin: 28px auto 48px; text-align: center;
+    background: var(--basil); color: var(--cream-bright); border-radius: 12px;
+    padding: 16px 24px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; font-size: 14px;
+  }
+  .menu-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .menu-card { background: var(--cream); border: 1px solid var(--line); border-radius: 14px; padding: 32px 32px 28px; }
+  .menu-card.full { grid-column: 1 / -1; }
+  .menu-card h3 {
+    font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400; font-size: 25px;
+    color: var(--basil-deep); margin-bottom: 20px; letter-spacing: 1px;
+  }
+  .menu-card h3 span { color: var(--red); }
+  .item { margin-bottom: 20px; }
+  .item:last-child { margin-bottom: 0; }
+  .item .row { display: flex; align-items: baseline; }
+  .item .name { font-weight: 700; font-size: 17.5px; white-space: nowrap; }
+  .item .dots { flex: 1; border-bottom: 2px dotted var(--crust); margin: 0 10px 5px; min-width: 24px; }
+  .item .price { font-weight: 700; color: var(--red); font-size: 17.5px; white-space: nowrap; }
+  .item .desc { font-size: 14.5px; color: var(--soft); line-height: 1.55; margin-top: 3px; max-width: 56ch; }
+  .menu-note { text-align: center; font-size: 13.5px; color: var(--soft); font-style: italic; max-width: 620px; margin: 40px auto 0; }
+
+  /* Story band */
+  .story { background: var(--basil-deep); color: #F0EEDF; }
+  .story-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; align-items: stretch; }
+  .story .panel {
+    position: relative; min-height: 420px;
+    background:
+      radial-gradient(ellipse at 30% 25%, rgba(252,247,236,0.28) 0%, transparent 45%),
+      linear-gradient(160deg, #E8D9B5 0%, #D9BF8C 45%, #B98F55 100%);
+  }
+  .story .panel::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 68% 62%, rgba(147,32,26,0.18) 0%, transparent 42%);
+  }
+  .story .panel .cap {
+    position: absolute; left: 14px; bottom: 12px;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(42,33,28,0.65);
+  }
+  .story .copy { padding: 90px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .story .kicker { color: #F3C46B; }
+  .story h2 { font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400; font-size: clamp(28px, 4vw, 42px); line-height: 1.12; margin-bottom: 18px; text-wrap: balance; }
+  .story p { color: #D8DCC4; max-width: 52ch; margin-bottom: 14px; }
+
+  /* Quotes on gingham */
+  .quotes {
+    padding: 96px 24px; text-align: center;
+    background:
+      repeating-linear-gradient(0deg, rgba(194,47,39,0.055) 0 18px, transparent 18px 36px),
+      repeating-linear-gradient(90deg, rgba(194,47,39,0.055) 0 18px, transparent 18px 36px),
+      var(--cream);
+  }
+  .quotes .inner { max-width: 800px; margin: 0 auto; }
+  blockquote { font-family: 'Cabin', sans-serif; font-style: italic; font-weight: 500; font-size: clamp(21px, 3vw, 28px); line-height: 1.45; margin-bottom: 16px; text-wrap: balance; }
+  blockquote b { color: var(--red); font-weight: 700; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 46px; }
+  .quotes cite.last { margin-bottom: 0; }
+
+  /* Film band */
+  .film { background: #241713; color: #F1E7D8; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px;
+    background:
+      linear-gradient(to top, rgba(36,23,19,0.78) 0%, rgba(36,23,19,0.12) 55%),
+      radial-gradient(circle at 50% 42%, #F0A34C 0%, #C24A27 38%, #6E2015 72%, #38120C 100%);
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 2px solid #F3C46B;
+    background: rgba(36,23,19,0.5); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent #F3C46B; margin-left: 5px;
+  }
+  .film .still .cap {
+    position: absolute; left: 14px; bottom: 12px;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(241,231,216,0.8);
+  }
+  .film .copy { padding: 84px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: #F3C46B; }
+  .film h2 { font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .film p { color: #CBB49F; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; color: #A18B77; font-style: italic; }
+  .film p.fine b { color: #F3C46B; font-weight: 700; }
+
+  /* Contact */
+  .contact { max-width: 960px; margin: 0 auto; padding: 100px 24px; text-align: center; }
+  .contact .phone {
+    font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400; font-size: clamp(34px, 5.4vw, 52px);
+    color: var(--red); text-decoration: none; display: inline-block; margin-bottom: 6px;
+  }
+  .contact .phone:hover { color: var(--red-deep); }
+  .contact .sub { color: var(--soft); margin-bottom: 40px; }
+  .con-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; text-align: left; margin-bottom: 36px; }
+  .con { background: var(--cream-bright); border: 1px solid var(--line); border-radius: 12px; padding: 24px; }
+  .con b { display: block; font-family: 'Lilita One', 'Arial Black', sans-serif; font-weight: 400; font-size: 19px; color: var(--basil-deep); margin-bottom: 8px; letter-spacing: 0.5px; }
+  .con p { font-size: 15px; color: var(--soft); line-height: 1.7; }
+  .con p strong { color: var(--ink); }
+
+  footer { background: var(--basil-deep); color: #C4CBAF; text-align: center; padding: 44px 24px; font-size: 14px; }
+  footer .name-line { color: #F2EDDC; font-family: 'Lilita One', 'Arial Black', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 8px; }
+  footer a { color: #F3C46B; text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #31633C; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .story-grid, .film-grid { grid-template-columns: 1fr; }
+    .story .copy, .film .copy { padding: 56px 24px; }
+    .story .panel { min-height: 300px; order: 2; }
+    .film .still { min-height: 320px; }
+    .item .name { white-space: normal; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Italia New York Pizza, prepared by Perkins Production &middot; not the live website</div>
+<div class="awning" aria-hidden="true"></div>
+
+<section class="hero">
+  <p class="est rise d1">Walkersville, Maryland &middot; Family owned &middot; Restaurant and carryout</p>
+  <h1 class="rise d2"><span class="italia">Italia</span><span class="nyp">New York Pizza</span></h1>
+  <div class="tricolore rise d3" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p class="tag rise d3">Fresh homemade dough, made daily.</p>
+  <div class="hero-ctas rise d4">
+    <a class="btn solid" href="tel:+13018450641">Call to order: 301-845-0641</a>
+    <a class="btn green" href="#menu">See the menu</a>
+    <a class="btn" href="https://maps.google.com/?q=30+East+Frederick+St,+Walkersville,+MD" rel="noopener">Directions</a>
+  </div>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Walkersville's family pizzeria, where the dough for tonight's pies was made <em>this morning</em>, the New York way: hand stretched, big slices, no shortcuts.</p>
+</section>
+
+<section class="menu reveal" id="menu">
+  <div class="menu-head">
+    <p class="kicker">The menu</p>
+    <h2 class="sec-title">What's coming out of the oven</h2>
+    <p>Real favorites, real prices, straight from the menu at 30 East Frederick Street.</p>
+  </div>
+  <div class="lunch-strip">Lunch specials every day &middot; 11 am to 3 pm</div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <h3><span>Pizza,</span> New York Style</h3>
+      <div class="item">
+        <div class="row"><span class="name">Cheese Pizza, 16 inch</span><span class="dots"></span><span class="price">$14.95</span></div>
+        <p class="desc">Hand stretched from dough made fresh that morning. The one that made the name.</p>
+      </div>
+      <div class="item">
+        <div class="row"><span class="name">Italia's Special, 16 inch</span><span class="dots"></span><span class="price">$19.95</span></div>
+        <p class="desc">Pepperoni, mushrooms, sausage, onions, green peppers, black olives, hamburger, and ham. Everything.</p>
+      </div>
+      <div class="item">
+        <div class="row"><span class="name">Sicilian Thick Crust</span><span class="dots"></span></div>
+        <p class="desc">Thick, golden, and hearty. Ask for today's pricing.</p>
+      </div>
+      <div class="item">
+        <div class="row"><span class="name">Chicago Thick Crust</span><span class="dots"></span></div>
+        <p class="desc">The deep one, for the serious appetite.</p>
+      </div>
+    </div>
+    <div class="menu-card">
+      <h3><span>From</span> the Kitchen</h3>
+      <div class="item">
+        <div class="row"><span class="name">Homemade Lasagna</span><span class="dots"></span><span class="price">$10.95</span></div>
+        <p class="desc">Layered and baked in our own kitchen.</p>
+      </div>
+      <div class="item">
+        <div class="row"><span class="name">Steak and Cheese Hoagie</span><span class="dots"></span><span class="price">$8.95</span></div>
+        <p class="desc">A proper hoagie, loaded and hot.</p>
+      </div>
+      <div class="item">
+        <div class="row"><span class="name">Garlic Bows</span><span class="dots"></span></div>
+        <p class="desc">Tied from that same fresh dough and brushed with garlic.</p>
+      </div>
+      <div class="item">
+        <div class="row"><span class="name">Cannoli</span><span class="dots"></span><span class="price">$4.95</span></div>
+        <p class="desc">The right way to end it.</p>
+      </div>
+    </div>
+  </div>
+  <p class="menu-note">On the finished site, the full menu lives as live text your customers can search, tap to call from, and print. Update a price once and it is current everywhere, instantly.</p>
+</section>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="panel reveal">
+      <span class="cap">Morning dough on the bench, filmed by Perkins Production</span>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">The house promise</p>
+      <h2>Fresh homemade dough, daily. It says so on the door.</h2>
+      <p>Italia New York Pizza is a family operation: a pizzeria, restaurant, and carryout in the heart of Walkersville. Before the first order of the day, the dough is already made. That is the whole philosophy in one sentence.</p>
+      <p>Lunch regulars, Friday night families, carryout on the way home: the town knows where 30 East Frederick Street is.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quotes reveal">
+  <div class="inner">
+    <p class="kicker">Word around town</p>
+    <blockquote>&ldquo;<b>Fresh Homemade Dough Daily.</b>&rdquo; Not a slogan. A schedule.</blockquote>
+    <cite>The promise on the menu at Italia New York Pizza</cite>
+    <blockquote>A busy, established family carryout that Walkersville counts on, six lunches and seven dinners a week.</blockquote>
+    <cite class="last">What the town already knows</cite>
+  </div>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="play"><span></span></div>
+      <span class="cap">The oven glow at dinner rush, filmed by Perkins Production</span>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>The finished site opens with your kitchen, in motion</h2>
+      <p>Picture it: dough spinning in slow motion, the cheese pull off a fresh 16 inch pie, steam rising off the lasagna, the counter at lunch rush. Shot in your kitchen, by Perkins Production.</p>
+      <p>Nobody craves a PDF. They crave what the camera sees. Real film and photography of your food is what turns a visitor into a phone call at 5:45 on a Friday.</p>
+      <p class="fine"><b>Every colored panel on this page is a placeholder for footage of your actual food.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="contact reveal" id="contact">
+  <p class="kicker">Order ahead</p>
+  <a class="phone" href="tel:+13018450641">301-845-0641</a>
+  <p class="sub">Carryout, or stay for dinner. Lunch specials daily, 11 am to 3 pm.</p>
+  <div class="con-grid">
+    <div class="con"><b>Find Us</b><p><strong>30 East Frederick St</strong><br>Walkersville, MD</p></div>
+    <div class="con"><b>Hours</b><p><strong>Mon to Sat:</strong> 11:00 am to 9:30 pm<br><strong>Sunday:</strong> 11:30 am to 8:30 pm</p></div>
+    <div class="con"><b>Good to Know</b><p>Family owned<br>Restaurant and carryout<br>Dough made fresh every day</p></div>
+  </div>
+  <a class="btn solid" href="tel:+13018450641">Call in your order</a>
+</section>
+
+<footer>
+  <p class="name-line">Italia New York Pizza</p>
+  <p><em>Fresh Homemade Dough Daily</em> &middot; 30 East Frederick St, Walkersville, MD &middot; 301-845-0641</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

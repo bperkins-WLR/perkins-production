@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Sycamore Spring Farm | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;1,500&family=Alegreya+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #F9F3E3; --card: #FFFCF1; --walnut: #43301C; --walnut-deep: #2F2112;
+    --ink: #2C2212; --soft: #716245; --honey: #C1832A; --honey-light: #E5B25C;
+    --moss: #5D6F3E; --moss-deep: #47552E; --clay: #B15F38; --line: #E9DFC4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--parchment); color: var(--ink);
+    font-family: 'Alegreya Sans', 'Gill Sans', 'Trebuchet MS', sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17.5px;
+  }
+  .concept-ribbon {
+    background: var(--walnut-deep); color: #EFE5CB; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--honey-light); font-weight: 500; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: a storybook hillside drawn in code, holding the place of real film */
+  .hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; overflow: hidden; background: #E9CE8F; }
+  .hero svg.scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(41,29,14,0.85) 0%, rgba(41,29,14,0.32) 46%, rgba(249,240,214,0.0) 100%); }
+  .hero-inner { position: relative; width: 100%; max-width: 1040px; margin: 0 auto; padding: 70px 28px 78px; color: #FFFBEE; text-shadow: 0 1px 14px rgba(41,29,14,0.55); }
+  .hero .est { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #F5E5B4; font-weight: 500; margin-bottom: 14px; }
+  h1 {
+    font-family: 'Alegreya', Georgia, serif; font-weight: 700;
+    font-size: clamp(46px, 8vw, 88px); line-height: 1.02; letter-spacing: -0.5px;
+    text-wrap: balance; margin-bottom: 14px;
+  }
+  .hero .tag { font-family: 'Alegreya', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.6vw, 26px); color: #F6ECD2; margin-bottom: 32px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .cap { position: absolute; left: 18px; right: 18px; bottom: 12px; text-align: right; font-size: 11.5px; letter-spacing: 1px; color: #EADFC2; opacity: 0.85; font-style: italic; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+    padding: 15px 28px; border: 1px solid var(--honey-light); color: var(--honey-light);
+    background: rgba(47,33,18,0.35); transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--honey); border-color: var(--honey); color: #FFFBEE; }
+  .btn:hover, .btn:focus-visible { background: var(--honey-light); border-color: var(--honey-light); color: var(--walnut-deep); outline: none; }
+  .btn.ondark { background: transparent; }
+
+  .intro { max-width: 740px; margin: 0 auto; padding: 92px 28px 70px; text-align: center; }
+  .intro p.big { font-family: 'Alegreya', Georgia, serif; font-size: clamp(23px, 3.3vw, 31px); line-height: 1.4; text-wrap: balance; }
+  .intro .rule { width: 56px; height: 2px; background: var(--clay); margin: 28px auto 0; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--clay); font-weight: 500; margin-bottom: 14px; }
+  .goods, .events-wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px 90px; text-align: center; }
+  .goods h2, .events-wrap h2, .csa h2, .visit h2 { font-family: 'Alegreya', Georgia, serif; font-weight: 700; font-size: clamp(30px, 4.4vw, 40px); margin-bottom: 38px; }
+  .goods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; text-align: left; }
+  .good { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--honey-light); padding: 24px 24px 26px; }
+  .good b { display: block; font-family: 'Alegreya', Georgia, serif; font-weight: 700; font-size: 21px; margin-bottom: 6px; }
+  .good span { font-size: 15px; color: var(--soft); line-height: 1.6; display: block; }
+  .goods .fine, .csa .fine, .cta-note { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 22px; }
+
+  /* CSA band */
+  .csa { background: var(--moss-deep); color: #F1EDD9; padding: 92px 28px; text-align: center; }
+  .csa .kicker { color: var(--honey-light); }
+  .csa-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; text-align: left; }
+  .csa-card { background: rgba(255,252,241,0.06); border: 1px solid rgba(233,223,196,0.3); padding: 28px 28px 30px; }
+  .csa-card b { display: block; font-family: 'Alegreya', Georgia, serif; font-weight: 700; font-size: 24px; margin-bottom: 8px; color: #FFFBEE; }
+  .csa-card em { color: var(--honey-light); font-style: normal; font-weight: 500; }
+  .csa-card p { font-size: 15.5px; color: #DDD6BC; }
+  .csa .fine { color: #C9C1A2; }
+
+  /* Story band */
+  .story { background: var(--walnut-deep); color: #F0E7CE; }
+  .story-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 1fr; align-items: stretch; }
+  .story .copy { padding: 88px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .story .kicker { color: var(--honey-light); }
+  .story h2 { font-family: 'Alegreya', Georgia, serif; font-weight: 700; font-size: clamp(29px, 4vw, 40px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .story p { color: #D8CCAC; max-width: 50ch; margin-bottom: 14px; font-size: 16.5px; }
+  .story .panel { position: relative; min-height: 440px; background:
+      radial-gradient(120% 90% at 80% 15%, rgba(229,178,92,0.35), transparent 55%),
+      linear-gradient(160deg, #59431F 0%, #3A2A14 60%, #2A1D0D 100%); }
+  .panel .cap { position: absolute; left: 18px; bottom: 14px; font-size: 12px; font-style: italic; letter-spacing: 0.5px; color: #EADFC2; opacity: 0.9; }
+
+  /* Events */
+  .events-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: left; }
+  .event { background: var(--card); border: 1px solid var(--line); padding: 22px 20px 24px; position: relative; }
+  .event .when { font-size: 11.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--moss); font-weight: 500; margin-bottom: 8px; }
+  .event b { display: block; font-family: 'Alegreya', Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.2; margin-bottom: 8px; }
+  .event span { font-size: 14.5px; color: var(--soft); display: block; line-height: 1.55; }
+  .event.star { border-top: 3px solid var(--clay); }
+
+  /* Placeholder photo strip */
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .strip .ph { position: relative; height: 320px; overflow: hidden; }
+  .ph .cap { position: absolute; left: 16px; bottom: 12px; right: 16px; font-size: 12px; font-style: italic; color: #F6EED6; opacity: 0.92; }
+  .ph .word { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Alegreya', Georgia, serif; font-style: italic; font-size: clamp(24px, 3vw, 34px); color: rgba(255,251,238,0.9); text-align: center; padding: 0 24px; }
+  .ph.goats { background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M14 44c6-10 10-10 18-2m8-22c-6 8-2 14 6 16' stroke='%23F9F3E3' stroke-opacity='0.12' fill='none' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"),
+      linear-gradient(150deg, #6F8148 0%, #4A5830 65%, #38431F 100%); }
+  .ph.honey { background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='46'%3E%3Cpath d='M26 5l17 10v18L26 43 9 33V15z' fill='none' stroke='%23FFF4D8' stroke-opacity='0.22' stroke-width='1.5'/%3E%3C/svg%3E"),
+      linear-gradient(150deg, #D89A3C 0%, #A96F20 60%, #7C4E12 100%); }
+  .ph.store { background:
+      repeating-linear-gradient(90deg, rgba(249,243,227,0.07) 0 2px, transparent 2px 26px),
+      linear-gradient(150deg, #A2593200 0%, #00000022 100%), linear-gradient(160deg, #A25932 0%, #7C3F20 70%, #5D2E15 100%); }
+
+  /* Quotes */
+  .quotes { max-width: 840px; margin: 0 auto; padding: 96px 28px 80px; }
+  .quotes .kicker { text-align: center; margin-bottom: 40px; }
+  blockquote { font-family: 'Alegreya', Georgia, serif; font-style: italic; font-size: clamp(21px, 2.8vw, 27px); line-height: 1.5; text-align: center; margin-bottom: 16px; text-wrap: balance; }
+  cite { display: block; text-align: center; font-family: 'Alegreya Sans', sans-serif; font-style: normal; font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--soft); margin-bottom: 52px; }
+
+  /* Film band */
+  .film { background: var(--moss-deep); color: #F1EDD9; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still { position: relative; min-height: 460px; background:
+      radial-gradient(90% 70% at 30% 80%, rgba(229,178,92,0.4), transparent 60%),
+      linear-gradient(200deg, #74874B 0%, #4A5830 55%, #333F1C 100%); }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span { width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--honey-light); background: rgba(47,33,18,0.45); display: flex; align-items: center; justify-content: center; }
+  .film .play span::after { content: ''; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent var(--honey-light); margin-left: 5px; }
+  .film .copy { padding: 84px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: var(--honey-light); }
+  .film h2 { font-family: 'Alegreya', Georgia, serif; font-weight: 700; font-size: clamp(29px, 4vw, 41px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .film p { color: #D9D2B6; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; color: #BBB493; font-style: italic; }
+  .film p.fine b { color: var(--honey-light); font-weight: 500; }
+
+  /* Visit */
+  .visit { text-align: center; padding: 100px 28px; }
+  .visit .phone { font-family: 'Alegreya', Georgia, serif; font-size: clamp(28px, 4.4vw, 40px); font-weight: 700; margin: 6px 0 22px; }
+  .visit .phone a { color: var(--clay); text-decoration: none; }
+  .hours { max-width: 420px; margin: 0 auto 30px; border-top: 1px solid var(--line); }
+  .hours div { display: flex; justify-content: space-between; gap: 18px; padding: 11px 6px; border-bottom: 1px solid var(--line); font-size: 16px; }
+  .hours div span:last-child { font-weight: 500; color: var(--moss-deep); }
+  .visit-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .visit .btn { background: transparent; border-color: var(--clay); color: var(--clay); }
+  .visit .btn.solid { background: var(--clay); color: #FFFBEE; }
+  .visit .btn:hover, .visit .btn:focus-visible { background: var(--walnut); border-color: var(--walnut); color: #FFFBEE; }
+
+  footer { background: var(--walnut-deep); color: #C4B694; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #F0E7CE; font-family: 'Alegreya', Georgia, serif; font-size: 19px; margin-bottom: 8px; }
+  footer a { color: var(--honey-light); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #4A3823; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .hero-inner { padding-bottom: 108px; }
+    .goods-grid { grid-template-columns: 1fr; }
+    .csa-grid { grid-template-columns: 1fr; }
+    .story-grid, .film-grid { grid-template-columns: 1fr; }
+    .story .panel, .film .still { min-height: 320px; }
+    .story .copy, .film .copy { padding: 56px 28px; }
+    .events-grid { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: 1fr; }
+    .strip .ph { height: 240px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Sycamore Spring Farm, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <svg class="scene" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#F7E8C2"/><stop offset="0.55" stop-color="#F0D69C"/><stop offset="1" stop-color="#E7C378"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="800" fill="url(#sky)"/>
+    <circle cx="1060" cy="240" r="150" fill="#F3C868" opacity="0.5"/>
+    <circle cx="1060" cy="240" r="82" fill="#F7D786"/>
+    <path d="M470 190 q11 -9 22 0 q11 -9 22 0" stroke="#8A7548" stroke-width="3" fill="none" opacity="0.55" stroke-linecap="round"/>
+    <path d="M560 150 q9 -8 18 0 q9 -8 18 0" stroke="#8A7548" stroke-width="3" fill="none" opacity="0.45" stroke-linecap="round"/>
+    <path d="M0 560 Q 360 440 760 530 T 1440 490 V800 H0 Z" fill="#8C9A5F"/>
+    <path d="M0 640 Q 420 520 900 610 T 1440 585 V800 H0 Z" fill="#6D7D46"/>
+    <path d="M326 596 C322 556 318 536 306 508 L322 506 C336 538 342 566 346 596 Z" fill="#3F2E1A"/>
+    <circle cx="316" cy="472" r="58" fill="#4C5C31"/>
+    <circle cx="264" cy="500" r="40" fill="#546539"/>
+    <circle cx="374" cy="496" r="44" fill="#48572E"/>
+    <circle cx="318" cy="522" r="44" fill="#4C5C31"/>
+    <rect x="962" y="586" width="40" height="9" rx="2" fill="#E9D9AE"/>
+    <rect x="966" y="595" width="32" height="24" rx="2" fill="#F2E5C0"/>
+    <rect x="1016" y="592" width="34" height="8" rx="2" fill="#E9D9AE"/>
+    <rect x="1019" y="600" width="28" height="20" rx="2" fill="#F2E5C0"/>
+    <path d="M0 720 Q 480 650 1440 712 V800 H0 Z" fill="#55643A"/>
+  </svg>
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <p class="est rise d1">Frederick, Maryland &middot; A Family Homestead</p>
+    <h1 class="rise d2">Sycamore Spring Farm</h1>
+    <p class="tag rise d3">A simpler way of life, and a farm store full of it</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13017886980">Call the farm</a>
+      <a class="btn ondark" href="#csa">Join the CSA</a>
+      <a class="btn ondark" href="#visit">Plan a visit</a>
+    </div>
+  </div>
+  <p class="cap">This hillside is an illustration. The finished site opens with your farm on film, by Perkins Production.</p>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Baby goats in the spring. Honey in the summer. Paw-paws in the fall. On Elmer Derr Road, one family raises more than sixty kinds of good food, and shares all of it, from the farm store to the food forest.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="goods reveal">
+  <p class="kicker">Raised, grown, and made here</p>
+  <h2>What comes off this farm</h2>
+  <div class="goods-grid">
+    <div class="good"><b>Heritage goats</b><span>Heritage-breed goats whose milk becomes the goat-milk soaps on the farm store shelf.</span></div>
+    <div class="good"><b>The bee yard</b><span>Honeybees working the gardens and the food forest, and honey in the store.</span></div>
+    <div class="good"><b>Pastured beef</b><span>Beef raised on pasture, the homestead way.</span></div>
+    <div class="good"><b>Poultry and rabbits</b><span>A working barnyard, and fresh eggs in the farm store.</span></div>
+    <div class="good"><b>Sixty-plus crops</b><span>More than 60 vegetable and fruit varieties across the growing season.</span></div>
+    <div class="good"><b>The pantry shelf</b><span>Eggs, honey, maple syrup, and goat-milk soaps, April through December.</span></div>
+  </div>
+  <p class="fine">On the finished site, this section becomes a living farm store page: what is on the shelf this week, updated by you in a minute from your phone.</p>
+</section>
+
+<section class="csa reveal" id="csa">
+  <p class="kicker">Eat from this farm, week after week</p>
+  <h2>Two ways to join the CSA</h2>
+  <div class="csa-grid">
+    <div class="csa-card">
+      <b>Farm pickup</b>
+      <p>A <em>30-week</em> season of the farm's harvest, picked up right here on Elmer Derr Road, where the food was grown.</p>
+    </div>
+    <div class="csa-card">
+      <b>Delivered near you</b>
+      <p>A <em>26-week</em> delivery CSA bringing the harvest to <em>Rockville, Gaithersburg, and New Market</em>.</p>
+    </div>
+  </div>
+  <p class="fine">On the finished site, sign-up happens right on this page in about two minutes, on a phone, at a kitchen table.</p>
+</section>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="copy reveal">
+      <p class="kicker">The homestead</p>
+      <h2>Some farms grow one thing. This family grows a way of life.</h2>
+      <p>Sycamore Spring is a small family homestead in Frederick built around an old idea: that a piece of land, tended by hand, can feed the people who live on it and the neighbors who visit it.</p>
+      <p>Goats, poultry, rabbits, bees, and cattle share the place with a food forest and gardens of sixty-some crops. And the family teaches what it practices, through permaculture design and food-forest education, so the simpler way of life travels home with you.</p>
+    </div>
+    <div class="panel reveal">
+      <p class="cap">The family at morning chores, photographed by Perkins Production</p>
+    </div>
+  </div>
+</section>
+
+<section class="events-wrap reveal">
+  <p class="kicker">A season of days worth circling</p>
+  <h2>On the farm calendar</h2>
+  <div class="events-grid">
+    <div class="event"><p class="when">By arrangement</p><b>Farm Tours</b><span>Walk the homestead and meet the animals that make it run.</span></div>
+    <div class="event"><p class="when">In season</p><b>Herbs &amp; Pollinators Tour</b><span>The gardens from the bees' point of view.</span></div>
+    <div class="event"><p class="when">Summer</p><b>Summer Pesto Party</b><span>A harvest celebration built around the season's basil.</span></div>
+    <div class="event star"><p class="when">The signature day</p><b>Paw-Paw Festival</b><span>A festival for the native fruit most Marylanders have never tasted.</span></div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="ph goats reveal"><p class="word">The morning rounds</p><p class="cap">Goat kids at the pasture fence, filmed by Perkins Production</p></div>
+  <div class="ph honey reveal"><p class="word">The honey pull</p><p class="cap">Frames coming out of the hive, shot by Perkins Production</p></div>
+  <div class="ph store reveal"><p class="word">Friday, 2 o'clock</p><p class="cap">The farm store opening for the weekend, shot by Perkins Production</p></div>
+</div>
+
+<section class="quotes reveal">
+  <p class="kicker">Say it out loud</p>
+  <blockquote>&ldquo;Baby goats, beehives, and a food forest. This may be the most photogenic homestead in the county.&rdquo;</blockquote>
+  <cite>A first visit to Sycamore Spring</cite>
+  <blockquote>&ldquo;A simpler way of life.&rdquo;</blockquote>
+  <cite>The family's own promise</cite>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal"><div class="play"><span></span></div></div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>Every panel on this page is holding a seat for your farm</h2>
+      <p>The hillside up top, the goats, the honey pull: all of it is placeholder art, drawn in code, waiting for the real thing.</p>
+      <p>The finished site opens with true film and photography made at Sycamore Spring by Perkins Production: kids bouncing in the spring pasture, smoke drifting over the bee yard, the store shelf stocked for a Friday afternoon.</p>
+      <p class="fine"><b>A farm this photogenic deserves a camera actually pointed at it.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="visit reveal" id="visit">
+  <p class="kicker">Come see the farm</p>
+  <h2>6003 Elmer Derr Rd, Frederick, MD</h2>
+  <p class="phone"><a href="tel:+13017886980">(301) 788-6980</a></p>
+  <div class="hours">
+    <div><span>Farm store season</span><span>April through December</span></div>
+    <div><span>Friday</span><span>2pm to 6pm</span></div>
+    <div><span>Saturday &amp; Sunday</span><span>10am to 2pm</span></div>
+  </div>
+  <div class="visit-ctas">
+    <a class="btn solid" href="https://maps.google.com/?q=6003+Elmer+Derr+Rd,+Frederick,+MD">Get directions</a>
+    <a class="btn" href="mailto:SycamoreSpringFarm@gmail.com">Email the farm</a>
+  </div>
+  <p class="cta-note">In the finished site, CSA questions and tour requests land in your inbox with a warm automatic reply to the sender.</p>
+</section>
+
+<footer>
+  <p class="name-line">Sycamore Spring Farm &middot; <em>A simpler way of life</em></p>
+  <p>6003 Elmer Derr Rd, Frederick, Maryland &middot; <a href="mailto:SycamoreSpringFarm@gmail.com">SycamoreSpringFarm@gmail.com</a></p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

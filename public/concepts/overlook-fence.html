@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Overlook Fence Company | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;0,800;1,500&family=Karla:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bark: #2B2118; --bark-deep: #1F1810; --soil: #4A3826;
+    --cedar: #B65C2E; --cedar-light: #D98A55;
+    --field: #4C5A38; --field-deep: #3B4729;
+    --paper: #F3F0E8; --board: #FFFEF9; --line: #DFD9C9;
+    --ink: #262016; --soft: #6E6455;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: 'Karla', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--bark-deep); color: #E7DFCF; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--cedar-light); font-weight: 700; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: a fence line at first light, drawn in CSS and SVG */
+  .hero {
+    position: relative; min-height: 88vh; display: flex; align-items: flex-end;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #201810 0%, #3A2716 38%, #6B3F22 72%, #C97F45 100%);
+  }
+  .hero .fence-line { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 200px; display: block; }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(24,17,10,0.82) 0%, rgba(24,17,10,0.25) 55%, rgba(24,17,10,0.35) 100%); }
+  .hero-inner { position: relative; width: 100%; max-width: 1060px; margin: 0 auto; padding: 80px 28px 90px; color: #FBF7EE; }
+  .hero .est {
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--cedar-light); font-weight: 700; margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Bitter', Georgia, serif; font-weight: 800;
+    font-size: clamp(46px, 8vw, 88px); line-height: 1.02; letter-spacing: -1px;
+    text-wrap: balance; margin-bottom: 16px;
+  }
+  .hero .tag { font-family: 'Bitter', Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(18px, 2.5vw, 24px); color: #EFE4D2; margin-bottom: 34px; max-width: 34ch; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .ph-cap {
+    position: absolute; right: 16px; bottom: 12px; z-index: 2;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(250,243,230,0.75);
+  }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
+    padding: 15px 28px; border: 2px solid var(--cedar-light); color: var(--cedar-light);
+    background: rgba(31,24,16,0.35); transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn.solid { background: var(--cedar); border-color: var(--cedar); color: #FFFEF9; }
+  .btn:hover, .btn:focus-visible { background: var(--cedar-light); border-color: var(--cedar-light); color: var(--bark-deep); outline: none; }
+
+  /* Intro */
+  .intro { max-width: 740px; margin: 0 auto; padding: 92px 28px 70px; text-align: center; }
+  .intro p.big { font-family: 'Bitter', Georgia, serif; font-weight: 500; font-size: clamp(23px, 3.2vw, 30px); line-height: 1.4; text-wrap: balance; }
+  .intro .rule { width: 64px; height: 3px; background: var(--cedar); margin: 28px auto 0; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--cedar); font-weight: 700; margin-bottom: 14px; }
+  .sec-title { font-family: 'Bitter', Georgia, serif; font-weight: 800; font-size: clamp(30px, 4.4vw, 40px); margin-bottom: 16px; text-wrap: balance; }
+
+  /* Services */
+  .services { max-width: 1120px; margin: 0 auto; padding: 10px 28px 90px; text-align: center; }
+  .services .lead { color: var(--soft); max-width: 60ch; margin: 0 auto 44px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; text-align: left; }
+  .svc { background: var(--board); border: 1px solid var(--line); border-top: 4px solid var(--cedar); padding: 24px 24px 26px; }
+  .svc b { display: block; font-family: 'Bitter', Georgia, serif; font-weight: 700; font-size: 20px; margin-bottom: 6px; }
+  .svc span { font-size: 14.5px; color: var(--soft); line-height: 1.55; display: block; }
+  .services .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 26px; }
+
+  /* Service area: post and rail */
+  .area { background: var(--board); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 64px 28px; text-align: center; }
+  .area h2 { font-family: 'Bitter', Georgia, serif; font-weight: 700; font-size: clamp(22px, 3vw, 28px); margin-bottom: 24px; }
+  .county-rail { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 0; max-width: 900px; margin: 0 auto; }
+  .county-rail span {
+    font-size: 14px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+    color: var(--soil); padding: 6px 22px; border-left: 4px solid var(--cedar-light);
+  }
+  .county-rail span:first-child { border-left: 4px solid var(--cedar-light); }
+  .area p.fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 22px; }
+
+  /* Story band */
+  .story { background: var(--field-deep); color: #EDEADF; }
+  .story-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 1fr; align-items: stretch; }
+  .story .copy { padding: 90px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .story .kicker { color: #C8CFAF; }
+  .story h2 { font-family: 'Bitter', Georgia, serif; font-weight: 800; font-size: clamp(30px, 4vw, 42px); line-height: 1.12; margin-bottom: 18px; text-wrap: balance; }
+  .story .year { font-family: 'Bitter', Georgia, serif; font-weight: 800; font-size: clamp(64px, 8vw, 110px); line-height: 1; color: #A9B37F; opacity: 0.55; margin-bottom: 8px; }
+  .story p { color: #CDD3BB; max-width: 52ch; margin-bottom: 14px; }
+  .story .panel {
+    position: relative; min-height: 420px;
+    background:
+      linear-gradient(rgba(43,33,24,0.35), rgba(43,33,24,0.55)),
+      repeating-linear-gradient(90deg, #5A4128 0 44px, #503822 44px 46px, #614831 46px 90px, #4A331E 90px 92px);
+  }
+  .story .panel .cap {
+    position: absolute; right: 14px; bottom: 12px;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(243,240,232,0.8);
+  }
+
+  /* Quotes */
+  .quotes { max-width: 860px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  blockquote { font-family: 'Bitter', Georgia, serif; font-style: italic; font-weight: 500; font-size: clamp(20px, 2.8vw, 26px); line-height: 1.5; margin-bottom: 18px; text-wrap: balance; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 48px; }
+  .quotes .last { margin-bottom: 0; }
+
+  /* Film band */
+  .film { background: var(--bark); color: #EDE5D6; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px;
+    background:
+      linear-gradient(to top, rgba(31,24,16,0.72) 0%, rgba(31,24,16,0.15) 60%),
+      linear-gradient(115deg, #8A4E26 0%, #B0662F 40%, #D98A55 100%);
+  }
+  .film .still::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent 0 64px, rgba(31,24,16,0.30) 64px 76px);
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 2px solid #F0D9BF;
+    background: rgba(31,24,16,0.5); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent #F0D9BF; margin-left: 5px;
+  }
+  .film .still .cap {
+    position: absolute; left: 14px; bottom: 12px;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(240,225,205,0.8);
+  }
+  .film .copy { padding: 84px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: var(--cedar-light); }
+  .film h2 { font-family: 'Bitter', Georgia, serif; font-weight: 800; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; margin-bottom: 18px; text-wrap: balance; }
+  .film p { color: #CBBFA9; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; color: #A79A82; font-style: italic; }
+  .film p.fine b { color: var(--cedar-light); font-weight: 700; }
+
+  /* Contact */
+  .contact { max-width: 960px; margin: 0 auto; padding: 100px 28px; text-align: center; }
+  .contact .phone {
+    font-family: 'Bitter', Georgia, serif; font-weight: 800; font-size: clamp(30px, 5vw, 46px);
+    color: var(--ink); text-decoration: none; display: inline-block; margin-bottom: 8px;
+  }
+  .contact .phone:hover { color: var(--cedar); }
+  .contact .sub { color: var(--soft); margin-bottom: 40px; }
+  .con-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; text-align: left; margin-bottom: 36px; }
+  .con { background: var(--board); border: 1px solid var(--line); padding: 24px; }
+  .con b { display: block; font-family: 'Bitter', Georgia, serif; font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+  .con p { font-size: 15px; color: var(--soft); line-height: 1.65; }
+  .con a { color: var(--soil); }
+  .contact .btn-dark {
+    border-color: var(--cedar); color: #FFFEF9; background: var(--cedar);
+  }
+  .contact .btn-dark:hover, .contact .btn-dark:focus-visible { background: var(--soil); border-color: var(--soil); color: #FFFEF9; }
+
+  footer { background: var(--bark-deep); color: #B5AC9A; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #E7DFCF; font-family: 'Bitter', Georgia, serif; font-weight: 700; font-size: 19px; margin-bottom: 8px; }
+  footer a { color: var(--cedar-light); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #3B2F21; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .story-grid, .film-grid { grid-template-columns: 1fr; }
+    .story .copy, .film .copy { padding: 56px 28px; }
+    .story .panel { min-height: 300px; }
+    .film .still { min-height: 320px; }
+    .county-rail { flex-direction: column; align-items: center; gap: 12px; }
+    .county-rail span { border-left: none; border-bottom: 3px solid var(--cedar-light); padding: 4px 10px 8px; }
+    .county-rail span:first-child { border-left: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Overlook Fence Company, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <svg class="fence-line" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+    <rect x="0" y="88" width="1200" height="16" fill="#191209"></rect>
+    <rect x="0" y="140" width="1200" height="16" fill="#191209"></rect>
+    <rect x="30" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="180" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="330" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="480" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="630" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="780" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="930" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="1080" y="52" width="18" height="148" fill="#14100A"></rect>
+    <rect x="0" y="196" width="1200" height="4" fill="#0F0B06"></rect>
+  </svg>
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <p class="est rise d1">Frederick, Maryland &middot; Family owned since 1992</p>
+    <h1 class="rise d2">Overlook Fence Company</h1>
+    <p class="tag rise d3">Fences and decks for Maryland's farms and families. Thirty years of straight lines and set posts.</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13012007137">Call (301) 200-7137</a>
+      <a class="btn" href="#estimate">Get a free estimate</a>
+      <a class="btn" href="https://maps.google.com/?q=9433+Gas+House+Pike,+Frederick,+MD+21701" rel="noopener">Directions</a>
+    </div>
+  </div>
+  <p class="ph-cap">Your fence lines at first light, filmed by Perkins Production</p>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Since 1992, one family has been setting posts across Frederick County: around backyards and pools, along pastures and paddocks, up to the deck where summer happens.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="services reveal" id="services">
+  <p class="kicker">What we build</p>
+  <h2 class="sec-title">Every fence a property needs, and the deck to match</h2>
+  <p class="lead">From a picket around the garden to a mile of board fence around the pasture, Overlook builds it, and finances it when that helps.</p>
+  <div class="svc-grid">
+    <div class="svc"><b>Wood fencing</b><span>The classic. Privacy, picket, and board styles built to last.</span></div>
+    <div class="svc"><b>Vinyl fencing</b><span>Clean lines that never need paint, season after season.</span></div>
+    <div class="svc"><b>Aluminum fencing</b><span>Elegant, durable, and right at home around pools and gardens.</span></div>
+    <div class="svc"><b>Chain link</b><span>Honest, hardworking security for yards, kennels, and lots.</span></div>
+    <div class="svc"><b>Farm and equestrian</b><span>Board and rail fencing that keeps horses in and worry out.</span></div>
+    <div class="svc"><b>Pool enclosures</b><span>Safety-first fencing that keeps the pool beautiful and code-ready.</span></div>
+    <div class="svc"><b>Commercial fencing</b><span>Perimeters, enclosures, and security for businesses and sites.</span></div>
+    <div class="svc"><b>Decks</b><span>The other thing we build well: outdoor living, done right.</span></div>
+  </div>
+  <p class="fine">Financing available &middot; Licensed MHIC #102408</p>
+</section>
+
+<section class="area reveal">
+  <h2>Serving six counties, one fence at a time</h2>
+  <div class="county-rail">
+    <span>Frederick</span><span>Carroll</span><span>Howard</span><span>Montgomery</span><span>Washington</span><span>Loudoun, VA</span>
+  </div>
+  <p class="fine">Based at 9433 Gas House Pike in Frederick, on the road early, Monday through Friday.</p>
+</section>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="copy reveal">
+      <p class="year">1992</p>
+      <p class="kicker">The story</p>
+      <h2>A family company, thirty years on</h2>
+      <p>Overlook Fence Company has been family owned since 1992. Three decades in, the trucks still roll out of Frederick every weekday morning, and the same standard applies to every job: posts set straight, lines run true, gates that swing right the first time.</p>
+      <p>That is what more than thirty years in fencing looks like. Not a slogan, just a habit the family never broke.</p>
+    </div>
+    <div class="panel reveal">
+      <span class="cap">The crew that sets every post, photographed by Perkins Production</span>
+    </div>
+  </div>
+</section>
+
+<section class="quotes reveal">
+  <p class="kicker">In plain terms</p>
+  <blockquote>&ldquo;Family owned and operated since 1992. More than thirty years in fencing.&rdquo;</blockquote>
+  <cite>Overlook Fence Company, Frederick, Maryland</cite>
+  <blockquote class="last">A company like this gets passed along the old way: over the fence, and on Facebook and Nextdoor, where neighbors trade the names they trust.</blockquote>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="play"><span></span></div>
+      <span class="cap">A board fence at golden hour, filmed by Perkins Production</span>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>The finished site opens with your work, not a stock photo</h2>
+      <p>Picture this page opening on real footage: a drone tracing a board fence along a Frederick pasture at sunrise, a post going in plumb, a cedar gate swinging shut just so.</p>
+      <p>Perkins Production shoots that film and photography on your jobs and at your shop. Thirty years of work this good deserves to be seen, and nothing sells a fence like the last one you built.</p>
+      <p class="fine"><b>Every panel on this page is a placeholder for photography of your actual work.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="contact reveal" id="estimate">
+  <p class="kicker">Talk to the family</p>
+  <a class="phone" href="tel:+13012007137">(301) 200-7137</a>
+  <p class="sub">Or (301) 662-5679 &middot; Free estimates, and financing when it helps</p>
+  <div class="con-grid">
+    <div class="con"><b>Visit</b><p>9433 Gas House Pike<br>Frederick, MD 21701</p></div>
+    <div class="con"><b>Hours</b><p>Monday to Friday<br>7:00 am to 5:00 pm</p></div>
+    <div class="con"><b>Email</b><p><a href="mailto:overlookfence@gmail.com">overlookfence@gmail.com</a><br><a href="mailto:overlookfence@comcast.net">overlookfence@comcast.net</a></p></div>
+    <div class="con"><b>Licensed</b><p>MHIC #102408<br>Serving MD and Loudoun County, VA</p></div>
+  </div>
+  <a class="btn btn-dark" href="tel:+13012007137">Start your estimate</a>
+</section>
+
+<footer>
+  <p class="name-line">Overlook Fence Company &middot; <em>Family owned since 1992</em></p>
+  <p>9433 Gas House Pike, Frederick, MD 21701 &middot; (301) 200-7137</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

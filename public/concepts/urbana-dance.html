@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Urbana Dance Studio | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #101C3E; --navy-deep: #0A1129; --ivory: #F8F5EC; --white: #FFFEF9;
+    --gold: #BC9A4A; --gold-light: #E4CB8B; --ink: #171E34; --soft: #59607A; --line: #E4DECB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ivory); color: var(--ink);
+    font-family: 'Jost', 'Avenir Next', 'Segoe UI', sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--navy-deep); color: #E8E2CF; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--gold-light); font-weight: 500; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Hero: navy stage, gold ribbon curves in motion */
+  .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: radial-gradient(120% 100% at 78% 8%, #1C2C5C 0%, var(--navy) 45%, var(--navy-deep) 100%); }
+  .hero svg.ribbons { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-inner { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; padding: 90px 28px; color: var(--white); text-align: center; }
+  .hero .pill {
+    display: inline-block; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500;
+    color: var(--gold-light); border: 1px solid rgba(228,203,139,0.5); border-radius: 999px;
+    padding: 8px 20px; margin-bottom: 26px;
+  }
+  .hero .est { font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #AEB6D2; font-weight: 400; margin-bottom: 16px; }
+  h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500;
+    font-size: clamp(48px, 8.5vw, 96px); line-height: 1.0; letter-spacing: 0.5px;
+    text-wrap: balance; margin-bottom: 16px;
+  }
+  h1 em { font-style: italic; color: var(--gold-light); }
+  .hero .tag { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: clamp(19px, 2.6vw, 26px); color: #D9DCEA; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .cap { position: absolute; left: 18px; right: 18px; bottom: 12px; text-align: right; font-size: 11.5px; letter-spacing: 0.5px; color: #9AA3C4; font-style: italic; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 500;
+    padding: 15px 30px; border: 1px solid var(--gold-light); color: var(--gold-light);
+    background: transparent; transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+  .btn:hover, .btn:focus-visible { background: var(--gold-light); border-color: var(--gold-light); color: var(--navy-deep); outline: none; }
+
+  /* Season date band */
+  .season { background: var(--gold); color: var(--navy-deep); text-align: center; padding: 16px 20px; font-size: 14.5px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+  .season b { font-weight: 600; }
+
+  .intro { max-width: 720px; margin: 0 auto; padding: 92px 28px 72px; text-align: center; }
+  .intro p.big { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(24px, 3.4vw, 33px); line-height: 1.4; text-wrap: balance; }
+  .intro .rule { width: 56px; height: 1px; background: var(--gold); margin: 30px auto 0; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 14px; }
+  h2.head { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 42px); margin-bottom: 38px; }
+
+  /* Classes */
+  .classes { max-width: 1080px; margin: 0 auto; padding: 0 28px 84px; text-align: center; }
+  .class-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; text-align: left; }
+  .cls { background: var(--white); border: 1px solid var(--line); padding: 24px 22px 26px; position: relative; overflow: hidden; }
+  .cls::after { content: ''; position: absolute; left: 22px; bottom: 0; width: 34px; height: 3px; background: var(--gold-light); }
+  .cls b { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 23px; margin-bottom: 6px; }
+  .cls span { font-size: 14.5px; color: var(--soft); line-height: 1.55; display: block; padding-bottom: 12px; }
+  .classes .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 22px; }
+
+  /* Two paths */
+  .paths { background: var(--navy); color: #E9E6D8; padding: 92px 28px; text-align: center; }
+  .paths .kicker { color: var(--gold-light); }
+  .paths h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 42px); margin-bottom: 38px; color: var(--white); }
+  .path-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; text-align: left; }
+  .path { border: 1px solid rgba(228,203,139,0.35); padding: 30px 30px 32px; background: rgba(255,254,249,0.04); }
+  .path b { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 26px; color: var(--gold-light); margin-bottom: 8px; }
+  .path p { font-size: 15.5px; color: #C4C9DC; }
+
+  /* Studio story band */
+  .studio { max-width: 1120px; margin: 0 auto; padding: 90px 28px; }
+  .studio-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 44px; align-items: center; }
+  .studio .panel { position: relative; min-height: 400px; background:
+      linear-gradient(0deg, transparent 0 18%, rgba(228,203,139,0.5) 18% calc(18% + 2px), transparent calc(18% + 2px) 100%),
+      radial-gradient(70% 60% at 70% 20%, rgba(228,203,139,0.25), transparent 65%),
+      linear-gradient(170deg, #24356C 0%, #121E44 60%, #0C142E 100%); }
+  .studio .panel .cap { position: absolute; left: 16px; bottom: 12px; font-size: 12px; font-style: italic; color: #EFEADA; opacity: 0.92; }
+  .studio h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(29px, 4vw, 40px); line-height: 1.15; margin-bottom: 16px; text-wrap: balance; }
+  .studio p { color: var(--soft); margin-bottom: 14px; max-width: 52ch; }
+
+  /* Placeholder photo strip */
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .strip .ph { position: relative; height: 330px; overflow: hidden; }
+  .ph .cap { position: absolute; left: 16px; bottom: 12px; right: 16px; font-size: 12px; font-style: italic; color: #EFEADA; opacity: 0.92; }
+  .ph .word { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: clamp(24px, 3vw, 34px); color: rgba(255,254,249,0.92); text-align: center; padding: 0 24px; }
+  .ph.barre { background: linear-gradient(0deg, transparent 0 46%, rgba(228,203,139,0.55) 46% calc(46% + 3px), transparent calc(46% + 3px) 100%), linear-gradient(165deg, #27396E 0%, #131F45 60%, #0C142E 100%); }
+  .ph.stage { background: radial-gradient(75% 95% at 50% 0%, rgba(228,203,139,0.4) 0%, rgba(228,203,139,0.08) 45%, transparent 70%), linear-gradient(180deg, #1A2A58 0%, #0C142E 100%); }
+  .ph.eight { background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpath d='M8 70 C 30 20 60 84 84 30' stroke='%23E4CB8B' stroke-opacity='0.2' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"),
+      linear-gradient(200deg, #2C3F78 0%, #16234C 55%, #0C142E 100%); }
+
+  /* Quote */
+  .quotes { max-width: 820px; margin: 0 auto; padding: 96px 28px 84px; }
+  .quotes .kicker { text-align: center; margin-bottom: 40px; }
+  blockquote { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: clamp(22px, 3vw, 29px); line-height: 1.45; text-align: center; margin-bottom: 16px; text-wrap: balance; }
+  cite { display: block; text-align: center; font-family: 'Jost', sans-serif; font-style: normal; font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--soft); margin-bottom: 52px; }
+
+  /* Film band */
+  .film { background: var(--navy-deep); color: #E9E6D8; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still { position: relative; min-height: 460px; background: radial-gradient(80% 70% at 65% 25%, rgba(228,203,139,0.35), transparent 60%), linear-gradient(210deg, #223367 0%, #101C3E 55%, #080E22 100%); }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span { width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--gold-light); background: rgba(10,17,41,0.5); display: flex; align-items: center; justify-content: center; }
+  .film .play span::after { content: ''; border-style: solid; border-width: 11px 0 11px 18px; border-color: transparent transparent transparent var(--gold-light); margin-left: 5px; }
+  .film .copy { padding: 84px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: var(--gold-light); }
+  .film h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 43px); line-height: 1.12; margin-bottom: 18px; text-wrap: balance; color: var(--white); }
+  .film p { color: #BFC5D9; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; color: #98A0BE; font-style: italic; }
+  .film p.fine b { color: var(--gold-light); font-weight: 500; }
+
+  /* Enroll / contact */
+  .enroll { text-align: center; padding: 100px 28px; }
+  .enroll .phone { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(28px, 4.4vw, 42px); font-weight: 600; margin: 6px 0 10px; }
+  .enroll .phone a { color: var(--navy); text-decoration: none; }
+  .enroll .addr { color: var(--soft); margin-bottom: 30px; }
+  .enroll-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 18px; }
+  .enroll .btn { border-color: var(--navy); color: var(--navy); }
+  .enroll .btn.solid { background: var(--navy); color: var(--gold-light); }
+  .enroll .btn:hover, .enroll .btn:focus-visible { background: var(--gold); border-color: var(--gold); color: var(--navy-deep); }
+  .enroll .fine { font-size: 13.5px; color: var(--soft); font-style: italic; }
+
+  footer { background: var(--navy-deep); color: #A7AECB; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #E9E6D8; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; margin-bottom: 8px; }
+  footer a { color: var(--gold-light); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #232F55; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .hero-inner { padding-bottom: 130px; }
+    .class-grid { grid-template-columns: 1fr 1fr; }
+    .path-grid { grid-template-columns: 1fr; }
+    .studio-grid { grid-template-columns: 1fr; gap: 0; }
+    .studio .panel { min-height: 280px; margin-bottom: 34px; }
+    .film-grid { grid-template-columns: 1fr; }
+    .film .still { min-height: 320px; }
+    .film .copy { padding: 56px 28px; }
+    .strip { grid-template-columns: 1fr; }
+    .strip .ph { height: 240px; }
+  }
+  @media (max-width: 540px) {
+    .class-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Urbana Dance Studio, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <svg class="ribbons" viewBox="0 0 1440 820" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="rib" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#E4CB8B" stop-opacity="0"/>
+        <stop offset="0.5" stop-color="#E4CB8B" stop-opacity="1"/>
+        <stop offset="1" stop-color="#E4CB8B" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="M-120 640 C 280 380 640 780 940 520 S 1480 300 1580 430" stroke="url(#rib)" stroke-width="120" fill="none" opacity="0.10" stroke-linecap="round"/>
+    <path d="M-120 600 C 300 400 660 740 960 500 S 1470 320 1580 400" stroke="url(#rib)" stroke-width="40" fill="none" opacity="0.22" stroke-linecap="round"/>
+    <path d="M-120 570 C 320 420 680 700 980 480 S 1460 340 1580 380" stroke="url(#rib)" stroke-width="4" fill="none" opacity="0.6" stroke-linecap="round"/>
+    <circle cx="980" cy="480" r="5" fill="#E4CB8B" opacity="0.8"/>
+    <circle cx="640" cy="608" r="3.5" fill="#E4CB8B" opacity="0.5"/>
+  </svg>
+  <div class="hero-inner">
+    <p class="pill rise d1">Now enrolling &middot; Fall classes begin September 14</p>
+    <p class="est rise d1">The Villages of Urbana &middot; Southern Frederick County</p>
+    <h1 class="rise d2">Urbana <em>Dance</em> Studio</h1>
+    <p class="tag rise d3">Ballet to hip hop, first plié to final bow, ages 2.5 and up</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="#enroll">Enroll for fall</a>
+      <a class="btn" href="tel:+13018744367">Call the studio</a>
+    </div>
+  </div>
+  <p class="cap">The finished site opens on your dancers in motion, filmed by Perkins Production.</p>
+</section>
+
+<div class="season"><b>Fall 2026 / Spring 2027 season</b> &middot; fall classes begin September 14 &middot; recreational and competitive</div>
+
+<section class="intro reveal">
+  <p class="big">Urbana is one of the fastest-growing corners of Frederick County, and its dancers grow up here: from a first creative-movement class at two and a half to pointe shoes and competition stages.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="classes reveal">
+  <p class="kicker">Eight disciplines, one studio</p>
+  <h2 class="head">Find their class</h2>
+  <div class="class-grid">
+    <div class="cls"><b>Ballet</b><span>The foundation of it all: posture, musicality, and grace at the barre.</span></div>
+    <div class="cls"><b>Pointe</b><span>The milestone years of ballet, for dancers ready to rise.</span></div>
+    <div class="cls"><b>Tap</b><span>Rhythm you can hear: shuffles, time steps, and speed.</span></div>
+    <div class="cls"><b>Jazz</b><span>Sharp, stylized, and full of performance energy.</span></div>
+    <div class="cls"><b>Hip Hop</b><span>Groove, freestyle, and choreography set to today's music.</span></div>
+    <div class="cls"><b>Contemporary</b><span>Where technique meets expression and storytelling.</span></div>
+    <div class="cls"><b>Modern</b><span>Grounded, powerful movement beyond the classical line.</span></div>
+    <div class="cls"><b>Tumbling</b><span>Strength, flexibility, and acro skills that carry across styles.</span></div>
+  </div>
+  <p class="fine">Classes for ages 2.5 and up. On the finished site, every class links straight to its day, time, and open spots.</p>
+</section>
+
+<section class="paths reveal">
+  <p class="kicker">Two ways to dance here</p>
+  <h2>Recreational or competitive, every dancer has a lane</h2>
+  <div class="path-grid">
+    <div class="path">
+      <b>Recreational</b>
+      <p>One great class a week, a recital to work toward, and a lifelong love of dance. No pressure, all joy.</p>
+    </div>
+    <div class="path">
+      <b>Competitive</b>
+      <p>For dancers who want more: focused training and the thrill of taking the stage against the region's best.</p>
+    </div>
+  </div>
+</section>
+
+<section class="studio">
+  <div class="studio-grid">
+    <div class="panel reveal"><p class="cap">Inside the studio on a weeknight, photographed by Perkins Production</p></div>
+    <div class="reveal">
+      <p class="kicker">The neighborhood studio</p>
+      <h2>Where Urbana's dancers grow up</h2>
+      <p>On Worthington Boulevard, in the heart of the Villages of Urbana, this studio is where southern Frederick County's kids learn what practice, patience, and a stage can do.</p>
+      <p>Eight disciplines under one roof means a dancer never has to leave home to grow: the two-and-a-half-year-old in her first ballet class and the competitive team training for the season share the same hallway, and the same teachers cheering them on.</p>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="ph barre reveal"><p class="word">Tuesday at the barre</p><p class="cap">First position, age four, shot by Perkins Production</p></div>
+  <div class="ph stage reveal"><p class="word">Recital night</p><p class="cap">From the wings, five minutes to places, filmed by Perkins Production</p></div>
+  <div class="ph eight reveal"><p class="word">The last eight-count</p><p class="cap">Hip hop class hitting the ending together, filmed by Perkins Production</p></div>
+</div>
+
+<section class="quotes reveal">
+  <p class="kicker">The promise on the door</p>
+  <blockquote>&ldquo;Ballet, tap, jazz, hip hop, pointe, tumbling, contemporary, and modern. Ages two and a half and up. There is a class here for every dancer in Urbana.&rdquo;</blockquote>
+  <cite>What the studio offers, in one breath</cite>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal"><div class="play"><span></span></div></div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>The one thing this page is missing is your dancers</h2>
+      <p>Every navy panel above is a placeholder, art-directed and waiting. Dance is motion, and motion is exactly what a website can show that a flyer never could.</p>
+      <p>The finished site opens with real film and photography made in your studio by Perkins Production: tiny dancers finding first position, the competitive team mid-leap, recital night from the wings.</p>
+      <p class="fine"><b>Families choose the studio they can already picture their child inside.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="enroll reveal" id="enroll">
+  <p class="kicker">Now enrolling Fall 2026 / Spring 2027</p>
+  <h2 class="head">Save their spot before September 14</h2>
+  <p class="phone"><a href="tel:+13018744367">301-874-4367</a></p>
+  <p class="addr">3317 Worthington Boulevard, Ijamsville, MD 21754 &middot; serving the Villages of Urbana</p>
+  <div class="enroll-ctas">
+    <a class="btn solid" href="tel:+13018744367">Call to enroll</a>
+    <a class="btn" href="mailto:urbana.dance@gmail.com">Email the studio</a>
+    <a class="btn" href="https://maps.google.com/?q=3317+Worthington+Boulevard,+Ijamsville,+MD+21754">Directions</a>
+  </div>
+  <p class="fine">Registration runs through The Studio Director portal. On the finished site, the enroll button drops families exactly where they sign up.</p>
+</section>
+
+<footer>
+  <p class="name-line">Urbana Dance Studio</p>
+  <p>3317 Worthington Boulevard, Ijamsville, MD 21754 &middot; <a href="mailto:urbana.dance@gmail.com">urbana.dance@gmail.com</a> &middot; 301-874-4367</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

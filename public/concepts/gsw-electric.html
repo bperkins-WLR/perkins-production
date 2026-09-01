@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>GSW Electric | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coal: #0E1216; --steel: #151B22; --panel: #1C242E; --panel-2: #222D39;
+    --volt: #F5C518; --volt-soft: #FFD84D; --arc: #6BD0FF;
+    --white: #F4F7FA; --dim: #97A4B2; --line: #2A3644;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--coal); color: var(--white);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: #000; color: #C9D3DC; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .concept-ribbon b { color: var(--volt-soft); font-weight: 500; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .kicker { font-family: 'Archivo', sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--volt); font-weight: 600; margin-bottom: 14px; }
+  h2 { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: clamp(28px, 4.2vw, 42px); line-height: 1.1; letter-spacing: -0.5px; text-wrap: balance; }
+
+  /* Hero */
+  .hero {
+    position: relative; min-height: 90vh; display: flex; align-items: flex-end; overflow: hidden;
+    background:
+      radial-gradient(1100px 560px at 78% 18%, rgba(245,197,24,0.14), transparent 62%),
+      radial-gradient(900px 520px at 12% 88%, rgba(107,208,255,0.10), transparent 58%),
+      linear-gradient(160deg, #161D25 0%, #0E1216 78%);
+  }
+  .hero .grid-lines {
+    position: absolute; inset: 0; opacity: 0.35; pointer-events: none;
+    background:
+      repeating-linear-gradient(to right, rgba(151,164,178,0.06) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(to bottom, rgba(151,164,178,0.05) 0 1px, transparent 1px 90px);
+  }
+  .hero svg.pulse { position: absolute; left: 0; right: 0; top: 34%; width: 100%; height: 160px; opacity: 0.5; pointer-events: none; }
+  .hero .cap { position: absolute; right: 18px; bottom: 14px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(151,164,178,0.75); }
+  .hero-inner { position: relative; width: 100%; max-width: 1080px; margin: 0 auto; padding: 90px 28px 90px; }
+  .hero .est { font-family: 'Archivo', sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--arc); font-weight: 600; margin-bottom: 16px; }
+  h1 {
+    font-family: 'Archivo', sans-serif; font-weight: 800; text-transform: uppercase;
+    font-size: clamp(48px, 9vw, 96px); line-height: 0.95; letter-spacing: -1.5px; margin-bottom: 18px; text-wrap: balance;
+  }
+  h1 .volt { color: var(--volt); }
+  .hero .tag { font-size: clamp(18px, 2.4vw, 23px); color: #C7D2DD; max-width: 46ch; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.1s; } .hero .rise.d2 { animation-delay: 0.3s; }
+  .hero .rise.d3 { animation-delay: 0.5s; } .hero .rise.d4 { animation-delay: 0.75s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-family: 'Archivo', sans-serif; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+    padding: 15px 30px; border: 1px solid var(--volt); color: var(--volt);
+    background: rgba(14,18,22,0.4); transition: background 0.3s ease, color 0.3s ease;
+  }
+  .btn.solid { background: var(--volt); color: #10151A; }
+  .btn:hover, .btn:focus-visible { background: var(--volt-soft); border-color: var(--volt-soft); color: #10151A; outline: none; }
+
+  /* Intro */
+  .intro { max-width: 760px; margin: 0 auto; padding: 96px 28px 80px; text-align: center; }
+  .intro p.big { font-family: 'Archivo', sans-serif; font-weight: 600; font-size: clamp(23px, 3.2vw, 31px); line-height: 1.35; text-wrap: balance; }
+  .intro p.big em { font-style: normal; color: var(--volt); }
+  .intro .rule { width: 56px; height: 3px; background: var(--volt); margin: 28px auto 0; }
+
+  /* Services */
+  .services { max-width: 1120px; margin: 0 auto; padding: 0 28px 96px; }
+  .services .head { text-align: center; margin-bottom: 44px; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .svc { background: var(--panel); border: 1px solid var(--line); border-top: 3px solid transparent; padding: 26px 24px 28px; transition: border-color 0.3s ease, transform 0.3s ease; }
+  .svc:hover { border-top-color: var(--volt); transform: translateY(-3px); }
+  .svc b { display: block; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 19px; margin-bottom: 8px; }
+  .svc span { font-size: 14.5px; color: var(--dim); line-height: 1.6; display: block; }
+  .svc .tick { display: block; width: 26px; height: 3px; background: var(--arc); margin-bottom: 16px; }
+
+  /* EV band */
+  .ev { background: var(--steel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .ev-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 1fr; align-items: stretch; }
+  .ev .art {
+    position: relative; min-height: 460px; overflow: hidden;
+    background:
+      radial-gradient(420px 300px at 50% 62%, rgba(107,208,255,0.28), transparent 70%),
+      radial-gradient(700px 420px at 85% 10%, rgba(245,197,24,0.10), transparent 60%),
+      linear-gradient(200deg, #1B242E 0%, #10161C 100%);
+  }
+  .ev .art .cable { position: absolute; left: 50%; top: 0; width: 2px; height: 58%; background: linear-gradient(to bottom, transparent, var(--arc)); }
+  .ev .art .port {
+    position: absolute; left: 50%; top: 58%; transform: translate(-50%, 0);
+    width: 86px; height: 86px; border-radius: 50%; border: 2px solid var(--arc);
+    box-shadow: 0 0 42px rgba(107,208,255,0.45); display: flex; align-items: center; justify-content: center;
+  }
+  .ev .art .port::after { content: ''; width: 40px; height: 40px; border-radius: 50%; background: rgba(107,208,255,0.25); }
+  .ev .art .ghost {
+    position: absolute; left: 6%; bottom: 2%; font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: clamp(110px, 16vw, 190px); line-height: 1; color: rgba(151,164,178,0.07); letter-spacing: -4px;
+  }
+  .ev .art .cap { position: absolute; right: 16px; bottom: 12px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(151,164,178,0.75); }
+  .ev .copy { padding: 84px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .ev .copy p { color: #B9C5D0; max-width: 50ch; margin-top: 16px; }
+  .ev .copy p b { color: var(--white); font-weight: 500; }
+
+  /* Story band */
+  .story { background: var(--volt); color: #10151A; }
+  .story-inner { max-width: 1080px; margin: 0 auto; padding: 90px 28px; }
+  .story .kicker { color: #10151A; opacity: 0.65; }
+  .story h2 { margin-bottom: 18px; }
+  .story p.lede { max-width: 62ch; font-weight: 400; font-size: 18px; margin-bottom: 44px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .stat { border-top: 3px solid #10151A; padding-top: 16px; }
+  .stat b { display: block; font-family: 'Archivo', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1; margin-bottom: 8px; }
+  .stat span { font-size: 14.5px; font-weight: 500; line-height: 1.5; display: block; }
+
+  /* Credentials */
+  .cred { max-width: 960px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  .cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 40px 0 48px; }
+  .badge { background: var(--panel); border: 1px solid var(--line); padding: 26px 20px 28px; }
+  .badge b { display: block; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 18px; color: var(--volt-soft); margin-bottom: 6px; }
+  .badge span { font-size: 14px; color: var(--dim); line-height: 1.55; display: block; }
+  blockquote { font-family: 'Archivo', sans-serif; font-weight: 600; font-size: clamp(19px, 2.6vw, 25px); line-height: 1.45; text-wrap: balance; margin-bottom: 14px; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); }
+
+  /* Film band */
+  .film { background: var(--steel); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px; overflow: hidden;
+    background:
+      radial-gradient(560px 340px at 30% 30%, rgba(245,197,24,0.20), transparent 65%),
+      linear-gradient(145deg, #232E3A 0%, #11171D 90%);
+  }
+  .film .still .beams {
+    position: absolute; inset: 0; opacity: 0.5;
+    background: repeating-linear-gradient(115deg, transparent 0 70px, rgba(245,197,24,0.05) 70px 78px);
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--volt);
+    background: rgba(14,18,22,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--volt); margin-left: 5px;
+  }
+  .film .still .cap { position: absolute; right: 16px; bottom: 12px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(151,164,178,0.75); }
+  .film .copy { padding: 84px 60px; display: flex; flex-direction: column; justify-content: center; }
+  .film .copy p { color: #B9C5D0; max-width: 50ch; margin-top: 16px; }
+  .film .copy p.fine { font-size: 14.5px; color: var(--dim); }
+  .film .copy p.fine b { color: var(--volt-soft); font-weight: 500; }
+
+  /* Contact */
+  .cta { text-align: center; padding: 100px 28px 90px; }
+  .cta h2 { margin-bottom: 12px; }
+  .cta p.sub { color: var(--dim); margin-bottom: 34px; }
+  .cta a.phone {
+    display: inline-block; font-family: 'Archivo', sans-serif; font-weight: 800;
+    font-size: clamp(30px, 5.5vw, 52px); letter-spacing: -1px; color: var(--volt);
+    text-decoration: none; margin-bottom: 10px;
+  }
+  .cta a.phone:hover { color: var(--volt-soft); }
+  .cta p.mail { margin-bottom: 40px; }
+  .cta p.mail a { color: var(--arc); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .areas { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .areas span { font-family: 'Archivo', sans-serif; font-size: 12.5px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; color: #C7D2DD; border: 1px solid var(--line); padding: 9px 16px; }
+
+  footer { background: #000; color: #7C8894; text-align: center; padding: 44px 28px; font-size: 14px; border-top: 1px solid var(--line); }
+  footer .name-line { color: #E4EAF0; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  footer a { color: var(--volt); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #1B232C; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .svc-grid, .stats, .cred-grid { grid-template-columns: 1fr; }
+    .ev-grid, .film-grid { grid-template-columns: 1fr; }
+    .ev .art, .film .still { min-height: 340px; }
+    .ev .copy, .film .copy { padding: 56px 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+    .svc, .svc:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for GSW Electric, prepared by Perkins Production &middot; not the live website</div>
+
+<section class="hero">
+  <div class="grid-lines"></div>
+  <svg class="pulse" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="0,80 340,80 380,80 410,18 450,142 490,80 700,80 1200,80"
+      fill="none" stroke="#F5C518" stroke-width="2" opacity="0.55"/>
+    <polyline points="0,100 260,100 620,100 660,52 700,132 740,100 980,100 1200,100"
+      fill="none" stroke="#6BD0FF" stroke-width="1.5" opacity="0.35"/>
+  </svg>
+  <div class="hero-inner">
+    <p class="est rise d1">Mount Airy, Maryland &middot; Master Electrician owned &middot; Est. 1994</p>
+    <h1 class="rise d2">GSW <span class="volt">Electric</span></h1>
+    <p class="tag rise d3">Family-owned, full-service electrical for homes and businesses across central Maryland, from panel work to the EV charger in your garage.</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+12408324241">Call (240) 832-4241</a>
+      <a class="btn" href="#ev">Plan an EV charger</a>
+      <a class="btn" href="#contact">Get an estimate</a>
+    </div>
+  </div>
+  <p class="cap">Your crew on site, filmed by Perkins Production</p>
+</section>
+
+<section class="intro reveal">
+  <p class="big">Thirty-two years in business. Almost forty at the trade. When the power matters, Mount Airy calls <em>Spencer</em>.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="services reveal" id="services">
+  <div class="head">
+    <p class="kicker">Full service, one call</p>
+    <h2>What GSW handles</h2>
+  </div>
+  <div class="svc-grid">
+    <div class="svc"><span class="tick"></span><b>EV Charger Installation</b><span>Home and business charging, installed by a Master Electrician and wired to last.</span></div>
+    <div class="svc"><span class="tick"></span><b>Residential Electrical</b><span>General electrical work for the house: repairs, upgrades, and new installations done right.</span></div>
+    <div class="svc"><span class="tick"></span><b>Commercial Electrical</b><span>Full-service electrical contracting for businesses across the region.</span></div>
+    <div class="svc"><span class="tick"></span><b>Parking Lot Lighting</b><span>Bright, safe lots for the properties and customers that depend on them.</span></div>
+    <div class="svc"><span class="tick"></span><b>Street Light Repair</b><span>Getting the lights back on where whole streets rely on them.</span></div>
+    <div class="svc"><span class="tick"></span><b>Regional Reach</b><span>Based in Mount Airy, serving central Maryland, Baltimore, the DC metro, and Virginia.</span></div>
+  </div>
+</section>
+
+<section class="ev" id="ev">
+  <div class="ev-grid">
+    <div class="art reveal">
+      <div class="cable"></div>
+      <div class="port"></div>
+      <div class="ghost">EV</div>
+      <p class="cap">Your next charger install, shot by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">The trade moved forward</p>
+      <h2>A 1994 company wiring for what comes next</h2>
+      <p>EV charger installation is on the truck now, alongside everything GSW has always done. That is the story worth telling: <b>the electrician your neighbors have trusted for decades is the same one ready for the car in your driveway.</b></p>
+      <p>The finished site puts this service front and center, where the search traffic already is.</p>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="story-inner reveal">
+    <p class="kicker">Since 1994</p>
+    <h2>The man behind the initials</h2>
+    <p class="lede">George "Spencer" Willie founded GSW Electric in 1994 and still runs it as a family-owned shop. A Master Electrician with almost 40 years at the trade, he has kept the work full service, residential and commercial alike.</p>
+    <div class="stats">
+      <div class="stat"><b>1994</b><span>Founded in Mount Airy, and family-owned ever since</span></div>
+      <div class="stat"><b>~40 yrs</b><span>of hands-on experience behind every estimate</span></div>
+      <div class="stat"><b>Master</b><span>Electrician credential held by the owner himself</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cred reveal">
+  <p class="kicker">Credentials that check out</p>
+  <h2>Vetted, awarded, accredited</h2>
+  <div class="cred-grid">
+    <div class="badge"><b>Angi Award, 2023</b><span>Earned through homeowner reviews, one job at a time.</span></div>
+    <div class="badge"><b>HomeAdvisor</b><span>Listed and screened where homeowners go to compare pros.</span></div>
+    <div class="badge"><b>BBB Seal</b><span>Accountability that predates the internet, still standing behind the work.</span></div>
+  </div>
+  <blockquote>An Angi award is not bought. It is voted on by the homeowners you have already served.</blockquote>
+  <cite>GSW's project log shows new work as recently as July 2026</cite>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="beams"></div>
+      <div class="play"><span></span></div>
+      <p class="cap">A parking lot coming to full brightness, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>Electrical work is invisible. Your craftsmanship should not be.</h2>
+      <p>Every panel on this page is a placeholder for real footage: the van rolling out at dawn, a charger powering up for the first time, a dark lot flickering to life pole by pole, Spencer's hands in a panel he has wired a thousand times.</p>
+      <p>Perkins Production shoots it all on your actual jobs, in Frederick County light. That film is what the finished site opens with.</p>
+      <p class="fine"><b>Almost 40 years of work, finally on camera.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="cta reveal" id="contact">
+  <p class="kicker">Ready when you are</p>
+  <h2>Talk to the electrician, not a call center</h2>
+  <p class="sub">One call reaches the shop in Mount Airy, MD 21771.</p>
+  <a class="phone" href="tel:+12408324241">(240) 832-4241</a>
+  <p class="mail"><a href="mailto:spencer@gswelectric.com">spencer@gswelectric.com</a></p>
+  <div class="areas">
+    <span>Central Maryland</span>
+    <span>Baltimore</span>
+    <span>DC Metro</span>
+    <span>Virginia</span>
+  </div>
+</section>
+
+<footer>
+  <p class="name-line">GSW Electric</p>
+  <p>Family-owned &middot; Full-service electrical contractor &middot; Est. 1994</p>
+  <p>Mount Airy, MD 21771 &middot; <a href="tel:+12408324241">(240) 832-4241</a> &middot; <a href="mailto:spencer@gswelectric.com">spencer@gswelectric.com</a></p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>

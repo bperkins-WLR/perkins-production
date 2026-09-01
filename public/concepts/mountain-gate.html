@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Mountain Gate Family Restaurant | A Design Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --butter: #FBF4E4; --brown: #4A2E1D; --brown-deep: #38210F;
+    --ink: #35271B; --soft: #7C6A55; --harvest: #C97A2B; --gold: #E0A03F;
+    --sage: #C6C2A4; --line: #EADFC8; --white: #FFFDF5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--butter); color: var(--ink);
+    font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300; line-height: 1.7; font-size: 17px;
+  }
+  .concept-ribbon {
+    background: var(--brown-deep); color: #E8DFC9; text-align: center;
+    font-size: 12.5px; letter-spacing: 1.5px; padding: 9px 16px;
+  }
+  .concept-ribbon b { color: var(--gold); font-weight: 700; }
+  .brand-band { background: var(--brown); text-align: center; padding: 26px 20px 22px; border-bottom: 4px solid var(--harvest); }
+  .brand-band img { width: 230px; max-width: 70vw; height: auto; display: inline-block; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .kicker { font-size: 12px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--harvest); font-weight: 700; }
+
+  /* Hero: dawn over Catoctin, drawn in CSS and SVG. No borrowed photos. */
+  .hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; overflow: hidden;
+    background:
+      radial-gradient(ellipse 110% 62% at 50% 102%, rgba(224,160,63,0.55) 0%, rgba(201,122,43,0.22) 45%, transparent 72%),
+      linear-gradient(to bottom, #2E1C0C 0%, #59341A 46%, #7C4A22 74%, #96602B 100%);
+  }
+  .hero .ridge { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 46%; }
+  .hero .ridge svg { width: 100%; height: 100%; display: block; }
+  .hero .veil { position: absolute; inset: 0; background: linear-gradient(to top, rgba(38,22,9,0.78) 0%, rgba(38,22,9,0.15) 52%, rgba(38,22,9,0) 100%); }
+  .hero .caption {
+    position: absolute; right: 18px; bottom: 14px; z-index: 2;
+    font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(232,223,201,0.65);
+  }
+  .hero-inner { position: relative; z-index: 1; width: 100%; max-width: 1020px; margin: 0 auto; padding: 70px 28px 82px; color: var(--white); text-align: center; }
+  .hero .est {
+    font-size: 12.5px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); font-weight: 700; margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Bree Serif', Georgia, serif; font-weight: 400;
+    font-size: clamp(42px, 7.6vw, 84px); line-height: 1.05;
+    text-wrap: balance; margin-bottom: 16px;
+  }
+  .hero .tag { font-family: 'Lato', sans-serif; font-style: italic; font-size: clamp(18px, 2.5vw, 24px); color: #F3E8CF; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .hero .rise { opacity: 0; transform: translateY(22px); animation: rise 1.1s ease forwards; }
+  .hero .rise.d1 { animation-delay: 0.15s; } .hero .rise.d2 { animation-delay: 0.35s; }
+  .hero .rise.d3 { animation-delay: 0.55s; } .hero .rise.d4 { animation-delay: 0.8s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px;
+    letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
+    padding: 15px 30px; border: 1px solid var(--gold); color: var(--gold);
+    background: rgba(46,28,12,0.35); border-radius: 3px;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn.solid { background: var(--harvest); border-color: var(--harvest); color: var(--white); }
+  .btn:hover, .btn:focus-visible { background: var(--gold); border-color: var(--gold); color: var(--brown-deep); outline: none; }
+
+  /* Intro */
+  .intro { max-width: 720px; margin: 0 auto; padding: 96px 28px 80px; text-align: center; }
+  .intro p.big { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(23px, 3.3vw, 31px); line-height: 1.45; text-wrap: balance; }
+  .intro .rule { width: 56px; height: 3px; background: var(--harvest); margin: 28px auto 0; border-radius: 2px; }
+
+  /* Buffet */
+  .buffet { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .buffet-inner { max-width: 1080px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  .buffet h2 { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(30px, 4.4vw, 42px); margin: 14px 0 10px; }
+  .buffet .lead { color: var(--soft); max-width: 60ch; margin: 0 auto 44px; }
+  .station-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; text-align: left; margin-bottom: 44px; }
+  .station { background: var(--butter); border: 1px solid var(--line); border-radius: 6px; padding: 26px 24px 28px; }
+  .station h3 { font-family: 'Bree Serif', Georgia, serif; font-size: 21px; margin-bottom: 8px; color: var(--brown); }
+  .station p { color: var(--soft); font-size: 15px; }
+  .signature { max-width: 640px; margin: 0 auto; background: var(--brown); color: #F3E8CF; border-radius: 8px; padding: 36px 34px 38px; box-shadow: 0 18px 44px rgba(56,33,15,0.18); }
+  .signature .kicker { color: var(--gold); }
+  .signature h3 { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(24px, 3.2vw, 30px); margin: 10px 0 12px; color: var(--white); }
+  .signature p { color: #E2D3B4; font-size: 16px; }
+  .buffet .fine { font-size: 13.5px; color: var(--soft); font-style: italic; margin-top: 30px; }
+
+  /* Placeholder photo strip */
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--brown-deep); }
+  .strip .ph { position: relative; height: 300px; overflow: hidden; }
+  .strip .ph .caption {
+    position: absolute; left: 16px; bottom: 12px; z-index: 1; font-size: 11px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(243,232,207,0.7);
+  }
+  .strip .ph.a { background: radial-gradient(ellipse 90% 80% at 50% 110%, rgba(224,160,63,0.5) 0%, transparent 65%), linear-gradient(to bottom, #3B2410, #59341A); }
+  .strip .ph.b { background: radial-gradient(ellipse 80% 70% at 30% 0%, rgba(198,194,164,0.28) 0%, transparent 60%), linear-gradient(to bottom, #4A2E1D, #35200E); }
+  .strip .ph.c { background: radial-gradient(ellipse 90% 80% at 70% 110%, rgba(201,122,43,0.45) 0%, transparent 65%), linear-gradient(to bottom, #33200F, #55321B); }
+  .strip .ph .mark {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: 'Bree Serif', Georgia, serif; font-size: clamp(20px, 2.6vw, 26px);
+    color: rgba(243,232,207,0.5); text-align: center; padding: 0 24px;
+  }
+
+  /* Heritage */
+  .heritage { max-width: 1060px; margin: 0 auto; padding: 100px 28px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; align-items: center; }
+  .heritage .year {
+    font-family: 'Bree Serif', Georgia, serif; text-align: center;
+    background: var(--white); border: 1px solid var(--line); border-radius: 50%;
+    width: min(300px, 74vw); aspect-ratio: 1; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 18px 44px rgba(56,33,15,0.12);
+  }
+  .heritage .year b { font-size: clamp(64px, 9vw, 92px); line-height: 1; color: var(--harvest); font-weight: 400; }
+  .heritage .year span { font-size: 12.5px; letter-spacing: 3.5px; text-transform: uppercase; color: var(--soft); font-family: 'Lato', sans-serif; font-weight: 700; }
+  .heritage h2 { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(28px, 3.8vw, 38px); line-height: 1.22; margin: 12px 0 16px; text-wrap: balance; }
+  .heritage p { color: var(--soft); max-width: 54ch; margin-bottom: 14px; }
+  .heritage p b { color: var(--ink); font-weight: 700; }
+
+  /* Tour bus band */
+  .buses { background: var(--brown); color: #F3E8CF; text-align: center; }
+  .buses-inner { max-width: 760px; margin: 0 auto; padding: 88px 28px; }
+  .buses .kicker { color: var(--gold); }
+  .buses h2 { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(28px, 4vw, 38px); margin: 12px 0 14px; color: var(--white); text-wrap: balance; }
+  .buses p { color: #E2D3B4; margin-bottom: 12px; }
+  .buses .badge-line { display: inline-block; margin-top: 18px; font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; color: var(--gold); border: 1px solid rgba(224,160,63,0.55); border-radius: 3px; padding: 11px 20px; }
+
+  /* Quote */
+  .quotes { max-width: 800px; margin: 0 auto; padding: 96px 28px; text-align: center; }
+  blockquote { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(22px, 3vw, 29px); line-height: 1.45; margin: 18px 0 16px; text-wrap: balance; }
+  cite { display: block; font-style: normal; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); }
+
+  /* Film band */
+  .film { background: var(--brown-deep); color: #F3E8CF; }
+  .film-grid { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0; align-items: stretch; }
+  .film .still {
+    position: relative; min-height: 460px;
+    background:
+      radial-gradient(ellipse 85% 65% at 50% 105%, rgba(224,160,63,0.4) 0%, transparent 62%),
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(198,194,164,0.16) 0%, transparent 60%),
+      linear-gradient(to bottom, #402711, #2A1808);
+  }
+  .film .still .caption {
+    position: absolute; left: 18px; bottom: 14px; font-size: 11.5px;
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(243,232,207,0.65);
+  }
+  .film .play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .film .play span {
+    width: 78px; height: 78px; border-radius: 50%; border: 1px solid var(--gold);
+    background: rgba(42,24,8,0.55); display: flex; align-items: center; justify-content: center;
+  }
+  .film .play span::after {
+    content: ''; border-style: solid; border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent var(--gold); margin-left: 5px;
+  }
+  .film .copy { padding: 84px 64px; display: flex; flex-direction: column; justify-content: center; }
+  .film .kicker { color: var(--gold); margin-bottom: 16px; }
+  .film h2 { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(28px, 3.8vw, 40px); line-height: 1.2; margin-bottom: 18px; text-wrap: balance; color: var(--white); }
+  .film p { color: #D9C8A6; max-width: 48ch; margin-bottom: 14px; }
+  .film p.fine { font-size: 14px; font-style: italic; color: #B7A582; }
+  .film p.fine b { color: var(--gold); font-weight: 700; }
+
+  /* Contact */
+  .contact { max-width: 1060px; margin: 0 auto; padding: 100px 28px; text-align: center; }
+  .contact h2 { font-family: 'Bree Serif', Georgia, serif; font-size: clamp(30px, 4.6vw, 44px); margin: 12px 0 10px; }
+  .contact .lead { color: var(--soft); margin-bottom: 40px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; margin-bottom: 36px; }
+  .c-card { background: var(--white); border: 1px solid var(--line); border-radius: 6px; padding: 26px 26px 28px; }
+  .c-card h3 { font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; color: var(--harvest); margin-bottom: 10px; }
+  .c-card p { font-size: 16px; }
+  .c-card p.small { font-size: 14px; color: var(--soft); margin-top: 6px; }
+  .c-card a { color: var(--brown); text-decoration: none; border-bottom: 1px solid var(--gold); }
+
+  footer { background: var(--brown-deep); color: #B7A582; text-align: center; padding: 44px 28px; font-size: 14px; }
+  footer .name-line { color: #F3E8CF; font-family: 'Bree Serif', Georgia, serif; font-size: 19px; margin-bottom: 8px; }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer .credit { margin-top: 20px; padding-top: 18px; border-top: 1px solid #4A2E1D; font-size: 12.5px; letter-spacing: 1px; }
+
+  @media (max-width: 860px) {
+    .station-grid { grid-template-columns: 1fr; }
+    .strip { grid-template-columns: 1fr; }
+    .strip .ph { height: 220px; }
+    .heritage { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .heritage p { margin-left: auto; margin-right: auto; }
+    .film-grid { grid-template-columns: 1fr; }
+    .film .still { min-height: 320px; }
+    .film .copy { padding: 56px 28px; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .hero .rise { opacity: 1; transform: none; animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="concept-ribbon">A <b>design concept</b> for Mountain Gate Family Restaurant, prepared by Perkins Production &middot; not the live website</div>
+<div class="brand-band"><img src="/concepts/mountain-gate/logo.png" alt="Mountain Gate Family Restaurant, established 1979"></div>
+
+<section class="hero">
+  <div class="ridge" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path d="M0 210 L180 120 L340 190 L520 80 L700 170 L900 60 L1090 160 L1270 100 L1440 175 L1440 320 L0 320 Z" fill="#2E1C0C" opacity="0.55"/>
+      <path d="M0 260 L220 180 L420 240 L640 150 L860 230 L1080 140 L1280 220 L1440 180 L1440 320 L0 320 Z" fill="#241407" opacity="0.85"/>
+    </svg>
+  </div>
+  <div class="veil"></div>
+  <div class="hero-inner">
+    <p class="est rise d1">Thurmont, Maryland &middot; Est. 1979</p>
+    <h1 class="rise d2">Mountain Gate<br>Family Restaurant</h1>
+    <p class="tag rise d3">Home Cooked Goodness from Our Family to Yours</p>
+    <div class="hero-ctas rise d4">
+      <a class="btn solid" href="tel:+13012714373">Call 301-271-4373</a>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Mountain+Gate+Family+Restaurant+133+Frederick+Rd+Thurmont+MD" rel="noopener">Get directions</a>
+    </div>
+  </div>
+  <p class="caption">First light over Catoctin, filmed by Perkins Production</p>
+</section>
+
+<section class="intro reveal">
+  <p class="kicker">On the way up the mountain</p>
+  <p class="big">Since 1979, the road to Catoctin Mountain has run past one long buffet line, and generations of Thurmont families (and busloads of travelers) have been glad it does.</p>
+  <div class="rule"></div>
+</section>
+
+<section class="buffet">
+  <div class="buffet-inner reveal">
+    <p class="kicker">The buffet</p>
+    <h2>All day, every day, made from scratch</h2>
+    <p class="lead">Open daily 8am to 8pm with breakfast served all day, home-style country cooking, and fresh-baked goods coming out of the kitchen.</p>
+    <div class="station-grid">
+      <div class="station">
+        <h3>Country Classics</h3>
+        <p>The home-style dishes that built the reputation: roast turkey, country ham, and the comfort food Thurmont grew up on.</p>
+      </div>
+      <div class="station">
+        <h3>Salad Bar</h3>
+        <p>A full salad bar alongside the hot line, so every plate starts exactly the way you want it to.</p>
+      </div>
+      <div class="station">
+        <h3>Grill Station</h3>
+        <p>Hot off the grill and onto your plate, with breakfast available any hour the doors are open.</p>
+      </div>
+      <div class="station">
+        <h3>Dessert Bar</h3>
+        <p>Fresh-baked goods and a dessert bar generous enough to deserve its own trip through the line.</p>
+      </div>
+    </div>
+    <div class="signature reveal">
+      <p class="kicker">The one everybody comes back for</p>
+      <h3>Our Famous Hand-Breaded Fried Chicken</h3>
+      <p>Breaded by hand, the same way it has been done for decades. Watch for seafood buffet and Italian nights on the calendar, too.</p>
+    </div>
+    <p class="fine">The finished site presents the full menu with photography and current buffet schedules, easy to update any day of the week.</p>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="ph a reveal">
+    <p class="mark">The fried chicken, golden and fresh from the kitchen</p>
+    <p class="caption">Shot at your buffet line by Perkins Production</p>
+  </div>
+  <div class="ph b reveal">
+    <p class="mark">Saturday morning, every booth full</p>
+    <p class="caption">Your dining room, shot by Perkins Production</p>
+  </div>
+  <div class="ph c reveal">
+    <p class="mark">The dessert bar and the country gift shops</p>
+    <p class="caption">Shot on site by Perkins Production</p>
+  </div>
+</div>
+
+<section class="heritage">
+  <div class="reveal">
+    <div class="year"><b>1979</b><span>Family owned since</span></div>
+  </div>
+  <div class="reveal">
+    <p class="kicker">The story</p>
+    <h2>One family, two towns, forty-some years of full plates</h2>
+    <p>Mountain Gate opened in Thurmont in <b>1979</b> and has stayed in the family ever since, growing to a second location in <b>Waynesboro, Pennsylvania</b>.</p>
+    <p>Come hungry, stay a while: after dinner there are on-site country gift shops to wander before you get back on the road.</p>
+  </div>
+</section>
+
+<section class="buses">
+  <div class="buses-inner reveal">
+    <p class="kicker">Groups welcome</p>
+    <h2>The restaurant tour buses plan their route around</h2>
+    <p>Sitting at 133 Frederick Rd on the way to Catoctin Mountain and Camp David, Mountain Gate has been a motorcoach destination for decades. A buffet built for a busload says everything about the kitchen.</p>
+    <p class="badge-line">Maryland Motorcoach Association Member</p>
+  </div>
+</section>
+
+<section class="quotes reveal">
+  <p class="kicker">Ask anyone in Thurmont</p>
+  <blockquote>&ldquo;Order the hand-breaded fried chicken. Everybody does.&rdquo;</blockquote>
+  <cite>What the locals will tell you</cite>
+</section>
+
+<section class="film">
+  <div class="film-grid">
+    <div class="still reveal">
+      <div class="play"><span></span></div>
+      <p class="caption">Dinner rush at Mountain Gate, filmed by Perkins Production</p>
+    </div>
+    <div class="copy reveal">
+      <p class="kicker">Now imagine it filmed</p>
+      <h2>This food deserves to be seen before it is tasted</h2>
+      <p>Every photo panel on this page is an empty seat at the table, on purpose. No stock food photos, ever: your buffet line, your bakers, your dining room, photographed and filmed at the restaurant by Perkins Production.</p>
+      <p>The finished site opens with that footage: steam rising off the fried chicken, the dessert bar in the afternoon light, a tour bus pulling in. Nobody scrolls past that hungry.</p>
+      <p class="fine"><b>A 45-year reputation, finally served the way it deserves.</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="contact reveal" id="visit">
+  <p class="kicker">Come hungry</p>
+  <h2>We're on your way to the mountain</h2>
+  <p class="lead">Open daily, with breakfast all day and the buffet always on.</p>
+  <div class="contact-grid">
+    <div class="c-card">
+      <h3>Address</h3>
+      <p>133 Frederick Rd<br>Thurmont, MD</p>
+      <p class="small"><a href="https://www.google.com/maps/search/?api=1&amp;query=Mountain+Gate+Family+Restaurant+133+Frederick+Rd+Thurmont+MD" rel="noopener">Get directions</a></p>
+    </div>
+    <div class="c-card">
+      <h3>Hours</h3>
+      <p>Open daily: 8am to 8pm</p>
+      <p class="small">Breakfast served all day.</p>
+    </div>
+    <div class="c-card">
+      <h3>Get in touch</h3>
+      <p><a href="tel:+13012714373">301-271-4373</a></p>
+      <p class="small"><a href="mailto:info@mountaingatefamilyrestaurant.com">info@mountaingatefamilyrestaurant.com</a></p>
+    </div>
+  </div>
+  <a class="btn solid" href="tel:+13012714373" style="border:none;">Call 301-271-4373</a>
+</section>
+
+<footer>
+  <p class="name-line">Mountain Gate Family Restaurant</p>
+  <p>133 Frederick Rd, Thurmont, MD &middot; Family owned since 1979 &middot; Also in Waynesboro, PA</p>
+  <p>Open daily 8am to 8pm &middot; Breakfast all day</p>
+  <p class="credit">Design concept by <a href="https://www.perkinsproduction.com">Perkins Production</a> &middot; Brice Perkins &middot; (240) 818-1955 &middot; brice@perkinsproduction.com</p>
+</footer>
+
+<script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var revealEls = document.querySelectorAll('.reveal');
+    if (reduced || !('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var ro = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.15 });
+      revealEls.forEach(function (el) { ro.observe(el); });
+    }
+  })();
+</script>
+
+</body>
+</html>
