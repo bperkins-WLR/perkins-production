@@ -2123,6 +2123,10 @@
             var dt = Math.min(100, now - (lastTick || now));
             lastTick = now;
             shown += (target - shown) * (1 - Math.pow(1 - 0.28, dt / 16.667));
+            // Leash: never trail the real scroll by more than 4%, so the film
+            // can't run against the gesture after a fast flick or jump
+            if (shown < target - 0.04) shown = target - 0.04;
+            else if (shown > target + 0.04) shown = target + 0.04;
             if (Math.abs(target - shown) < 0.0005) { shown = target; rafId = null; lastTick = 0; }
             else { rafId = requestAnimationFrame(tick); }
             if (video.duration) requestSeek(shown * Math.max(0, video.duration - 0.05));
@@ -2134,11 +2138,13 @@
         }
 
         // Gated seeks with deadlock escape
-        var seekBusy = false, pendingTime = null;
+        var seekBusy = false, pendingTime = null, seekAt = 0;
         function requestSeek(t) {
             if (!video.duration) return;
+            if (seekBusy && performance.now() - seekAt > 300) { seekBusy = false; pendingTime = null; }
             if (seekBusy) { pendingTime = t; return; }
             seekBusy = true;
+            seekAt = performance.now();
             video.currentTime = t;
         }
         video.addEventListener('seeked', function () {
@@ -2149,6 +2155,10 @@
 
         new IntersectionObserver(function (entries) {
             heroOnScreen = entries[0].isIntersecting;
+            if (!heroOnScreen) {
+                if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; lastTick = 0; }
+                shown = target;
+            }
         }).observe(wrap);
 
         // One-time init inside the gated path only
@@ -2165,7 +2175,9 @@
                     video.src = URL.createObjectURL(blob);
                     video.load();
                     video.addEventListener('canplay', function () {
-                        requestSeek(heroProgress() * Math.max(0, video.duration - 0.05));
+                        target = shown = heroProgress();
+                        requestSeek(shown * Math.max(0, video.duration - 0.05));
+                        updateCaptions(shown);
                         stage.classList.add('video-ready');
                     }, { once: true });
                 }).catch(function () { stage.classList.remove('video-ready'); });
@@ -2197,8 +2209,9 @@
             initHeroOnce();
             addEventListener('scroll', onScroll, { passive: true });
             bands.forEach(function (b) { b.op = -1; b.k = -1; });
-            updateCaptions(heroProgress());
-            onScroll();
+            target = shown = heroProgress();
+            if (video.duration) requestSeek(shown * Math.max(0, video.duration - 0.05));
+            updateCaptions(shown);
         }
         function disableScrub() {
             if (!scrubOn) return; scrubOn = false;
