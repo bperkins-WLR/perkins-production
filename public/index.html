@@ -53,7 +53,8 @@
             --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        html { scroll-behavior: smooth; }
+        /* Smooth scrolling is handled in JS (bounded duration); CSS smooth fights the scrub hero */
+        html { scroll-behavior: auto; }
 
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
@@ -157,7 +158,7 @@
         }
 
         /* ===== SCROLL-SCRUBBED HERO (desktop) ===== */
-        .scrub-wrap { display: block; height: 400vh; position: relative; }
+        .scrub-wrap { display: block; height: 520vh; position: relative; }
         .scrub-stage {
             position: sticky; top: 0; height: 100vh; overflow: hidden;
             background: #0b0d14;
@@ -1860,6 +1861,35 @@
         e.stopPropagation();
         setCreativeMenu(!creativeNav.classList.contains('open'));
     });
+    // ===== SMOOTH ANCHOR SCROLL (bounded; CSS smooth scrolling fights the scrub hero) =====
+    document.addEventListener('click', function (e) {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        const id = link.getAttribute('href');
+        if (!id || id === '#') return;
+        const dest = document.querySelector(id);
+        if (!dest) return;
+        e.preventDefault();
+        const startY = window.scrollY;
+        const endY = Math.round(dest.getBoundingClientRect().top + window.scrollY);
+        const dist = endY - startY;
+        if (!dist) return;
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            window.scrollTo(0, endY);
+            history.replaceState(null, '', id);
+            return;
+        }
+        const dur = Math.min(700, Math.max(320, Math.abs(dist) * 0.28));
+        const t0 = performance.now();
+        (function step(now) {
+            const p = Math.min(1, (now - t0) / dur);
+            const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+            window.scrollTo(0, Math.round(startY + dist * eased));
+            if (p < 1) requestAnimationFrame(step);
+            else history.replaceState(null, '', id);
+        })(t0);
+    });
+
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
             document.getElementById('nav-links').classList.remove('open');
@@ -2092,7 +2122,7 @@
         function tick(now) {
             var dt = Math.min(100, now - (lastTick || now));
             lastTick = now;
-            shown += (target - shown) * (1 - Math.pow(1 - 0.16, dt / 16.667));
+            shown += (target - shown) * (1 - Math.pow(1 - 0.28, dt / 16.667));
             if (Math.abs(target - shown) < 0.0005) { shown = target; rafId = null; lastTick = 0; }
             else { rafId = requestAnimationFrame(tick); }
             if (video.duration) requestSeek(shown * Math.max(0, video.duration - 0.05));
