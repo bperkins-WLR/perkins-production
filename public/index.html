@@ -160,8 +160,8 @@
         /* ===== SCROLL-SCRUBBED HERO (desktop) ===== */
         .scrub-wrap { display: block; height: 520vh; position: relative; }
         .scrub-stage {
-            position: sticky; top: 0; height: 100vh; overflow: hidden;
-            background: #0b0d14;
+            position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+            background: var(--bg-primary);
         }
         .scrub-stage video, .scrub-poster {
             position: absolute; inset: 0; width: 100%; height: 100%;
@@ -237,16 +237,74 @@
             opacity: var(--cue, 1); transition: opacity 0.6s ease; pointer-events: none;
             text-shadow: 0 1px 6px rgba(5,5,10,0.9);
         }
-        /* Scrub is off until JS confirms no gate matches; classic hero is the no-JS default */
+        /* The scroll deck: four sites in a browser frame, driven by scroll position */
+        .deck-glow {
+            position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(ellipse 60% 50% at 62% 55%, rgba(201,169,110,0.10) 0%, rgba(201,169,110,0.03) 40%, rgba(10,10,10,0) 70%);
+        }
+        .deck {
+            position: absolute; inset: 0; display: grid;
+            grid-template-columns: minmax(260px, 34%) minmax(0, 1fr);
+            align-items: center; column-gap: 4vw; padding: 0 5vw;
+            opacity: var(--deck-o, 1); transform: scale(var(--deck-s, 1));
+            transform-origin: 50% 50%; will-change: transform, opacity;
+        }
+        .deck-labels { position: relative; min-height: 260px; }
+        .deck-label {
+            position: absolute; left: 0; right: 0; top: 50%;
+            transform: translateY(calc(-50% + var(--lty, 22px)));
+            opacity: 0; will-change: opacity, transform;
+        }
+        .deck-label .eyebrow {
+            font-family: 'Josefin Slab', serif; font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--text-accent);
+        }
+        .deck-label h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500;
+            font-size: clamp(32px, 3.6vw, 56px); color: #F1ECE1; line-height: 1.1; margin: 0.5rem 0 0.9rem;
+        }
+        .deck-label p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; max-width: 34ch; }
+        .deck-frame {
+            position: relative; width: min(100%, calc(78vh * 1.6)); aspect-ratio: 16 / 10; margin-left: auto;
+        }
+        .deck-slide {
+            position: absolute; inset: 0; margin: 0; border-radius: 10px; overflow: hidden;
+            background: #121212; border: 1px solid rgba(201,169,110,0.32);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.65);
+            transform: translateY(115%); opacity: 0; will-change: transform;
+        }
+        .deck-slide .bar {
+            position: absolute; top: 0; left: 0; right: 0; height: 30px; z-index: 1;
+            background: #171717; border-bottom: 1px solid #262626;
+            display: flex; align-items: center; gap: 6px; padding: 0 12px;
+        }
+        .deck-slide .bar i { width: 9px; height: 9px; border-radius: 50%; background: #3b3b3b; }
+        .deck-slide .bar i:first-child { background: rgba(201,169,110,0.7); }
+        .deck-slide .bar span {
+            margin-left: 10px; font-family: 'Josefin Slab', serif; font-size: 10px;
+            letter-spacing: 2px; text-transform: uppercase; color: #777;
+        }
+        .deck-slide .shot { position: absolute; top: 30px; left: 0; right: 0; bottom: 0; overflow: hidden; background: #0f0f0f; }
+        .deck-slide .shot img { display: block; width: 100%; height: auto; will-change: transform; }
+        @media (max-width: 720px), (orientation: portrait) {
+            .scrub-wrap { height: 460vh; }
+            .deck {
+                grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center;
+                row-gap: 18px; padding: 84px 6vw 30px;
+            }
+            .deck-labels { min-height: 150px; }
+            .deck-label { top: 0; transform: translateY(var(--lty, 22px)); }
+            .deck-label h2 { font-size: clamp(28px, 8vw, 40px); margin: 0.4rem 0 0.6rem; }
+            .deck-label p { font-size: 0.95rem; }
+            .deck-frame { width: min(100%, calc(52svh * 0.5625)); aspect-ratio: 9 / 16; margin: 0 auto; }
+            .deck-slide .bar span { display: none; }
+        }
+        /* Deck is off until JS confirms the visitor allows motion; classic hero is the no-JS default */
         .scrub-wrap { display: none; }
         body.scrub-mode .scrub-wrap { display: block; }
         body.scrub-mode .classic-hero { display: none; }
-        /* The five static-hero gates: any match forces the classic living hero, instantly, even mid-session */
-        @media (max-width: 720px),
-               (orientation: portrait) and (max-width: 1024px),
-               (orientation: portrait) and (pointer: coarse),
-               (orientation: landscape) and (pointer: coarse) and (max-height: 560px),
-               (prefers-reduced-motion: reduce) {
+        /* The one gate: reduced motion forces the classic hero, instantly, even mid-session */
+        @media (prefers-reduced-motion: reduce) {
             body.scrub-mode .scrub-wrap { display: none; }
             body.scrub-mode .classic-hero { display: flex; }
         }
@@ -1243,16 +1301,76 @@
 <section id="home">
     <div class="scrub-wrap" id="scrub-wrap">
         <div class="scrub-stage" id="scrub-stage">
-            <div class="scrub-poster" id="scrub-poster" aria-hidden="true"></div>
-            <video id="scrub-video" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
-            <div class="scrub-scrim" aria-hidden="true"></div>
-            <div class="sband" data-band="0.06,0.40" data-entrance="approach">
+            <div class="deck-glow" aria-hidden="true"></div>
+            <div class="deck" id="deck">
+                <div class="deck-labels">
+                    <div class="deck-label" data-slide="0">
+                        <div class="eyebrow">Events &amp; Athletics</div>
+                        <h2>JFK 50 Mile</h2>
+                        <p>America's oldest ultramarathon. Results back to 1963, a live race-day countdown, and a registration that sold out.</p>
+                    </div>
+                    <div class="deck-label" data-slide="1">
+                        <div class="eyebrow">Nonprofit &amp; Community</div>
+                        <h2>Back on Track</h2>
+                        <p>A community track series with schedules, results galleries, sponsors, and waivers, all in one place.</p>
+                    </div>
+                    <div class="deck-label" data-slide="2">
+                        <div class="eyebrow">Sports &amp; Recreation</div>
+                        <h2>Shotgun Cup Series</h2>
+                        <p>A golf league that scores itself: live standings, leaderboards, and player stats.</p>
+                    </div>
+                    <div class="deck-label" data-slide="3">
+                        <div class="eyebrow">This site</div>
+                        <h2>Perkins Production</h2>
+                        <p>The site you're on right now. Hand-coded, hosted, and shot by one person.</p>
+                    </div>
+                </div>
+                <div class="deck-frame">
+                    <figure class="deck-slide" data-slide="0" data-range="0.28,0.44">
+                        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>jfk50mile.org</span></div>
+                        <div class="shot">
+                            <picture>
+                                <source media="(max-width: 720px), (orientation: portrait)" srcset="/deck/jfk-mobile.jpg">
+                                <img src="/deck/jfk-desktop.jpg" alt="The JFK 50 Mile website" decoding="async">
+                            </picture>
+                        </div>
+                    </figure>
+                    <figure class="deck-slide" data-slide="1" data-range="0.44,0.60">
+                        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>back on track</span></div>
+                        <div class="shot">
+                            <picture>
+                                <source media="(max-width: 720px), (orientation: portrait)" srcset="/deck/bot-mobile.jpg">
+                                <img src="/deck/bot-desktop.jpg" alt="The Back on Track website" decoding="async">
+                            </picture>
+                        </div>
+                    </figure>
+                    <figure class="deck-slide" data-slide="2" data-range="0.60,0.76">
+                        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>shotgun cup series</span></div>
+                        <div class="shot">
+                            <picture>
+                                <source media="(max-width: 720px), (orientation: portrait)" srcset="/deck/shotgun-mobile.jpg">
+                                <img src="/deck/shotgun-desktop.jpg" alt="The Shotgun Cup Series website" decoding="async">
+                            </picture>
+                        </div>
+                    </figure>
+                    <figure class="deck-slide" data-slide="3" data-range="0.76,0.90">
+                        <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>perkinsproduction.com</span></div>
+                        <div class="shot">
+                            <picture>
+                                <source media="(max-width: 720px), (orientation: portrait)" srcset="/deck/perkins-mobile.jpg">
+                                <img src="/deck/perkins-desktop.jpg" alt="The Perkins Production website" decoding="async">
+                            </picture>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+            <div class="sband" data-band="0.04,0.17" data-entrance="approach">
                 <h2 class="sb-line">Most websites are forgettable.</h2>
             </div>
-            <div class="sband" data-band="0.46,0.78" data-entrance="words">
+            <div class="sband" data-band="0.19,0.29" data-entrance="words">
                 <h2 class="sb-line" data-split>Yours won't be.</h2>
             </div>
-            <div class="sband sband-settle" data-band="0.84,1">
+            <div class="sband sband-settle" data-band="0.92,1">
                 <h1 class="settle-name">PERKINS<br>PRODUCTION</h1>
                 <p class="settle-sub">Websites that move &middot; Frederick, MD</p>
                 <a class="settle-cta" href="#contact">Start your project</a>
@@ -1279,7 +1397,7 @@
     <div class="section-header fade-in">
         <h2>Work</h2>
         <div class="divider"></div>
-        <p>Websites I've built, and the one you're scrolling right now</p>
+        <p>Websites I've built, including the one you're on</p>
     </div>
     <div class="webdesign-intro fade-in">
         <p>Hand-coded websites for businesses that want to be remembered. Everything here was designed, built, hosted, and photographed by one person, so nothing looks like a template and nothing looks like stock.</p>
@@ -1338,24 +1456,6 @@
                     <span>Results galleries</span>
                     <span>Sponsor showcase</span>
                     <span>Waivers and newsletters</span>
-                </div>
-            </div>
-        </div>
-        <div class="portfolio-card featured fade-in">
-            <div class="portfolio-preview">
-                <img src="/scrub/hero-poster.jpg" alt="The opening frame of the Perkins Production homepage film: a candlelit aisle at dusk" loading="lazy">
-                <a href="#home" class="preview-overlay">
-                    <span>Scroll It</span>
-                </a>
-            </div>
-            <div class="portfolio-info">
-                <div class="portfolio-type">Cinematic Scroll Site</div>
-                <h3>Perkins Production</h3>
-                <p>This site. The opening film only moves when you scroll, so a visitor walks the aisle at their own pace. Built to show what a cinematic site feels like before you ask for one.</p>
-                <div class="portfolio-tech">
-                    <span>Scroll-driven film</span>
-                    <span>Hand-coded</span>
-                    <span>Phone-friendly fallback</span>
                 </div>
             </div>
         </div>
@@ -1819,7 +1919,7 @@
             <div class="price">Custom</div>
             <div class="price-note">quoted per project</div>
             <ul class="features">
-                <li>A scroll-driven film opening, like this homepage</li>
+                <li>A scroll-driven opening sequence, like this homepage</li>
                 <li>Photography and film shot on your property</li>
                 <li>Everything in Premium</li>
                 <li>For venues, restaurants, and brands that need to be felt</li>
@@ -2143,16 +2243,12 @@
         });
     });
 
-    // ===== SCROLL-SCRUBBED HERO (desktop) =====
+    // ===== SCROLL DECK HERO =====
     (function () {
         var wrap = document.getElementById('scrub-wrap');
         if (!wrap) return;
-        var stage = document.getElementById('scrub-stage');
-        var video = document.getElementById('scrub-video');
-        var poster = document.getElementById('scrub-poster');
         var cue = document.getElementById('scrub-cue');
-        var VIDEO_URL = '/scrub/hero-scrub.mp4';
-        var POSTER_URL = '/scrub/hero-poster.jpg';
+        var deck = document.getElementById('deck');
 
         // Split the words-entrance line once, with seeded thresholds
         document.querySelectorAll('.sb-line[data-split]').forEach(function (line) {
@@ -2161,8 +2257,8 @@
             full.className = 'sr-only';
             full.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)';
             full.textContent = words.join(' ');
-            var s = 1863;
-            var rng = function () { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+            var sd = 1863;
+            var rng = function () { sd = (sd * 1664525 + 1013904223) >>> 0; return sd / 4294967296; };
             line.textContent = '';
             line.appendChild(full);
             var vis = document.createElement('span');
@@ -2178,18 +2274,26 @@
             line.appendChild(vis);
         });
 
-        var bands = [].map.call(document.querySelectorAll('.sband'), function (el, i, all) {
+        var bands = [].map.call(document.querySelectorAll('.sband'), function (el, i) {
             var r = el.getAttribute('data-band').split(',');
             return { el: el, a: parseFloat(r[0]), b: parseFloat(r[1]), first: i === 0, last: false, op: -1, k: -1 };
         });
         bands[bands.length - 1].last = true;
 
+        var slides = [].map.call(document.querySelectorAll('.deck-slide'), function (el, i) {
+            var r = el.getAttribute('data-range').split(',');
+            return { el: el, img: el.querySelector('img'), shot: el.querySelector('.shot'),
+                     label: document.querySelector('.deck-label[data-slide="' + i + '"]'),
+                     a: parseFloat(r[0]), b: parseFloat(r[1]), ty: null, op: null, pan: null, lop: null };
+        });
+
         var smoothstep = function (p, e0, e1) {
             var t = Math.min(1, Math.max(0, (p - e0) / (e1 - e0)));
             return t * t * (3 - 2 * t);
         };
+        var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
 
-        var loadK = 0, loadK0 = 0;
+        var loadK = 0;
         function heroProgress() {
             var range = wrap.offsetHeight - innerHeight;
             if (range <= 0) return 0;
@@ -2211,41 +2315,64 @@
             if (wantCue !== cueOn) { cueOn = wantCue; cue.style.setProperty('--cue', wantCue ? 1 : 0); }
         }
 
-        // Lerp loop that rests
+        // The deck: each site slides up into the frame, scrolls inside it, then is covered by the next
+        var ENTER = 0.2, deckO = null;
+        function renderDeck(p) {
+            for (var i = 0; i < slides.length; i++) {
+                var sl = slides[i], next = slides[i + 1];
+                var t = (p - sl.a) / (sl.b - sl.a);
+                var tn = next ? (p - next.a) / (next.b - next.a) : -1;
+                var ty, op;
+                if (t < 0) { ty = 115; op = 0; }
+                else if (t < ENTER) { ty = 115 * (1 - easeOut(t / ENTER)); op = 1; }
+                else { ty = 0; op = 1; }
+                if (next && tn >= ENTER) op = 0;
+                var pan = 0;
+                if (t >= ENTER) {
+                    var q = Math.min(1, (t - ENTER) / (1 - ENTER));
+                    pan = -q * Math.max(0, sl.img.clientHeight - sl.shot.clientHeight);
+                }
+                if (sl.ty !== ty || sl.op !== op) {
+                    sl.ty = ty; sl.op = op;
+                    sl.el.style.transform = 'translateY(' + ty.toFixed(2) + '%)';
+                    sl.el.style.opacity = op;
+                }
+                if (sl.pan === null || Math.abs(pan - sl.pan) > 0.5) { sl.pan = pan; sl.img.style.transform = 'translateY(' + pan.toFixed(1) + 'px)'; }
+                var lin = smoothstep(t, 0.05, 0.22), lout = next ? 1 - smoothstep(tn, 0, 0.14) : 1;
+                var lop = lin * lout;
+                if (sl.lop === null || Math.abs(lop - sl.lop) > 0.008) {
+                    sl.lop = lop;
+                    sl.label.style.opacity = lop.toFixed(3);
+                    sl.label.style.setProperty('--lty', ((1 - lin) * 22).toFixed(1) + 'px');
+                }
+            }
+            var last = slides[slides.length - 1];
+            var so = 1 - smoothstep(p, last.b, last.b + 0.06);
+            if (deckO === null || Math.abs(so - deckO) > 0.008) {
+                deckO = so;
+                deck.style.setProperty('--deck-o', so.toFixed(3));
+                deck.style.setProperty('--deck-s', (1 - 0.06 * (1 - so)).toFixed(4));
+            }
+        }
+        function render(p) { renderDeck(p); updateCaptions(p); }
+
+        // Lerp loop that rests, leashed to the real scroll position
         var target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true;
         function tick(now) {
             var dt = Math.min(100, now - (lastTick || now));
             lastTick = now;
             shown += (target - shown) * (1 - Math.pow(1 - 0.28, dt / 16.667));
-            // Leash: never trail the real scroll by more than 4%, so the film
-            // can't run against the gesture after a fast flick or jump
             if (shown < target - 0.04) shown = target - 0.04;
             else if (shown > target + 0.04) shown = target + 0.04;
             if (Math.abs(target - shown) < 0.0005) { shown = target; rafId = null; lastTick = 0; }
             else { rafId = requestAnimationFrame(tick); }
-            if (video.duration) requestSeek(shown * Math.max(0, video.duration - 0.05));
-            updateCaptions(shown);
+            render(shown);
         }
         function onScroll() {
             target = heroProgress();
             if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick);
         }
-
-        // Gated seeks with deadlock escape
-        var seekBusy = false, pendingTime = null, seekAt = 0;
-        function requestSeek(t) {
-            if (!video.duration) return;
-            if (seekBusy && performance.now() - seekAt > 300) { seekBusy = false; pendingTime = null; }
-            if (seekBusy) { pendingTime = t; return; }
-            seekBusy = true;
-            seekAt = performance.now();
-            video.currentTime = t;
-        }
-        video.addEventListener('seeked', function () {
-            seekBusy = false;
-            if (pendingTime !== null) { var t = pendingTime; pendingTime = null; requestSeek(t); }
-        });
-        video.addEventListener('error', function () { seekBusy = false; pendingTime = null; stage.classList.remove('video-ready'); });
+        addEventListener('resize', function () { slides.forEach(function (sl) { sl.pan = null; }); onScroll(); }, { passive: true });
 
         new IntersectionObserver(function (entries) {
             heroOnScreen = entries[0].isIntersecting;
@@ -2253,35 +2380,14 @@
                 if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; lastTick = 0; }
                 shown = target;
             } else {
-                onScroll(); // re-entry from a jump: resync and restart the loop
+                onScroll();
             }
         }).observe(wrap);
 
-        // One-time init inside the gated path only
         var inited = false;
         function initHeroOnce() {
             if (inited) return;
             inited = true;
-            poster.style.backgroundImage = "url('" + POSTER_URL + "')";
-            var started = false;
-            function startFetch() {
-                if (started) return;
-                started = true;
-                fetch(VIDEO_URL).then(function (r) { return r.blob(); }).then(function (blob) {
-                    video.src = URL.createObjectURL(blob);
-                    video.load();
-                    video.addEventListener('canplay', function () {
-                        target = shown = heroProgress();
-                        requestSeek(shown * Math.max(0, video.duration - 0.05));
-                        updateCaptions(shown);
-                        stage.classList.add('video-ready');
-                    }, { once: true });
-                }).catch(function () { stage.classList.remove('video-ready'); });
-            }
-            var pi = new Image();
-            pi.onload = startFetch; pi.onerror = startFetch;
-            pi.src = POSTER_URL;
-            setTimeout(startFetch, 4000);
             var t0 = performance.now();
             (function rampLoad(now) {
                 loadK = Math.min(1, (now - t0) / 1600);
@@ -2290,14 +2396,8 @@
             })(t0);
         }
 
-        // The five gates, character-identical to the CSS
-        var GATES = [
-            '(max-width: 720px)',
-            '(orientation: portrait) and (max-width: 1024px)',
-            '(orientation: portrait) and (pointer: coarse)',
-            '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
-            '(prefers-reduced-motion: reduce)'
-        ];
+        // The one gate, character-identical to the CSS
+        var GATES = ['(prefers-reduced-motion: reduce)'];
         var scrubOn = false;
         function enableScrub() {
             if (scrubOn) return; scrubOn = true;
@@ -2305,9 +2405,9 @@
             initHeroOnce();
             addEventListener('scroll', onScroll, { passive: true });
             bands.forEach(function (b) { b.op = -1; b.k = -1; });
+            slides.forEach(function (sl) { sl.ty = null; sl.op = null; sl.pan = null; sl.lop = null; });
             target = shown = heroProgress();
-            if (video.duration) requestSeek(shown * Math.max(0, video.duration - 0.05));
-            updateCaptions(shown);
+            render(shown);
         }
         function disableScrub() {
             if (!scrubOn) return; scrubOn = false;
@@ -2321,9 +2421,7 @@
             else enableScrub();
         }
         window.__applyHeroMode = applyHeroMode;
-        var MQLS = GATES.map(function (q) { return matchMedia(q); });
-        MQLS.forEach(function (m) { m.addEventListener('change', applyHeroMode); });
-        window.__scrubMQLS = MQLS;
+        GATES.map(function (q) { return matchMedia(q); }).forEach(function (m) { m.addEventListener('change', applyHeroMode); });
         applyHeroMode();
     })();
 
