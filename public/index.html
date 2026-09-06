@@ -2202,6 +2202,8 @@
             if (!heroOnScreen) {
                 if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; lastTick = 0; }
                 shown = target;
+            } else {
+                onScroll(); // re-entry from a jump: resync and restart the loop
             }
         }).observe(wrap);
 
