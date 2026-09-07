@@ -237,67 +237,60 @@
             opacity: var(--cue, 1); transition: opacity 0.6s ease; pointer-events: none;
             text-shadow: 0 1px 6px rgba(5,5,10,0.9);
         }
-        /* The scroll deck: four sites in a browser frame, driven by scroll position */
+        /* The wheel: four sites ride the rim of a big wheel whose hub sits below the screen */
         .deck-glow {
             position: absolute; inset: 0; pointer-events: none;
-            background: radial-gradient(ellipse 60% 50% at 62% 55%, rgba(201,169,110,0.10) 0%, rgba(201,169,110,0.03) 40%, rgba(10,10,10,0) 70%);
+            background: radial-gradient(ellipse 70% 55% at 50% 70%, rgba(201,169,110,0.10) 0%, rgba(201,169,110,0.03) 40%, rgba(10,10,10,0) 70%);
         }
-        .deck {
-            position: absolute; inset: 0; display: grid;
-            grid-template-columns: minmax(260px, 34%) minmax(0, 1fr);
-            align-items: center; column-gap: 4vw; padding: 0 5vw;
-            opacity: var(--deck-o, 1); transform: scale(var(--deck-s, 1));
-            transform-origin: 50% 50%; will-change: transform, opacity;
+        .wheel { position: absolute; inset: 0; opacity: 0; will-change: opacity, transform; }
+        .wheel-labels {
+            position: absolute; left: 50%; top: 11vh; transform: translateX(-50%);
+            width: min(90vw, 760px); height: 160px; text-align: center; pointer-events: none;
         }
-        .deck-labels { position: relative; min-height: 260px; }
-        .deck-label {
-            position: absolute; left: 0; right: 0; top: 50%;
-            transform: translateY(calc(-50% + var(--lty, 22px)));
-            opacity: 0; will-change: opacity, transform;
+        .wheel-label {
+            position: absolute; left: 0; right: 0; top: 0; opacity: 0;
+            transform: translateY(var(--lty, 16px)); will-change: opacity, transform;
         }
-        .deck-label .eyebrow {
+        .wheel-label .eyebrow {
             font-family: 'Josefin Slab', serif; font-size: 0.7rem; letter-spacing: 3px;
             text-transform: uppercase; color: var(--text-accent);
         }
-        .deck-label h2 {
+        .wheel-label h2 {
             font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500;
-            font-size: clamp(32px, 3.6vw, 56px); color: #F1ECE1; line-height: 1.1; margin: 0.5rem 0 0.9rem;
+            font-size: clamp(30px, 3.4vw, 52px); color: #F1ECE1; line-height: 1.1; margin: 0.35rem 0 0.5rem;
         }
-        .deck-label p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; max-width: 34ch; }
-        .deck-frame {
-            position: relative; width: min(100%, calc(78vh * 1.6)); aspect-ratio: 16 / 10; margin-left: auto;
+        .wheel-label p { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.6; max-width: 52ch; margin: 0 auto; }
+        .wheel-ring {
+            position: absolute; left: 50%; transform: translateX(-50%); border-radius: 50%;
+            border: 1px solid rgba(201,169,110,0.16); pointer-events: none;
+            box-shadow: inset 0 0 120px rgba(201,169,110,0.04);
         }
-        .deck-slide {
-            position: absolute; inset: 0; margin: 0; border-radius: 10px; overflow: hidden;
-            background: #121212; border: 1px solid rgba(201,169,110,0.32);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.65);
-            transform: translateY(115%); opacity: 0; will-change: transform;
+        .wheel-card {
+            position: absolute; left: 50%; top: 60%; width: min(44vw, 640px); aspect-ratio: 16 / 10;
+            margin: 0; border-radius: 10px; overflow: hidden; background: #121212;
+            border: 1px solid rgba(201,169,110,0.32); box-shadow: 0 30px 80px rgba(0,0,0,0.65);
+            opacity: 0; will-change: transform, opacity;
         }
-        .deck-slide .bar {
+        .wheel-card .bar {
             position: absolute; top: 0; left: 0; right: 0; height: 30px; z-index: 1;
             background: #171717; border-bottom: 1px solid #262626;
             display: flex; align-items: center; gap: 6px; padding: 0 12px;
         }
-        .deck-slide .bar i { width: 9px; height: 9px; border-radius: 50%; background: #3b3b3b; }
-        .deck-slide .bar i:first-child { background: rgba(201,169,110,0.7); }
-        .deck-slide .bar span {
+        .wheel-card .bar i { width: 9px; height: 9px; border-radius: 50%; background: #3b3b3b; }
+        .wheel-card .bar i:first-child { background: rgba(201,169,110,0.7); }
+        .wheel-card .bar span {
             margin-left: 10px; font-family: 'Josefin Slab', serif; font-size: 10px;
             letter-spacing: 2px; text-transform: uppercase; color: #777;
         }
-        .deck-slide .shot { position: absolute; top: 30px; left: 0; right: 0; bottom: 0; overflow: hidden; background: #0f0f0f; }
-        .deck-slide .shot img { display: block; width: 100%; height: auto; will-change: transform; }
+        .wheel-card .shot { position: absolute; top: 30px; left: 0; right: 0; bottom: 0; overflow: hidden; background: #0f0f0f; }
+        .wheel-card .shot img { display: block; width: 100%; height: auto; will-change: transform; }
         @media (max-width: 720px), (orientation: portrait) {
             .scrub-wrap { height: 460vh; }
-            .deck {
-                grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center;
-                row-gap: 18px; padding: 84px 6vw 30px;
-            }
-            .deck-labels { min-height: 150px; }
-            .deck-label { top: 0; transform: translateY(var(--lty, 22px)); }
-            .deck-label h2 { font-size: clamp(28px, 8vw, 40px); margin: 0.4rem 0 0.6rem; }
-            .deck-label p { font-size: 0.95rem; }
-            .deck-frame { width: min(100%, calc(52svh * 0.5625)); aspect-ratio: 9 / 16; margin: 0 auto; }
-            .deck-slide .bar span { display: none; }
+            .wheel-labels { top: 76px; height: 170px; width: 88vw; }
+            .wheel-label h2 { font-size: clamp(26px, 7.5vw, 36px); }
+            .wheel-label p { font-size: 0.92rem; }
+            .wheel-card { top: 60%; width: 62vw; aspect-ratio: 9 / 16; }
+            .wheel-card .bar span { display: none; }
         }
         /* Deck is off until JS confirms the visitor allows motion; classic hero is the no-JS default */
         .scrub-wrap { display: none; }
@@ -1302,31 +1295,32 @@
     <div class="scrub-wrap" id="scrub-wrap">
         <div class="scrub-stage" id="scrub-stage">
             <div class="deck-glow" aria-hidden="true"></div>
-            <div class="deck" id="deck">
-                <div class="deck-labels">
-                    <div class="deck-label" data-slide="0">
+            <div class="wheel" id="wheel">
+                <div class="wheel-labels">
+                    <div class="wheel-label" data-i="0">
                         <div class="eyebrow">Events &amp; Athletics</div>
                         <h2>JFK 50 Mile</h2>
                         <p>America's oldest ultramarathon. Results back to 1963, a live race-day countdown, and a registration that sold out.</p>
                     </div>
-                    <div class="deck-label" data-slide="1">
+                    <div class="wheel-label" data-i="1">
                         <div class="eyebrow">Nonprofit &amp; Community</div>
                         <h2>Back on Track</h2>
                         <p>A community track series with schedules, results galleries, sponsors, and waivers, all in one place.</p>
                     </div>
-                    <div class="deck-label" data-slide="2">
+                    <div class="wheel-label" data-i="2">
                         <div class="eyebrow">Sports &amp; Recreation</div>
                         <h2>Shotgun Cup Series</h2>
                         <p>A golf league that scores itself: live standings, leaderboards, and player stats.</p>
                     </div>
-                    <div class="deck-label" data-slide="3">
+                    <div class="wheel-label" data-i="3">
                         <div class="eyebrow">This site</div>
                         <h2>Perkins Production</h2>
                         <p>The site you're on right now. Hand-coded, hosted, and shot by one person.</p>
                     </div>
                 </div>
-                <div class="deck-frame">
-                    <figure class="deck-slide" data-slide="0" data-range="0.28,0.44">
+                <div class="wheel-ring" id="wheel-ring" aria-hidden="true"></div>
+                <div class="wheel-cards">
+                    <figure class="wheel-card" data-i="0">
                         <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>jfk50mile.org</span></div>
                         <div class="shot">
                             <picture>
@@ -1335,7 +1329,7 @@
                             </picture>
                         </div>
                     </figure>
-                    <figure class="deck-slide" data-slide="1" data-range="0.44,0.60">
+                    <figure class="wheel-card" data-i="1">
                         <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>back on track</span></div>
                         <div class="shot">
                             <picture>
@@ -1344,7 +1338,7 @@
                             </picture>
                         </div>
                     </figure>
-                    <figure class="deck-slide" data-slide="2" data-range="0.60,0.76">
+                    <figure class="wheel-card" data-i="2">
                         <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>shotgun cup series</span></div>
                         <div class="shot">
                             <picture>
@@ -1353,7 +1347,7 @@
                             </picture>
                         </div>
                     </figure>
-                    <figure class="deck-slide" data-slide="3" data-range="0.76,0.90">
+                    <figure class="wheel-card" data-i="3">
                         <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>perkinsproduction.com</span></div>
                         <div class="shot">
                             <picture>
@@ -2248,7 +2242,9 @@
         var wrap = document.getElementById('scrub-wrap');
         if (!wrap) return;
         var cue = document.getElementById('scrub-cue');
-        var deck = document.getElementById('deck');
+        var wheel = document.getElementById('wheel');
+        var wheelRing = document.getElementById('wheel-ring');
+        var stage = document.getElementById('scrub-stage');
 
         // Split the words-entrance line once, with seeded thresholds
         document.querySelectorAll('.sb-line[data-split]').forEach(function (line) {
@@ -2280,18 +2276,16 @@
         });
         bands[bands.length - 1].last = true;
 
-        var slides = [].map.call(document.querySelectorAll('.deck-slide'), function (el, i) {
-            var r = el.getAttribute('data-range').split(',');
+        var cards = [].map.call(document.querySelectorAll('.wheel-card'), function (el, i) {
             return { el: el, img: el.querySelector('img'), shot: el.querySelector('.shot'),
-                     label: document.querySelector('.deck-label[data-slide="' + i + '"]'),
-                     a: parseFloat(r[0]), b: parseFloat(r[1]), ty: null, op: null, pan: null, lop: null };
+                     label: document.querySelector('.wheel-label[data-i="' + i + '"]'),
+                     tf: null, op: null, pan: null, lop: null };
         });
 
         var smoothstep = function (p, e0, e1) {
             var t = Math.min(1, Math.max(0, (p - e0) / (e1 - e0)));
             return t * t * (3 - 2 * t);
         };
-        var easeOut = function (t) { return 1 - Math.pow(1 - t, 3); };
 
         var loadK = 0;
         function heroProgress() {
@@ -2315,46 +2309,50 @@
             if (wantCue !== cueOn) { cueOn = wantCue; cue.style.setProperty('--cue', wantCue ? 1 : 0); }
         }
 
-        // The deck: each site slides up into the frame, scrolls inside it, then is covered by the next
-        var ENTER = 0.2, deckO = null;
-        function renderDeck(p) {
-            for (var i = 0; i < slides.length; i++) {
-                var sl = slides[i], next = slides[i + 1];
-                var t = (p - sl.a) / (sl.b - sl.a);
-                var tn = next ? (p - next.a) / (next.b - next.a) : -1;
-                var ty, op;
-                if (t < 0) { ty = 115; op = 0; }
-                else if (t < ENTER) { ty = 115 * (1 - easeOut(t / ENTER)); op = 1; }
-                else { ty = 0; op = 1; }
-                if (next && tn >= ENTER) op = 0;
-                var pan = 0;
-                if (t >= ENTER) {
-                    var q = Math.min(1, (t - ENTER) / (1 - ENTER));
-                    pan = -q * Math.max(0, sl.img.clientHeight - sl.shot.clientHeight);
-                }
-                if (sl.ty !== ty || sl.op !== op) {
-                    sl.ty = ty; sl.op = op;
-                    sl.el.style.transform = 'translateY(' + ty.toFixed(2) + '%)';
-                    sl.el.style.opacity = op;
-                }
-                if (sl.pan === null || Math.abs(pan - sl.pan) > 0.5) { sl.pan = pan; sl.img.style.transform = 'translateY(' + pan.toFixed(1) + 'px)'; }
-                var lin = smoothstep(t, 0.05, 0.22), lout = next ? 1 - smoothstep(tn, 0, 0.14) : 1;
-                var lop = lin * lout;
-                if (sl.lop === null || Math.abs(lop - sl.lop) > 0.008) {
-                    sl.lop = lop;
-                    sl.label.style.opacity = lop.toFixed(3);
-                    sl.label.style.setProperty('--lty', ((1 - lin) * 22).toFixed(1) + 'px');
-                }
+        // The wheel: hub below the stage, cards ride the rim, one turn per site with a dwell to read
+        var WA = 0.30, WB = 0.84, geo = null, wheelOp = null;
+        function wheelGeo() {
+            if (geo) return geo;
+            var H = stage.clientHeight, W = stage.clientWidth;
+            var mobile = W < 720 || W < H;
+            geo = { R: (mobile ? 0.55 : 0.85) * H, D: mobile ? 36 : 40, top: 0.60 * H };
+            wheelRing.style.width = wheelRing.style.height = (2 * geo.R).toFixed(0) + 'px';
+            wheelRing.style.top = geo.top.toFixed(0) + 'px';
+            return geo;
+        }
+        function renderWheel(p) {
+            var g = wheelGeo();
+            var u = Math.min(3, Math.max(0, (p - WA) / (WB - WA) * 3));
+            var k = Math.min(2, Math.floor(u)), fr = u - k;
+            var omega = g.D * (k + smoothstep(fr, 0.15, 0.70));
+            var vis = smoothstep(p, 0.23, 0.31) * (1 - smoothstep(p, 0.90, 0.955));
+            if (wheelOp === null || Math.abs(vis - wheelOp) > 0.006) {
+                wheelOp = vis;
+                wheel.style.opacity = vis.toFixed(3);
+                wheel.style.transform = 'translateY(' + ((1 - vis) * 8).toFixed(2) + 'vh)';
             }
-            var last = slides[slides.length - 1];
-            var so = 1 - smoothstep(p, last.b, last.b + 0.06);
-            if (deckO === null || Math.abs(so - deckO) > 0.008) {
-                deckO = so;
-                deck.style.setProperty('--deck-o', so.toFixed(3));
-                deck.style.setProperty('--deck-s', (1 - 0.06 * (1 - so)).toFixed(4));
+            for (var i = 0; i < cards.length; i++) {
+                var c = cards[i];
+                var a = i * g.D - omega, rad = a * Math.PI / 180;
+                var x = g.R * Math.sin(rad), y = g.R * (1 - Math.cos(rad));
+                var ca = Math.max(0, Math.cos(rad));
+                var sc = 0.5 + 0.5 * ca * ca;
+                var op = Math.min(1, Math.max(0, (ca - 0.2) / 0.8));
+                var tf = 'translate(-50%,-50%) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
+                if (tf !== c.tf) { c.tf = tf; c.el.style.transform = tf; c.el.style.zIndex = String(100 - Math.round(Math.abs(a))); }
+                if (c.op === null || Math.abs(op - c.op) > 0.006) { c.op = op; c.el.style.opacity = op.toFixed(3); }
+                var q = Math.min(1, Math.max(0, (u - i + 0.15) / 0.85));
+                var pan = -q * 0.55 * Math.max(0, c.img.clientHeight - c.shot.clientHeight);
+                if (c.pan === null || Math.abs(pan - c.pan) > 0.5) { c.pan = pan; c.img.style.transform = 'translateY(' + pan.toFixed(1) + 'px)'; }
+                var lop = Math.max(0, 1 - Math.abs(u - i) / 0.5) * vis;
+                if (c.lop === null || Math.abs(lop - c.lop) > 0.008) {
+                    c.lop = lop;
+                    c.label.style.opacity = lop.toFixed(3);
+                    c.label.style.setProperty('--lty', ((1 - lop) * 16).toFixed(1) + 'px');
+                }
             }
         }
-        function render(p) { renderDeck(p); updateCaptions(p); }
+        function render(p) { renderWheel(p); updateCaptions(p); }
 
         // Lerp loop that rests, leashed to the real scroll position
         var target = 0, shown = 0, rafId = null, lastTick = 0, heroOnScreen = true;
@@ -2372,7 +2370,7 @@
             target = heroProgress();
             if (rafId === null && heroOnScreen) rafId = requestAnimationFrame(tick);
         }
-        addEventListener('resize', function () { slides.forEach(function (sl) { sl.pan = null; }); onScroll(); }, { passive: true });
+        addEventListener('resize', function () { geo = null; cards.forEach(function (c) { c.tf = null; c.pan = null; }); render(shown); onScroll(); }, { passive: true });
 
         new IntersectionObserver(function (entries) {
             heroOnScreen = entries[0].isIntersecting;
@@ -2405,7 +2403,7 @@
             initHeroOnce();
             addEventListener('scroll', onScroll, { passive: true });
             bands.forEach(function (b) { b.op = -1; b.k = -1; });
-            slides.forEach(function (sl) { sl.ty = null; sl.op = null; sl.pan = null; sl.lop = null; });
+            geo = null; wheelOp = null; cards.forEach(function (c) { c.tf = null; c.op = null; c.pan = null; c.lop = null; });
             target = shown = heroProgress();
             render(shown);
         }
