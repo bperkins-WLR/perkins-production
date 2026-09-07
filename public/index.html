@@ -920,6 +920,21 @@
         }
         .wd-moat p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.85; }
 
+        /* Photo & Video reveal */
+        .reveal-band { padding-bottom: 6rem; }
+        .reveal-intro { max-width: 680px; margin: 0 auto; text-align: center; }
+        .reveal-intro p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.9; margin-bottom: 2.2rem; }
+        .reveal-btn {
+            display: inline-block; padding: 14px 40px; cursor: pointer; background: none;
+            border: 1px solid var(--text-accent); color: var(--text-accent);
+            font-family: 'Josefin Slab', serif; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+            transition: var(--transition);
+        }
+        .reveal-btn:hover, .reveal-btn:focus-visible { background: var(--text-accent); color: var(--bg-primary); outline: none; }
+        .reveal-group[hidden] { display: none; }
+        .reveal-group { animation: revealIn 0.7s ease both; }
+        @keyframes revealIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
         /* Process timeline */
         .process-section h3 {
             text-align: center; font-family: 'Josefin Slab', serif;
@@ -1296,9 +1311,7 @@
     </a>
     <ul class="nav-links" id="nav-links">
         <li><a href="#webdesign">Work</a></li>
-        <li><a href="#weddings">Weddings</a></li>
-        <li><a href="#films">Films</a></li>
-        <li><a href="#portraits">Portraits</a></li>
+        <li><a href="#photo-video">Photo + Video</a></li>
         <li><a href="#matterport">3D/VR</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#pricing">Pricing</a></li>
@@ -1572,6 +1585,20 @@
     </div>
 </section>
 
+<!-- Photo & Video (collapsed by default) -->
+<section id="photo-video" class="reveal-band">
+    <div class="section-header fade-in">
+        <h2>Photo &amp; Video</h2>
+        <div class="divider"></div>
+        <p>Weddings, portraits, and film, from the same person who builds your site</p>
+    </div>
+    <div class="reveal-intro fade-in">
+        <p>I spend my days behind a camera, and I still take a handful of weddings, portrait sessions, and films each year. Most of that work now goes straight into the websites I build.</p>
+        <button type="button" class="reveal-btn" id="reveal-photo" aria-expanded="false" aria-controls="photo-video-group">See the photo and video work</button>
+    </div>
+</section>
+
+<div id="photo-video-group" class="reveal-group" hidden>
 <!-- Weddings -->
 <section id="weddings" class="alt-bg">
     <div class="section-header fade-in">
@@ -1726,6 +1753,7 @@
         <a href="#contact">Book a Portrait Session</a>
     </div>
 </section>
+</div>
 
 <!-- Matterport 3D/VR -->
 <section id="matterport" class="alt-bg">
@@ -2021,6 +2049,7 @@
         const creativeToggle = document.querySelector('.nav-dropdown-toggle');
         let current = '';
         sections.forEach(s => {
+            if (s.offsetParent === null) return; // collapsed sections do not count
             if (window.scrollY >= s.offsetTop - 120) current = s.id;
         });
         navLinks.forEach(link => {
@@ -2057,13 +2086,17 @@
         const dest = document.querySelector(id);
         if (!dest) return;
         e.preventDefault();
+        if (dest.closest('#photo-video-group') && window.revealPhotoVideo) window.revealPhotoVideo();
+        animateScrollTo(dest, id);
+    });
+    function animateScrollTo(dest, id) {
         const startY = window.scrollY;
         const endY = Math.round(dest.getBoundingClientRect().top + window.scrollY);
         const dist = endY - startY;
         if (!dist) return;
         if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
             window.scrollTo(0, endY);
-            history.replaceState(null, '', id);
+            if (id) history.replaceState(null, '', id);
             return;
         }
         const dur = Math.min(700, Math.max(320, Math.abs(dist) * 0.28));
@@ -2073,9 +2106,25 @@
             const eased = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
             window.scrollTo(0, Math.round(startY + dist * eased));
             if (p < 1) requestAnimationFrame(step);
-            else history.replaceState(null, '', id);
+            else if (id) history.replaceState(null, '', id);
         })(t0);
-    });
+    }
+
+    // ===== PHOTO & VIDEO REVEAL =====
+    (function () {
+        const btn = document.getElementById('reveal-photo');
+        const group = document.getElementById('photo-video-group');
+        if (!btn || !group) return;
+        function setOpen(open, scroll) {
+            group.hidden = !open;
+            btn.setAttribute('aria-expanded', String(open));
+            btn.textContent = open ? 'Hide the photo and video work' : 'See the photo and video work';
+            if (open && scroll) requestAnimationFrame(() => animateScrollTo(group, null));
+        }
+        btn.addEventListener('click', () => setOpen(group.hidden, group.hidden));
+        window.revealPhotoVideo = function () { if (group.hidden) setOpen(true, false); };
+        if (/^#(weddings|films|portraits)$/.test(location.hash)) setOpen(true, false);
+    })();
 
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
