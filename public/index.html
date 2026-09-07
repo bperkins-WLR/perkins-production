@@ -2123,7 +2123,15 @@
         }
         btn.addEventListener('click', () => setOpen(group.hidden, group.hidden));
         window.revealPhotoVideo = function () { if (group.hidden) setOpen(true, false); };
-        if (/^#(weddings|films|portraits)$/.test(location.hash)) setOpen(true, false);
+        function openForHash() {
+            const m = /^#(weddings|films|portraits)$/.exec(location.hash);
+            if (!m) return;
+            setOpen(true, false);
+            const target = document.getElementById(m[1]);
+            if (target) requestAnimationFrame(() => target.scrollIntoView());
+        }
+        openForHash();
+        window.addEventListener('hashchange', openForHash);
     })();
 
     document.querySelectorAll('.nav-links a').forEach(link => {
