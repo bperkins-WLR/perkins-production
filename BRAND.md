@@ -47,6 +47,11 @@ Two Google fonts, no others.
 The rule that makes it feel expensive: **letterspacing scales with importance.**
 Section headings 6px, buttons and labels 3px, nav 2.5px, small print 2px.
 
+**Readability rule:** Cormorant Garamond runs small and thin, especially on dark
+backgrounds. In documents and anything text-heavy, body copy is 1.2rem minimum,
+supporting italic lines 1.05rem minimum, and Josefin small print never below
+0.8rem. Do not set Cormorant at browser-default size.
+
 ## Core components
 
 **Section heading block** (centered, with a short gold rule beneath):

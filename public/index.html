@@ -1311,8 +1311,7 @@
     </a>
     <ul class="nav-links" id="nav-links">
         <li><a href="#webdesign">Work</a></li>
-        <li><a href="#photo-video">Photo + Video</a></li>
-        <li><a href="#matterport">3D/VR</a></li>
+        <li><a href="#photo-video">Photo + Video + 3D</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact" class="book-btn">Start a Project</a></li>
@@ -1586,21 +1585,21 @@
 </section>
 
 <!-- Photo & Video (collapsed by default) -->
-<section id="photo-video" class="reveal-band">
+<section id="photo-video" class="reveal-band alt-bg">
     <div class="section-header fade-in">
         <h2>Photo &amp; Video</h2>
         <div class="divider"></div>
-        <p>Weddings, portraits, and film, from the same person who builds your site</p>
+        <p>Weddings, portraits, film, and 3D tours, from the same person who builds your site</p>
     </div>
     <div class="reveal-intro fade-in">
-        <p>I spend my days behind a camera, and I still take a handful of weddings, portrait sessions, and films each year. Most of that work now goes straight into the websites I build.</p>
-        <button type="button" class="reveal-btn" id="reveal-photo" aria-expanded="false" aria-controls="photo-video-group">See the photo and video work</button>
+        <p>I still take a handful of weddings, portrait sessions, and films each year, and I scan spaces for interactive 3D tours. Most of that work now goes straight into the websites I build.</p>
+        <button type="button" class="reveal-btn" id="reveal-photo" aria-expanded="false" aria-controls="photo-video-group">See the photo, video, and 3D work</button>
     </div>
 </section>
 
 <div id="photo-video-group" class="reveal-group" hidden>
 <!-- Weddings -->
-<section id="weddings" class="alt-bg">
+<section id="weddings">
     <div class="section-header fade-in">
         <h2>Weddings</h2>
         <div class="divider"></div>
@@ -1753,7 +1752,6 @@
         <a href="#contact">Book a Portrait Session</a>
     </div>
 </section>
-</div>
 
 <!-- Matterport 3D/VR -->
 <section id="matterport" class="alt-bg">
@@ -1809,6 +1807,7 @@
         <a href="#contact">Schedule a 3D Scan</a>
     </div>
 </section>
+</div>
 
 <!-- About -->
 <section id="about">
@@ -2118,13 +2117,13 @@
         function setOpen(open, scroll) {
             group.hidden = !open;
             btn.setAttribute('aria-expanded', String(open));
-            btn.textContent = open ? 'Hide the photo and video work' : 'See the photo and video work';
+            btn.textContent = open ? 'Hide the photo, video, and 3D work' : 'See the photo, video, and 3D work';
             if (open && scroll) requestAnimationFrame(() => animateScrollTo(group, null));
         }
         btn.addEventListener('click', () => setOpen(group.hidden, group.hidden));
         window.revealPhotoVideo = function () { if (group.hidden) setOpen(true, false); };
         function openForHash() {
-            const m = /^#(weddings|films|portraits)$/.exec(location.hash);
+            const m = /^#(weddings|films|portraits|matterport)$/.exec(location.hash);
             if (!m) return;
             setOpen(true, false);
             const target = document.getElementById(m[1]);
