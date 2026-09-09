@@ -7,6 +7,10 @@
   },
   "rewrites": [
     {
+      "source": "/se/",
+      "destination": "https://structural-elements-anatomy-study.vercel.app/se/index.html"
+    },
+    {
       "source": "/se",
       "destination": "https://structural-elements-anatomy-study.vercel.app/se/index.html"
     },
