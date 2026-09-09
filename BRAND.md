@@ -33,7 +33,8 @@ Deepest section background (wedding films): `#070707`.
 
 ## Typography
 
-Two Google fonts, no others.
+Two Google fonts on the website. Paperwork and documents add a third, Lora,
+chosen by Brice in Sept 2026 after Cormorant body copy proved hard to read.
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,10 +48,15 @@ Two Google fonts, no others.
 The rule that makes it feel expensive: **letterspacing scales with importance.**
 Section headings 6px, buttons and labels 3px, nav 2.5px, small print 2px.
 
-**Readability rule:** Cormorant Garamond runs small and thin, especially on dark
-backgrounds. In documents and anything text-heavy, body copy is 1.2rem minimum,
-supporting italic lines 1.05rem minimum, and Josefin small print never below
-0.8rem. Do not set Cormorant at browser-default size.
+**Readability rule (Brice's pick, Sept 2026):** in documents, Cormorant is
+display only, never body copy. Document body is **Lora**
+(`font-family: 'Lora', Georgia, serif;` at 1.1rem, line-height 1.7), added to
+the fonts link as `family=Lora:ital,wght@0,400;0,500;1,400`. Cormorant remains
+the voice: italic intro lines under headings at 1.3rem, centered thank-you and
+sign-off lines at 1.25rem, and big display moments (the gift certificate stays
+all Cormorant). Documents also brighten the ink: `--text-primary: #f2efe9` and
+`--text-secondary: #b4b0a8`. The website itself keeps two fonts and its
+original #e8e8e8 / #999999. Josefin small print never below 0.8rem anywhere.
 
 ## Core components
 
@@ -170,3 +176,6 @@ landscape.
   code, and expiration. Prints best in landscape.
 
 Source of truth: `public/index.html` in this repo. If the site changes, update this file.
+
+A paste-ready version of this kit for starting new AI sessions lives in
+`PROMPT.md` beside this file. When the brand changes, update both together.
